@@ -28,10 +28,6 @@ export default function Header(props) {
     setLoading(false);
   }, []);
 
-  console.log("currentUser");
-
-  // checkSubscription();
-  console.log("ExtendedUser", session);
 
   const handleSignOut = () => {
     logout();
