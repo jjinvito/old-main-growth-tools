@@ -99,7 +99,7 @@ export default function SubmitForm() {
                   />
                 </div>
                 {!userId && (
-                  <div>
+                  <div className=" my-2">
                     <input
                       type="text"
                       placeholder="Your email address..."
