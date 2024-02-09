@@ -1,8 +1,7 @@
 
 export const SubscribeNewsletter = async (email) => {
   const apiUrl = "https://api.brevo.com/v3/contacts";
-  const apiKey =
-    "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";
+  const apiKey = process.env.BREVO_API_KEY;
 
   const headers = {
     "Content-Type": "application/json",
