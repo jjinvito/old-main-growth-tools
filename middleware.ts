@@ -1,5 +1,8 @@
 import authConfig from "./auth.config";
 import NextAuth from "next-auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
@@ -9,38 +12,33 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
-export default auth((req) => {
+export default auth((req: NextRequest) => {
   const { nextUrl } = req;
-  const isLoggedIn = !!req.auth;
+  const isLoggedIn = !!(req as any).auth;;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
-    return null;
+    // Instead of returning null, do nothing or handle differently
+    return NextResponse.next();
   }
-  if (isAuthRoute) {
-    if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-    }
-    return null;
+  if (isAuthRoute && isLoggedIn) {
+    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
   }
   if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL("/auth/login", nextUrl));
+    return NextResponse.redirect(new URL("/auth/login", req.url));
   }
-  return null;
+  // If none of the conditions are met, proceed with the request
+  return NextResponse.next();
 });
-// Optionally, don't invoke Middleware on some paths
+
 export const config = {
-    matcher: [
-      // Include paths that require authentication
-      "/dashboard/:path*",
-      "/profile/:path*",
-      // Add more patterns as needed
-  
-      // Exclude paths that should not be processed by the middleware
-      // Note: Exclusion is not directly supported in the matcher, so you need to ensure only the required paths are included
-    ],
-  };
-  
+  matcher: [
+    // Include paths that require authentication
+    "/dashboard/:path*",
+    "/profile/:path*",
+    // Add more patterns as needed
+  ],
+};

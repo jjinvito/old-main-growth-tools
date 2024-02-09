@@ -1,5 +1,4 @@
 import Modal from "./Modal";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { cn } from "@/lib/util";
@@ -49,9 +48,9 @@ export default function SignUp(props) {
       isAuthenticated={props.isAuthenticated}
       className="max-w-[400px] py-3 px-7"
     >
-      <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8f8f8f] to-black text-center mt-5 mb-2 disabled:opacity-50">
+      <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8f8f8f] to-black text-center mt-5 mb-2 ">
+        Sign Up
 
-        {isPending ? 'Processing...' : 'Sign Up'}
       </h1>
 
       {/* social auth buttons */}
@@ -220,11 +219,11 @@ export default function SignUp(props) {
           {errorMessage}
         </div>
         <button
-          className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white"
+          className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50"
           type="submit"
           disabled={isPending}
-        >
-          Create account
+        >{isPending ? 'Processing...' : 'Create account'}
+
         </button>
       </form>
 

@@ -4,14 +4,8 @@ import authConfig from "./auth.config";
 import { getUserById } from "./data/user";
 import Stripe from "stripe";
 import { db } from "./lib/db";
+import { Subscription } from "@prisma/client";
 // import { UserRole } from "@prisma/client";
-
-async function storeUserIdInLocalStorage(tokenSub: any) {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("userId", tokenSub);
-  }
-}
-
 
 export const {
   handlers: { GET, POST },
@@ -25,7 +19,7 @@ export const {
   },
   events: {
     createUser: async ({ user }) => {
-      const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
+      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
         apiVersion: "2023-10-16",
       });
       await stripe.customers
@@ -51,15 +45,28 @@ export const {
   },
   callbacks: {
     async session({ session, token }: { session: any; token?: any }) {
-      const existingUser = await getUserById(token.sub);
-      if (token.sub && session.user) {
+      const existingUser = await getUserById(token.sub, {
+        subscriptions: true,
+      });
+      if (token.sub && session.user && existingUser) {
         session.user.id = token.sub;
-        session.user.stripeCustomerId = existingUser?.stripeCustomerId;
-        session.user.isActive = existingUser?.isActive;
-    
-        storeUserIdInLocalStorage(token.sub);
+        session.user.isActive = existingUser.isActive;
+        session.user.stripeCustomerId = existingUser.stripeCustomerId;
+        if (existingUser && "subscriptions" in existingUser) {
+          session.user.subscriptions = (
+            existingUser.subscriptions as Subscription[]
+          ).map((subscription) => ({
+            toolUrl: subscription.toolUrl,
+            isActive: subscription.isActive,
+            planType: subscription.planType,
+            stripeSubscriptionId: subscription.stripeSubscriptionId,
+            endDate: subscription.endDate.toISOString(), // Convert Date to ISO string for serialization
+          }));
+        } else {
+          // If no subscriptions, ensure we still assign an empty array
+          session.user.subscriptions = [];
+        }
       }
-    
       return session;
     },
 
