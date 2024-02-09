@@ -7,7 +7,7 @@
 }
 
 .custom-shadow-2 {
-  box-shadow: 0px -16px 16px 0px #285d4d17;
+  box-shadow: 0px -20px 18px 2px #285d4d17;
 }
 
 .custom-shadow-3 {
@@ -38,4 +38,8 @@
   background-color: rgb(196, 196, 196);
   border-radius: 6px;
   border: 3px solid white;
+}
+
+.new-shadow {
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
