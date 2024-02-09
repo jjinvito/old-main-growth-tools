@@ -40,7 +40,10 @@ async function CreateStripeCheckoutSession(data) {
       line_items: [{ price: priceId, quantity: 1 }],
       discounts: [
         {
-          coupon: process.env.NEW_USER_CUPON,
+          coupon:
+            planType === "Monthly"
+              ? process.env.NEW_USER_MONTHLY_CUPON
+              : process.env.NEW_USER_YEARLY_CUPON,
         },
       ],
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}?session_id={CHECKOUT_SESSION_ID}`,
