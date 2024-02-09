@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import getStripe from "@/utils/get-stripejs";
 import { cn } from "@/lib/util";
-import { CreateStripeCheckoutSession } from "@/app/api/stripe/checkout-session/route.js";
+import { CreateStripeCheckoutSession } from "@/actions/stripe/checkout-session";
 
 export default function SubmitForm() {
   const session = useSession();
