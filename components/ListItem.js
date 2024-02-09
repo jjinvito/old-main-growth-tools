@@ -36,7 +36,7 @@ export default function ListItem(props) {
   return (
     <div
       role="list-item"
-      className="w-[100%] sm:w-[100%] md:w-[100%] lg:w-[33.3%] rounded-xl p-4"
+      className="transition ease-in-out w-[100%] sm:w-[100%] md:w-[100%] lg:w-[33.3%] rounded-xl p-4"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -62,26 +62,33 @@ export default function ListItem(props) {
           {props.item.video && (
             <div className="flex justify-center items-end h-full w-full">
               <video
-                className="ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 hover:-translate-y-1 hover:scale-x-150 hover:scale-y-125 cards "
-                playsInline=""
-                autoPlay={true}
-                loop={true}
-                muted={true}
+                className={cn(
+                  "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
+                  isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
+                )}
+                playsInline
+                autoPlay
+                loop
+                muted
                 src={props.item.video}
+                style={{ display: loaded ? "block" : "none" }}
               />
             </div>
           )}
-          {props.item.image && (
+          {props.item.image && !props.item.video && (
             <div className="flex justify-center items-end h-full w-full">
               <img
-                className="ease block object-cover rounded-t-xl transition duration-200 w-44 custom-shadow-2 h-48"
+                className={cn(
+                  "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
+                  isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
+                )}
                 src={props.item.image}
-                height={170}
-                width={225}
                 alt="image"
+                style={{ display: loaded ? "block" : "none" }}
               />
             </div>
           )}
+
           {!loaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white ">
               <svg
@@ -106,34 +113,52 @@ export default function ListItem(props) {
               </svg>
             </div>
           )}
-          {/* {props.index == 0 && ( */}
-          <>
-            <div className="absolute top-2 left-2 ">
-              {/* <img src="/companylogo.png" width={50} height={50} /> */}
-              <img src={props.item.icon1} width={48} height={48} />
+
+          <div
+            className={cn(
+              "w-[48px] h-[48px] absolute top-0 p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+              isHovered ? "bg-white" : "bg-transparent",
+            )}
+          >
+            {/* <img src="/companylogo.png" width={50} height={50} /> */}
+            <img src={props.item.icon1} width={32} height={32} />
+          </div>
+
+          <div className="absolute right-1 top-0 flex items-center justify-center">
+            <div
+              className={cn("p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent", isHovered ? "bg-white" : "bg-transparent")}
+            >
+              <img src={props.item.icon2} width={20} height={20} />
             </div>
-            <div className="absolute top-2 right-2 flex items-center gap-3">
-              <div>
-                <img src={props.item.icon2} width={38} height={34} />
-              </div>
-              <div className={cn(!props.item.icon3 ? "hidden" : "")}>
-                <img src={props.item.icon3} width={38} height={34} />
-              </div>
-              <div>
-                <img src={props.item.icon4} width={53} height={34} />
-              </div>
-              {/* {props.item.icon3 && (
-                <div className="absolute top-2 right-2">
-                  <img src={props.item.icon3} width={50} height={40} />
-                </div>
-              )} */}
+            <div
+              className={cn(
+                "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+                !props.item.icon3 ? "hidden" : isHovered ? "bg-white" : "bg-transparent"
+              )}
+            >
+              <img src={props.item.icon3} width={20} height={20} />
             </div>
-            {isHovered &&
-              <div className="transition ease-in-out absolute bottom-2 right-2">
-                <img src={props.item.hoverIcon} width={48} height={48} />
+            <div
+              className={cn("p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent", isHovered ? "bg-white" : "bg-transparent")}
+            >
+              <img src={props.item.icon4} width={35} height={20} />
+            </div>
+          </div>
+          {/* {props.item.icon3 && (
+              <div className="absolute top-2 right-2">
+                <img src={props.item.icon3} width={50} height={40} />
               </div>
-            }
-          </>
+            )} */}
+          {/* </div> */}
+          {/* {isHovered && ( */}
+          <div
+            className={cn(
+              "absolute bottom-2 right-2 transition-opacity duration-500 ease-in-out opacity-100 ",
+              isHovered ? "md:opacity-100" : "md:opacity-0"
+            )}
+          >
+            <img src={props.item.hoverIcon} width={48} height={48} alt="" />
+          </div>
         </div>
       </a>
 
@@ -142,7 +167,9 @@ export default function ListItem(props) {
           <h2 className=" hover:text-dark-500  dark:text-white dark:hover:text-dark-100 transition duration-200 font-bold">
             {props.item.title}
           </h2>
-          <p className="hover:text-dark-500  dark:text-white text-sm h-16">{props.item.description}</p>
+          <p className="hover:text-dark-500  dark:text-white text-sm h-16">
+            {props.item.description}
+          </p>
         </a>
         {/* <div className="flex justify-end gap-2 font-normal">
           <button className="flex flex-1 justify-end items-center dark:text-white hover:text-dark-500 dark:hover:text-dark-100 transition duration-200 text-[16px] gap-1 cursor-pointer hover:opacity-75">
