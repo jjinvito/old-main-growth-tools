@@ -45,6 +45,8 @@ model Subscription {
   userId               String
   stripeSubscriptionId String   @unique
   toolUrl              String
+  planType             String
+  endDate              DateTime
   isActive             Boolean  @default(true)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
