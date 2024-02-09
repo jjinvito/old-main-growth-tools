@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { IoArrowBackOutline } from "react-icons/io5";
@@ -6,13 +7,14 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import getStripe from "@/utils/get-stripejs";
 import { cn } from "@/lib/util";
-
+import { CreateStripeCheckoutSession } from "@/app/api/stripe/checkout-session/route.js";
 
 export default function SubmitForm() {
   const session = useSession();
   const router = useRouter();
   const [selectedCard, setSelectedCard] = useState(null);
   const [toolUrl, setToolUrl] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
   const [priceId, setpriceId] = useState(null);
   const [planType, setplanType] = useState(null);
   const [errorMessage, seterrorMessage] = useState("");
@@ -22,11 +24,6 @@ export default function SubmitForm() {
 
   const HandleCreateCheckout = async (e, priceId) => {
     e.preventDefault();
-
-    if (!userId) {
-      seterrorMessage("You need to be logged in to proceed.");
-      return;
-    }
 
     const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
     if (!urlRegex.test(toolUrl)) {
@@ -38,27 +35,19 @@ export default function SubmitForm() {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/stripe/checkout-session`, {
-        method: "POST",
-        body: JSON.stringify({ userId, priceId, toolUrl, planType }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await CreateStripeCheckoutSession({
+        userId,
+        priceId,
+        toolUrl,
+        planType,
+        emailAddress,
       });
-
-      const checkoutSession = await res.json().then((value) => {
-        return value.session;
-      });
-
       const stripe = await getStripe();
       const { error } = await stripe.redirectToCheckout({
-        sessionId: checkoutSession.id,
+        sessionId: response.session.id,
       });
-
-
     } catch (error) {
       seterrorMessage("Something Went Wrong! Please try again.");
-      setErrorMessage("An error occurred during the checkout process.");
     } finally {
       setLoading(false);
     }
@@ -67,14 +56,15 @@ export default function SubmitForm() {
   const handleCardClick = (cardIndex) => {
     setSelectedCard(cardIndex);
     if (cardIndex === 0) {
-      setpriceId("price_1OfjLmEh599mHC6C3l1ai94r");
-      setplanType("Monthly")
+      // setpriceId("price_1OfJRjGZiJ9FqoFUZORhBvGi");
+      setpriceId(process.env.NEXT_PUBLIC_MONTHLY_PRODUCT_ID);
+      setplanType("Monthly");
     } else if (cardIndex === 1) {
-      setpriceId("price_1OfjNOEh599mHC6Ct9CzPTyp");
-      setplanType("Yearly")
+      // setpriceId("price_1OfJSeGZiJ9FqoFUCjJyZ0qY");
+      setpriceId(process.env.NEXT_PUBLIC_YEARLY_PRODUCT_ID);
+      setplanType("Annual");
     }
     setcardSelected(true);
-    // console.log("priceId", priceId);
   };
 
   const handleBackClick = () => {
@@ -99,7 +89,7 @@ export default function SubmitForm() {
             <h3 className="text-xl font-bold text-center">Submit</h3>
             <div className="py-4 max-w-[350px] mx-auto ">
               <form className="">
-                <div className="pt-3 pb-5">
+                <div className=" my-2">
                   <input
                     type="text"
                     placeholder="Tool Url..."
@@ -108,20 +98,24 @@ export default function SubmitForm() {
                     onChange={(e) => setToolUrl(e.target.value)}
                   />
                 </div>
-                {/* <div className="my-2">
-                  <input
-                    type="text"
-                    placeholder="Your email address..."
-                    className="px-4 w-full bg-light-100 py-2 rounded-lg focus:outline-light-300"
-                  />
-                </div> */}
-
-                <div className="p-4 rounded-xl border border-1">
+                {!userId && (
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Your email address..."
+                      className="px-4 w-full bg-light-100 py-2 rounded-lg focus:outline-light-300"
+                      value={emailAddress}
+                      onChange={(e) => setEmailAddress(e.target.value)}
+                    />
+                  </div>
+                )}
+                <div className="p-3 rounded-xl border border-1">
                   <h1>Price</h1>
 
                   <div
-                    className={`px-4 pb-2 border border-1 rounded-xl mt-4 bg-gray-100 ${selectedCard === 0 ? "border-[#a855f7]" : ""
-                      }`}
+                    className={`px-4 pb-2 border border-1 rounded-xl mt-4 bg-gray-100 ${
+                      selectedCard === 0 ? "border-[#a855f7]" : ""
+                    }`}
                     onClick={() => handleCardClick(0)}
                   >
                     <p className="text-xs rounded-full bg-[#a855f7] relative bottom-4 w-fit p-1 text-white">
@@ -155,8 +149,9 @@ export default function SubmitForm() {
                   </div>
 
                   <div
-                    className={`p-4 border border-1 rounded-xl mt-2 bg-gray-100 flex justify-between cursor-pointer items-center ${selectedCard === 1 ? "border-[#a855f7]" : ""
-                      }`}
+                    className={`p-4 border border-1 rounded-xl mt-2 bg-gray-100 flex justify-between cursor-pointer items-center ${
+                      selectedCard === 1 ? "border-[#a855f7]" : ""
+                    }`}
                     onClick={() => handleCardClick(1)}
                   >
                     <div>
@@ -222,11 +217,13 @@ export default function SubmitForm() {
                   </p>
 
                   <button
-                    className={cn("w-full p-2 bg-black text-white rounded-full mt-2 disabled:opacity-50")}
+                    className={cn(
+                      "w-full p-2 bg-black text-white rounded-full mt-2 disabled:opacity-50"
+                    )}
                     onClick={(e) => HandleCreateCheckout(e, priceId)}
                     disabled={!cardSelected || toolUrl === "" || loading}
                   >
-                    {loading ? 'Processing...' : 'Next'}
+                    {loading ? "Processing..." : "Next"}
                   </button>
                 </div>
               </form>
