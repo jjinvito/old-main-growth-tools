@@ -8,7 +8,7 @@ export const publicRoutes = ["/", "/submit", "/api/stripe/checkout-session", "ap
  * The array of routes used for authentication
  */
 
-export const authRoutes = ["/auth/login", "/auth/register", "/auth/error"];
+export const authRoutes = ["/auth/signin", "/auth/signup", "/auth/error"];
 
 /**
  * The prefix for API Authentication routes Routes that starts with this prefix are used for API authentication purposes

@@ -11,7 +11,10 @@ import { CancelSubscription } from "@/actions/stripe/subscription-cancel";
 import { useRouter } from "next/navigation";
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadSubscriptions, deleteSubscriptionSuccess } from "@/lib/redux/features/subscriptions/subscriptionSlice";
+import {
+  loadSubscriptions,
+  deleteSubscriptionSuccess,
+} from "@/lib/redux/features/subscriptions/subscriptionSlice";
 import { revalidatePath } from "next/cache";
 
 export default function BillingPage() {
@@ -45,7 +48,10 @@ export default function BillingPage() {
   const handleCancelSubscription = async (stripeSubscriptionId) => {
     setLoadingSubscriptionId(stripeSubscriptionId);
     try {
-      const response = await CancelSubscription(session.user.id, stripeSubscriptionId);
+      const response = await CancelSubscription(
+        session.user.id,
+        stripeSubscriptionId
+      );
       if (response.success) {
         // Dispatch an action to remove the subscription from the Redux state
         dispatch(deleteSubscriptionSuccess(stripeSubscriptionId));
@@ -61,8 +67,6 @@ export default function BillingPage() {
       setLoadingSubscriptionId(null); // Reset loading state for this specific button
     }
   };
-  
-  
 
   const openCustomerPortal = async () => {
     setManagePortalBtnLoading(true);
@@ -96,7 +100,7 @@ export default function BillingPage() {
 
   return (
     <div>
-      <Header />
+      <Header isAuthenticated={false} />
       <div className="flex items-start">
         <Sidebar showSidebar={true} className="max-[1279px]:hidden" />
         <div className="p-5 w-screen">
@@ -122,7 +126,9 @@ export default function BillingPage() {
                 onClick={openCustomerPortal}
                 disabled={managePortalBtnLoading}
               >
-                {managePortalBtnLoading ? "Processing..." : "  Manage All Subscriptions" }
+                {managePortalBtnLoading
+                  ? "Processing..."
+                  : "  Manage All Subscriptions"}
               </button>
             )}
           </div>

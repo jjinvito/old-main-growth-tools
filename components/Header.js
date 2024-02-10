@@ -9,7 +9,6 @@ import { logout } from "@/actions/logout";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-// import { checkSubscription } from "@/lib/subscription";
 
 export default function Header(props) {
   const session = useSession();
@@ -27,7 +26,6 @@ export default function Header(props) {
 
     setLoading(false);
   }, []);
-
 
   const handleSignOut = () => {
     logout();
@@ -129,7 +127,6 @@ export default function Header(props) {
                 </>
               ) : (
                 <>
-
                   <button
                     className="py-1.5 text-sm ml-2 bg-black text-white dark:bg-white dark:text-black px-3 rounded-full"
                     onClick={handleSignOut}
@@ -147,15 +144,12 @@ export default function Header(props) {
             </div>
           </div>
         )}
-        <button
+        <Link
+          href=" /submit"
           className="py-1.5 text-sm ml-2 border border-1 border-light-200 text-black dark:border-dark-400 dark:text-dark-200 px-3 rounded-full"
-          onClick={(e) => {
-            e.preventDefault();
-            router.push("/submit");
-          }}
         >
           Submit
-        </button>
+        </Link>
         <button
           className="py-2 text-sm ml-2 text-black dark:text-white px-3 rounded-full block md:block lg:block xl:hidden"
           onClick={() => {

@@ -1,25 +1,34 @@
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import { register } from "@/actions/register";
+import { registerNewUser } from "@/actions/register";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { RegisterSchema } from "@/schemas";
 import { cn } from "@/lib/util";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { BsExclamationTriangle } from "react-icons/bs";
+import { RxCrossCircled } from "react-icons/rx";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { BeatLoader } from "react-spinners";
+import { verifyPaymentSuccess } from "@/actions/stripe/verify-payment-success";
+import Link from "next/link";
 
 export const SignUpForm = () => {
+  const searchParams = useSearchParams();
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isPending, startTransition] = useTransition();
+  const session_id = searchParams.get("session_id");
+  const [email, setEmail] = useState("");
+  const [isValidSession, setIsValidSession] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
 
-  const onClick = (provider) => {
-    signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
-  };
+  const router = useRouter();
 
-  const form = useForm({
+  const { register, handleSubmit, setValue } = useForm({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       email: "",
@@ -28,11 +37,32 @@ export const SignUpForm = () => {
     },
   });
 
+  useEffect(() => {
+    if (session_id) {
+      verifyPaymentSuccess(session_id).then((result) => {
+        if (result.success) {
+          setEmail(result.email);
+          setValue("email", result.email);
+          setIsValidSession(true);
+          setVerificationMessage(result.message);
+          setSuccessMessage(result.message);
+        } else {
+          setVerificationMessage(result.error || "Verification failed.");
+          // Optionally, redirect or take other actions
+        }
+      });
+    }
+  }, [session_id]);
+
+  const onClick = (provider) => {
+    signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
+  };
+
   const onSubmit = (values) => {
     setErrorMessage("");
     setSuccessMessage("");
     startTransition(() => {
-      register(values).then((data) => {
+      registerNewUser(values).then((data) => {
         setErrorMessage(data.error);
         if (data.success) {
           setSuccessMessage(data.success);
@@ -40,6 +70,29 @@ export const SignUpForm = () => {
       });
     });
   };
+
+  if (!isValidSession && session_id) {
+    return (
+      <div className="flex flex-col justify-center items-center h-[78vh] gap-10">
+        {!verificationMessage ? (
+          <>
+            <BeatLoader />
+            <p className="text-2xl">Verifying Payment...</p>
+          </>
+        ) : (
+          <>
+            <div className="flex justify-center items-center gap-2">
+              <RxCrossCircled className="text-red-700 text-4xl" />
+              <p className="text-2xl">Payment Verification Failed</p>
+            </div>
+            <Link className="text-xl rounded-full p-4" href="/">
+              Back to Home Page
+            </Link>
+          </>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-center items-center h-[78vh] gap-10">
@@ -51,13 +104,13 @@ export const SignUpForm = () => {
         </p>
       </div>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center items-start gap-7"
       >
         <input
           className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
-          {...form.register("name")}
+          {...register("name")}
           type="text"
           id="name"
           name="name"
@@ -66,8 +119,8 @@ export const SignUpForm = () => {
         />
         <input
           className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
-          disabled={isPending}
-          {...form.register("email")}
+          disabled={!!email || isPending}
+          {...register("email")}
           type="email"
           id="email"
           name="email"
@@ -77,7 +130,7 @@ export const SignUpForm = () => {
         <input
           className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
-          {...form.register("password")}
+          {...register("password")}
           type="password"
           id="password"
           name="password"
