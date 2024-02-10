@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
 import bcrypt from "bcryptjs";
@@ -6,7 +6,9 @@ import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
 import Stripe from "stripe";
 
-export const register = async (values: z.infer<typeof RegisterSchema>) => {
+export const registerNewUser = async (
+  values: z.infer<typeof RegisterSchema>
+) => {
   const validatedFields = RegisterSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -20,6 +22,18 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   const existingUser = await getUserByEmail(email);
 
+  if (!existingUser?.name) {
+    await db.user.update({
+      where: { email },
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+      },
+    });
+    return { success: "User Registered Successfully!" };
+  }
+  
   if (existingUser) {
     return {
       error: "Email already in use!",
@@ -46,7 +60,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     });
 
     return { success: "User Registered Successfully!" };
-  } catch (error : any) {
+  } catch (error: any) {
     console.error("Error creating customer:", error);
     return { error: "Error creating customer", detailedError: error.message };
   }
