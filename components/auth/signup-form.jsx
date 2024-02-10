@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import { login } from "@/actions/login";
+import { register } from "@/actions/register";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
-import { LoginSchema } from "@/schemas";
+import { RegisterSchema } from "@/schemas";
 import { cn } from "@/lib/util";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { BsExclamationTriangle } from "react-icons/bs";
@@ -20,10 +20,11 @@ export const SignUpForm = () => {
   };
 
   const form = useForm({
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
       email: "",
       password: "",
+      name: "",
     },
   });
 
@@ -31,9 +32,11 @@ export const SignUpForm = () => {
     setErrorMessage("");
     setSuccessMessage("");
     startTransition(() => {
-      login(values).then((data) => {
-        setErrorMessage(data?.error);
-        setSuccessMessage(data?.success);
+      register(values).then((data) => {
+        setErrorMessage(data.error);
+        if (data.success) {
+          setSuccessMessage(data.success);
+        }
       });
     });
   };
@@ -41,7 +44,7 @@ export const SignUpForm = () => {
   return (
     <div className="flex flex-col justify-center items-center h-[78vh] gap-10">
       <div className="flex justify-center items-center flex-col gap-5 text-slate-600">
-        <Image src="/signin.png" width="131" height="49" alt="Sign In" />
+        <Image src="/signup.png" width="131" height="49" alt="Sign In" />
         <p className="w-96 text-center">
           Browse through hundreds of unique tools to boost your marketing &
           startup
@@ -49,8 +52,18 @@ export const SignUpForm = () => {
       </div>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-start gap-10"
+        className="flex flex-col justify-center items-start gap-7"
       >
+        <input
+          className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
+          disabled={isPending}
+          {...form.register("name")}
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name"
+          required
+        />
         <input
           className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
@@ -71,13 +84,6 @@ export const SignUpForm = () => {
           required
           placeholder="Password"
         />
-        <button
-          type="button"
-          className="items-start py-1.5 text-sm ml-2 text-slate-700 font-normal disabled:opacity-50"
-          disabled={isPending}
-        >
-          Forgot Password?
-        </button>
         <div
           className={cn(
             "w-full flex justify-center items-center text-center text-green-600 gap-2",
@@ -102,16 +108,16 @@ export const SignUpForm = () => {
         <button
           disabled={isPending}
           type="submit"
-          className="py-1.5 text-sm ml-2 bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 px-3 rounded-full w-[467px] h-[56px]"
+          className=" text-lg ml-2 bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 rounded-full w-[467px] h-[56px]"
         >
-          {isPending ? "Processing..." : "Sign In"}
+          {isPending ? "Processing..." : "Sign Up"}
         </button>
       </form>
       <div className="flex flex-col gap-5">
         <button
           disabled={isPending}
           type="button"
-          className="flex items-center justify-center gap-2 px-4 py-4 bg-white text-black border border-1 disabled:opacity-50 border-light-300 rounded-full w-[467px] h-[56px]"
+          className="flex items-center justify-center gap-2 bg-white text-black border border-1 disabled:opacity-50 border-light-300 rounded-full w-[467px] h-[56px]"
           onClick={() => onClick("google")}
         >
           <svg
@@ -139,13 +145,13 @@ export const SignUpForm = () => {
               />
             </g>
           </svg>
-          <span className="font-bold">Sign in with Google</span>
+          <span className="font-bold">Sign Up with Google</span>
         </button>
         <button
           type="button"
           className="py-1.5 text-sm ml-2 text-blue-500 font-bold"
         >
-          Create new Account
+          Already have an account?
         </button>
       </div>
     </div>
