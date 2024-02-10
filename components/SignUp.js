@@ -4,7 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/util";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { register } from "@/actions/register";
+import { registerNewUser } from "@/actions/register";
 import { RegisterSchema } from "@/schemas";
 import { signIn } from "next-auth/react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
@@ -32,7 +32,7 @@ export default function SignUp(props) {
     setErrorMessage("");
     setSuccessMessage("");
     startTransition(() => {
-      register(values).then((data) => {
+      registerNewUser(values).then((data) => {
         setErrorMessage(data.error);
         if (data.success) {
           setSuccessMessage(data.success);
