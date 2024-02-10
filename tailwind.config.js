@@ -23,13 +23,14 @@ module.exports = {
           400: "#4A4A4A",
           500: "#212121", // Darkest
         },
-        cardBg1: "#FFFFFF", 
-        cardBg2: "#FDEAD4", 
-        cardBg3: "#FFFFFF", 
-        cardBg4: "#FFFFFF", 
-        cardBg5: "#FFFFFF", 
-        cardBg6: "#FFFFFF", 
-        tagColor:"#FFFFFF"
+        cardBg1: "#FFFFFF",
+        cardBg2: "#FDEAD4",
+        cardBg3: "#FFFFFF",
+        cardBg4: "#FFFFFF",
+        cardBg5: "#FFFFFF",
+        cardBg6: "#FFFFFF",
+        tagColor:"#FFFFFF",
+        DBlue:   "#2665F8",
       },
 
       animation: {
