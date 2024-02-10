@@ -1,7 +1,6 @@
 import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { Console } from "console";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",
@@ -22,28 +21,52 @@ const addTime = (
   return newDate;
 };
 
-const handleSubscriptionCreated = async (subscription: any) => {
-  const { toolUrl, UserId: userID, planType } = subscription.metadata;
-  const endDate =
-    planType === "Monthly"
-      ? addTime(new Date(), 1, "months")
-      : addTime(new Date(), 1, "years");
-
-  await db.user.update({
-    where: { stripeCustomerId: subscription.customer as string },
-    data: { isActive: true },
-  });
-
-  await db.subscription.create({
-    data: {
+async function checkActiveSubsctiptions(userID: string) {
+  const activeSubscriptions = await db.subscription.findMany({
+    where: {
       userId: userID,
-      stripeSubscriptionId: subscription.id,
-      toolUrl,
       isActive: true,
-      planType,
-      endDate,
     },
   });
+
+  if (activeSubscriptions.length === 0) {
+    await db.user.update({
+      where: { id: userID },
+      data: { isActive: false },
+    });
+    console.log(
+      `User ${userID} set to inactive due to no active subscriptions.`
+    );
+  }
+}
+
+const handleSubscriptionCreated = async (subscription: any) => {
+  try {
+    const { toolUrl, UserId: userID, planType } = subscription.metadata;
+    const endDate =
+      planType === "Monthly"
+        ? addTime(new Date(), 1, "months")
+        : addTime(new Date(), 1, "years");
+
+    const userUpdateResult = await db.user.update({
+      where: { stripeCustomerId: subscription.customer as string },
+      data: { isActive: true },
+    });
+
+    const subscriptionCreateResult = await db.subscription.create({
+      data: {
+        userId: userID,
+        stripeSubscriptionId: subscription.id,
+        toolUrl,
+        isActive: true,
+        planType,
+        endDate,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to handle subscription creation:", error);
+    throw error;
+  }
 };
 
 const handleSubscriptionDeleted = async (stripeSubscriptionId: string) => {
@@ -58,6 +81,7 @@ const handleSubscriptionDeleted = async (stripeSubscriptionId: string) => {
   await db.subscription.delete({
     where: { id: subscription.id },
   });
+  await checkActiveSubsctiptions(subscription.userId);
 };
 
 const handleCustomerDeleted = async (stripeCustomerId: any) => {
@@ -87,7 +111,7 @@ async function handleSubscriptionUpdated(stripeEventData: any) {
       throw new Error("Subscription items are empty.");
     }
     const firstItem = items?.data?.[0];
-    
+
     if (!firstItem) {
       throw new Error("No subscription items found.");
     }
@@ -121,7 +145,7 @@ async function handlePaymentFailed(invoice: any) {
   try {
     const customerId = invoice.customer;
     const subscriptionId = invoice.subscription;
-    const amountDue = invoice.amount_due / 100; 
+    const amountDue = invoice.amount_due / 100;
     const currency = invoice.currency.toUpperCase();
 
     const user = await db.user.findUnique({
@@ -133,29 +157,16 @@ async function handlePaymentFailed(invoice: any) {
       return;
     }
 
-    console.log(`Notifying user ${user.id} about payment failure for ${amountDue} ${currency}.`);
+    console.log(
+      `Notifying user ${user.id} about payment failure for ${amountDue} ${currency}.`
+    );
 
     await db.subscription.update({
       where: { stripeSubscriptionId: subscriptionId },
       data: { isActive: false },
     });
 
-    const activeSubscriptions = await db.subscription.findMany({
-      where: { 
-        userId: user.id,
-        isActive: true,
-      },
-    });
-
-    if (activeSubscriptions.length === 0) {
-      await db.user.update({
-        where: { id: user.id },
-        data: { isActive: false },
-      });
-      console.log(`User ${user.id} set to inactive due to no active subscriptions.`);
-    }
-
-    console.log(`Successfully handled payment failure for subscription ${subscriptionId}.`);
+    await checkActiveSubsctiptions(user.id);
   } catch (error) {
     console.error("Failed to handle payment failure:", error);
     throw error;
@@ -190,7 +201,7 @@ const webhookHandler = async (req: NextRequest): Promise<NextResponse> => {
         await handleCustomerDeleted((event.data.object as any).id);
         break;
       case "customer.subscription.updated":
-        await handleSubscriptionUpdated((event.data.object as any));
+        await handleSubscriptionUpdated(event.data.object as any);
         break;
       default:
         console.warn(`Unhandled event type: ${event.type}`);
