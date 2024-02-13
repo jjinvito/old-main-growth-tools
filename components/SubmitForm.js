@@ -9,7 +9,7 @@ import getStripe from "@/utils/get-stripejs";
 import { cn } from "@/lib/util";
 import { CreateStripeCheckoutSession } from "@/actions/stripe/checkout-session";
 
-export default function SubmitForm() {
+export default function SubmitForm(props) {
   const session = useSession();
   const router = useRouter();
   const [selectedCard, setSelectedCard] = useState(null);
@@ -74,15 +74,19 @@ export default function SubmitForm() {
   return (
     <>
       <div className="w-full  dark:bg-dark-500 rounded-xl">
-        <div className="mx-4  rounded-full p-3">
-          <div
-            className="flex text-sm text-gray-500 w-max bg-gray-100 px-3 py-2 cursor-pointer rounded-full"
-            onClick={handleBackClick}
-          >
-            <IoArrowBackOutline size={25} className="mr-2" />
-            <p>Back</p>
+        {!props.backButton ? (
+          " "
+        ) : (
+          <div className="mx-4  rounded-full p-3">
+            <div
+              className="flex text-sm text-gray-500 w-max bg-gray-100 px-3 py-2 cursor-pointer rounded-full"
+              onClick={handleBackClick}
+            >
+              <IoArrowBackOutline size={25} className="mr-2" />
+              <p>Back</p>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="flex justify-center items-center h-full">
           <div className="w-[100vh] mx-4">
