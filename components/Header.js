@@ -135,9 +135,9 @@ export default function Header(props) {
                   </button>
                   <Link
                     className="py-1.5 text-sm ml-2 border border-1 border-light-200 text-black dark:border-dark-400 dark:text-dark-200 px-3 rounded-full"
-                    href="/billing"
+                    href="/dashboard"
                   >
-                    Billing Info
+                    Dashboard
                   </Link>
                 </>
               )}

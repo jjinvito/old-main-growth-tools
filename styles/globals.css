@@ -2,6 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'ClashDisplay-Variable';
+  /* src: url('../fonts/ClashDisplay-Variable.woff2') format('woff2'); */
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
+       font-weight: 200 700;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'ClashDisplay-Extralight';
+  src: url('/fonts/ClashDisplay-Extralight.woff2') format('woff2');
+       font-weight: 200;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'ClashDisplay-Light';
+  src: url('/fonts/ClashDisplay-Light.woff2') format('woff2');
+       font-weight: 300;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'ClashDisplay-Regular';
+  src: url('/fonts/ClashDisplay-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'ClashDisplay-Medium';
+  src: url('/fonts/ClashDisplay-Medium.woff2') format('woff2');
+       font-weight: 500;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'ClashDisplay-Semibold';
+  src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
+       font-weight: 600;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'ClashDisplay-Bold';
+  src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
+       font-weight: 700;
+       font-display: swap;
+       font-style: normal;
+}
+
 .custom-shadow-1 {
   box-shadow: 0px -4px 9px 0px #285d4d1a;
 }
@@ -42,4 +105,8 @@
 
 .new-shadow {
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.customFont {
+  font-family: 'ClashDisplay-Variable', sans-serif;
 }

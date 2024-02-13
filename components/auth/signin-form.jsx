@@ -39,9 +39,9 @@ export const SignInForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-[78vh] gap-10">
+    <div className="flex flex-col justify-center items-center h-[78vh] gap-10 customFont">
       <div className="flex justify-center items-center flex-col gap-5 text-slate-600">
-        <Image src="/signin.png" width="131" height="49" alt="Sign In" />
+        <h1 className="font-bold text-6xl text-black">Sign In</h1>
         <p className="w-96 text-center">
           Browse through hundreds of unique tools to boost your marketing &
           startup

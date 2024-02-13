@@ -20,9 +20,15 @@ export const registerNewUser = async (
   const { name, email, password } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const existingUser = await getUserByEmail(email);
+  const existingUser: any = await getUserByEmail(email);
 
-  if (!existingUser?.name) {
+  if (existingUser) {
+    return {
+      error: "Email already in use!",
+    };
+  }
+
+  if (existingUser && !existingUser.name) {
     await db.user.update({
       where: { email },
       data: {
@@ -32,12 +38,6 @@ export const registerNewUser = async (
       },
     });
     return { success: "User Registered Successfully!" };
-  }
-  
-  if (existingUser) {
-    return {
-      error: "Email already in use!",
-    };
   }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {

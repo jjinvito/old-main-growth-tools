@@ -55,7 +55,7 @@ async function CreateStripeCheckoutSession(data) {
         ],
         success_url: !session?.user
           ? `${process.env.NEXT_PUBLIC_APP_URL}/auth/signup?session_id={CHECKOUT_SESSION_ID}`
-          : `${process.env.NEXT_PUBLIC_APP_URL}/billing`,
+          : `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/billing-info`,
         cancel_url: process.env.NEXT_PUBLIC_APP_URL,
         subscription_data: {
           metadata: {

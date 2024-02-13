@@ -31,6 +31,9 @@ module.exports = {
         cardBg6: "#FFFFFF",
         tagColor:"#FFFFFF",
         DBlue:   "#2665F8",
+        muted:"#636363",
+        dull: "#AFAFAF",
+        acentGreen:"#2CCDA6"
       },
 
       animation: {
@@ -50,5 +53,5 @@ module.exports = {
       }),
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

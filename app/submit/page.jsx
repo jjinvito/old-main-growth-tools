@@ -36,12 +36,10 @@ export default function Submit() {
       />
 
       <div className="flex dark:bg-black">
-        {/* Sidebar */}
-
         <div className="main w-full  scrollbar-hide overflow-y-auto">
           <div className="grid grid-cols-12 ">
             <div className="col-span-12 md:col-span-6 h-[100vh]">
-              <SubmitForm />
+              <SubmitForm backButton/>
             </div>
             <div className="col-span-12 md:col-span-6 h-[100vh] overflow-auto">
               <SubmitReview />
