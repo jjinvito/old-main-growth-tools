@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { BiHome } from "react-icons/bi";
+import { BiHome, BiWrench } from "react-icons/bi";
 import { BiNotepad } from "react-icons/bi";
-import { BiCreate } from "react-icons/bi";
-import { cn } from "@/lib/util"; 
+import { BiRecycle } from "react-icons/bi";
+import { cn } from "@/lib/util";
 import { usePathname } from "next/navigation";
 
 export default function DashboardSidebar() {
@@ -19,7 +19,7 @@ export default function DashboardSidebar() {
               <Image width="105" height="29" src="/logo.png" />
             </Link>
           </div>
-          <div className="flex-1 overflow-auto py-2">
+          <div className="flex-1 overflow-auto py-2 w-48">
             <nav className="grid items-start px-4 text-sm font-medium">
               <Link
                 className={cn(
@@ -41,6 +41,26 @@ export default function DashboardSidebar() {
               >
                 <BiNotepad className="h-4 w-4" />
                 Billing Info
+              </Link>
+              <Link
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
+                  currentPath == "/dashboard/update-tool-info" ? "bg-gray-100" : ""
+                )}
+                href="/dashboard/update-tool-info"
+              >
+                <BiRecycle />
+                Update Info
+              </Link>
+              <Link
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50",
+                  currentPath == "/dashboard/add-new-tool" ? "bg-gray-100" : ""
+                )}
+                href="/dashboard/add-new-tool"
+              >
+                <BiWrench />
+                Add New Tool
               </Link>
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
