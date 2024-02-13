@@ -31,6 +31,7 @@ module.exports = {
         cardBg6: "#FFFFFF",
         tagColor:"#FFFFFF",
         DBlue:   "#2665F8",
+        muted:"#636363"
       },
 
       animation: {
