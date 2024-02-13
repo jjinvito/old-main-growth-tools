@@ -106,7 +106,7 @@ export default function BillingPage() {
 
   return (
     <div className="flex items-start">
-      <div className="p-5 w-[88vw]">
+      <div className="p-5 w-[85vw]">
         <p className="text-3xl font-bold leading-[1] mb-3 capitalize text-transparent bg-clip-text bg-gradient-to-r from-[#707070] to-black dark:to-dark-300 dark:from-white h-10">
           Hello, {session?.user.name}
         </p>
