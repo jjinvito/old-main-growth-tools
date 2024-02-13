@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CardHeader, CardContent, Card } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function UpdateToolInfo() {
   return (
-    <div className="bg-white p-8 overflow-y-scroll w-[88vw] customFont">
+    <div className="bg-white p-8 overflow-y-scroll w-full customFont">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-extrabold mb-6 ">
           Post your tool to a global audience
@@ -103,12 +104,34 @@ export default function UpdateToolInfo() {
               >
                 Deals
               </label>
-              <div className="flex items-center space-x-2">
+
+              <div className="flex gap-10">
+                <div className="flex flex-col justify-start gap-1 h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white">
+                  <h1 className="font-bold">LifeTime 50% off</h1>
+                  <p className="text-muted text-sm">
+                    $4.99 <span className="line-through text-dull"> $10</span> / monthly
+                  </p>
+                  <span className="
+                 font-medium text-acentGreen p-2 border rounded-lg w-[132px]">You save $5.01</span>
+                  <Link className="text-DBlue font-medium text-sm" href="#">Click to learn more</Link>
+                </div>
+                <div className="flex flex-col justify-start gap-1 h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white">
+                  <h1 className="font-bold">-25% off</h1>
+                  <p className="text-muted text-sm">
+                    $4.99 <span className="line-through text-dull"> $10</span> / monthly
+                  </p>
+                  <span className="
+                 font-medium text-acentGreen p-2 border rounded-lg w-[132px] text-sm">You save $3.99</span>
+                  <Link className="text-DBlue font-medium text-sm" href="#">Click to learn more</Link>
+                </div>
+              </div>
+
+              {/* <div className="flex items-center space-x-2">
                 <Badge variant="secondary">Lifetime 50% off</Badge>
                 <p className="text-sm">$49.99 / monthly</p>
                 <p className="text-xs text-gray-500">You save $50.01</p>
                 <Button variant="outline">Create new</Button>
-              </div>
+              </div> */}
             </div>
             <div>
               <label
