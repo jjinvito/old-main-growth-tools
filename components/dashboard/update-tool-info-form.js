@@ -1,8 +1,14 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import {
+  PriceType,
+  ToolCategories,
+  TierCategories,
+} from "@/data/constantValues";
 
 import {
   SelectValue,
@@ -11,11 +17,29 @@ import {
   SelectContent,
   Select,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import { CardHeader, CardContent, Card } from "@/components/ui/card";
 import Link from "next/link";
 
 export default function UpdateToolInfo() {
+  const [priceType, setPriceType] = useState("");
+  const [category, setCategory] = useState("");
+  const [tierCategory, setTierCategory] = useState("");
+
+  const [featureCount, setFeatureCount] = useState(3);
+  const [useCases, setUseCases] = useState(1);
+
+  const handleAddFeature = () => {
+    if (featureCount < 6) {
+      setFeatureCount((prevCount) => prevCount + 1);
+    }
+  };
+
+  const handleUseCases = () => {
+    if (useCases < 3) {
+      setUseCases((prevCount) => prevCount + 1);
+    }
+  };
+
   return (
     <div className="bg-white p-8 overflow-y-scroll w-full customFont">
       <div className="max-w-4xl mx-auto">
@@ -97,6 +121,22 @@ export default function UpdateToolInfo() {
                 png, jpg formats. 5mb max
               </p>
             </div>
+
+            <div className="w-full max-w-sm space-y-2">
+              <div className="flex items-center space-x-2">
+                <label htmlFor="screenshot" className="font-semibold">
+                  Screenshot
+                </label>
+                <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  PNG or JPEG up to 10MB
+                </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Input accept="image/*" id="screenshot" type="file" />
+                <Button size="sm">Upload</Button>
+              </div>
+            </div>
+
             <div>
               <label
                 className="block text-sm font-semibold mb-1 "
@@ -109,20 +149,34 @@ export default function UpdateToolInfo() {
                 <div className="flex flex-col justify-start gap-1 h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white">
                   <h1 className="font-bold">LifeTime 50% off</h1>
                   <p className="text-muted text-sm">
-                    $4.99 <span className="line-through text-dull"> $10</span> / monthly
+                    $4.99 <span className="line-through text-dull"> $10</span> /
+                    monthly
                   </p>
-                  <span className="
-                 font-medium text-acentGreen p-2 border rounded-lg w-[132px]">You save $5.01</span>
-                  <Link className="text-DBlue font-medium text-sm" href="#">Click to learn more</Link>
+                  <span
+                    className="
+                 font-medium text-acentGreen p-2 border rounded-lg w-[132px]"
+                  >
+                    You save $5.01
+                  </span>
+                  <Link className="text-DBlue font-medium text-sm" href="#">
+                    Click to learn more
+                  </Link>
                 </div>
                 <div className="flex flex-col justify-start gap-1 h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white">
                   <h1 className="font-bold">-25% off</h1>
                   <p className="text-muted text-sm">
-                    $4.99 <span className="line-through text-dull"> $10</span> / monthly
+                    $4.99 <span className="line-through text-dull"> $10</span> /
+                    monthly
                   </p>
-                  <span className="
-                 font-medium text-acentGreen p-2 border rounded-lg w-[132px] text-sm">You save $3.99</span>
-                  <Link className="text-DBlue font-medium text-sm" href="#">Click to learn more</Link>
+                  <span
+                    className="
+                 font-medium text-acentGreen p-2 border rounded-lg w-[132px] text-sm"
+                  >
+                    You save $3.99
+                  </span>
+                  <Link className="text-DBlue font-medium text-sm" href="#">
+                    Click to learn more
+                  </Link>
                 </div>
               </div>
 
@@ -141,13 +195,20 @@ export default function UpdateToolInfo() {
                 Key Features
               </label>
               <div className="space-y-3">
-                <Input placeholder="e.g. Sed ut perspiciatis unde omnis iste natus" />
-                <Input placeholder="e.g. Sed ut perspiciatis unde omnis iste natus" />
-                <Input placeholder="e.g. Sed ut perspiciatis unde omnis iste natus" />
-                <button className="text-sm font-medium text-DBlue">
-                  {" "}
-                  Add Key Features +
-                </button>
+                {[...Array(featureCount)].map((_, index) => (
+                  <Input
+                    key={index}
+                    placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
+                  />
+                ))}
+                {featureCount < 6 && (
+                  <button
+                    className="text-sm font-medium text-DBlue"
+                    onClick={handleAddFeature}
+                  >
+                    Add Key Features +
+                  </button>
+                )}
               </div>
             </div>
             <div>
@@ -157,57 +218,114 @@ export default function UpdateToolInfo() {
               >
                 Use Cases
               </label>
-              <Input
+              {/* <Input
                 id="use-cases"
                 placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
               />
-              <button className="text-sm font-medium text-DBlue">
-                Add Key Features +
-              </button>
-            </div>
-            <div>
-              <label
-                className="block text-sm font-semibold mb-1 "
-                htmlFor="price"
-              >
-                Price
-              </label>
-              <div className="flex flex-col items-start gap-5">
-                <div className="flex w-full relative">
-                  <Input className="" placeholder="0.00" />
-                  <div className=" absolute right-20 top-0 h-[54px] w-[2px] bg-gray-300"></div>
-                  <span className="absolute right-8 top-4  font-medium text-gray-600 border-s-indigo-500">
-                    USD
-                  </span>
-                </div>
-
-                <div className="flex justify-center items-center">
-                  <Checkbox id="free" />
-                  <label
-                    className="text-sm font-medium ml-2 text-muted"
-                    htmlFor="free"
+              <button className="text-sm font-medium text-DBlue"
+              onClick={handleUseCases}
+              > */}
+              <div className="space-y-3">
+                {[...Array(useCases)].map((_, index) => (
+                  <Input
+                    key={index}
+                    placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
+                  />
+                ))}
+                {useCases < 3 && (
+                  <button
+                    className="text-sm font-medium text-DBlue"
+                    onClick={handleUseCases}
                   >
-                    Free
-                  </label>
-                </div>
+                    Add Key Features +
+                  </button>
+                )}
               </div>
             </div>
             <div>
-              <label
-                className="block text-sm font-semibold mb-1 "
-                htmlFor="category"
-              >
-                Category
-              </label>
-              <Select className="rounded-full border-2 p-4 drop-shadow-xl">
-                <SelectTrigger id="category">
-                  <SelectValue placeholder="Select Category" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="business">Business</SelectItem>
-                  <SelectItem value="education">Education</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex flex-col items-start gap-5">
+                <label
+                  className="block text-sm font-semibold mb-1 "
+                  htmlFor="price"
+                >
+                  Price
+                </label>
+                <Select
+                  className="rounded-full border-2 p-4 drop-shadow-xl"
+                  onValueChange={setPriceType}
+                >
+                  <SelectTrigger id="price">
+                    <SelectValue placeholder="Select Price Type" />
+                  </SelectTrigger>
+                  <SelectContent value={priceType} position="popper">
+                    {PriceType.map((price) => (
+                      <SelectItem key={price.id} value={price.id}>
+                        {price.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                {priceType === "amount" && (
+                  <div className="flex w-full relative">
+                    <Input className="" placeholder="0.00" />
+                    <div className=" absolute right-20 top-0 h-[54px] w-[2px] bg-gray-300"></div>
+                    <span className="absolute right-8 top-4  font-medium text-gray-600 border-s-indigo-500">
+                      USD
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              <div>
+                <label
+                  className="block text-sm font-semibold mb-1"
+                  htmlFor="tool-category"
+                >
+                  Category
+                </label>
+                <Select
+                  className="rounded-full border-2 p-4 drop-shadow-xl"
+                  onValueChange={setCategory}
+                >
+                  <SelectTrigger id="tool-category">
+                    <SelectValue placeholder="Select Category" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {ToolCategories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div>
+              <div>
+                <label
+                  className="block text-sm font-semibold mb-1"
+                  htmlFor="tier-category"
+                >
+                  Tier Category
+                </label>
+                <Select
+                  className="rounded-full border-2 p-4 drop-shadow-xl"
+                  onValueChange={setTierCategory}
+                >
+                  <SelectTrigger id="tier-category">
+                    <SelectValue placeholder="Tier Category" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    {TierCategories.map((tier) => (
+                      <SelectItem key={tier.id} value={tier.id}>
+                        {tier.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <button
               className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50"
