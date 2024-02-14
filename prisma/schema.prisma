@@ -50,6 +50,49 @@ model Subscription {
   isActive             Boolean  @default(true)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+  tool                 Tool?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Tool {
+  id                String         @id @default(cuid())
+  subscriptionId    String         @unique
+  name              String
+  shortDescription  String
+  description       String
+  website           String
+  logoUrl           String
+  screenshots       String[]
+  price             Float?       
+  pricingType       PricingType  
+  customPricingInfo String?       
+  categories        ToolCategory[]
+  tierId            String
+  tier              TierCategory   @relation(fields: [tierId], references: [id])
+  keyFeatures       String[]
+  useCases          String[]
+  deals             String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  subscription Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+}
+
+enum PricingType {
+  FREE
+  AMOUNT
+  CUSTOM
+}
+
+model ToolCategory {
+  id    String @id @default(cuid())
+  name  String
+  tools Tool[]
+}
+
+model TierCategory {
+  id    String @id @default(cuid())
+  name  String
+  tools Tool[]
 }
