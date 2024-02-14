@@ -1,8 +1,6 @@
 "use client";
 
 import "@/styles/globals.css";
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
 import { FaCreditCard } from "react-icons/fa";
 import { CreateBillingSession } from "@/actions/stripe/billing-session";
@@ -11,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  loadSubscriptions,
   deleteSubscriptionSuccess,
   fetchSubscriptions,
 } from "@/lib/redux/features/subscriptions/subscriptionSlice";
@@ -19,22 +16,27 @@ import { BeatLoader } from "react-spinners";
 
 export default function BillingPage() {
   const router = useRouter();
-  const [loadingSubscriptionId, setLoadingSubscriptionId] = useState(null);
-  const [managePortalBtnLoading, setManagePortalBtnLoading] = useState(false);
-  const [subscriptionsLoading, setSubscriptionsLoading] = useState(false);
+  const dispatch = useDispatch();
   const { data: session } = useSession();
   const userId = session?.user?.id;
-  const dispatch = useDispatch();
+
+  const subscriptions = useSelector((state) => state.subscriptions.items);
+  const subscriptionsStatus = useSelector(
+    (state) => state.subscriptions.status
+  );
+  const [loadingSubscriptionId, setLoadingSubscriptionId] = useState(null);
+  const [managePortalBtnLoading, setManagePortalBtnLoading] = useState(false);
+
+  const subscriptionsLoading = subscriptionsStatus === "loading";
+
 
   async function fetchSubscriptionsFromDb() {
     if (userId) {
-      setSubscriptionsLoading(true);
       try {
         await dispatch(fetchSubscriptions(userId));
       } catch (error) {
         console.error("Error fetching subscriptions:", error);
       } finally {
-        setSubscriptionsLoading(false); 
       }
     }
   }
@@ -53,18 +55,14 @@ export default function BillingPage() {
         stripeSubscriptionId
       );
       if (response.success) {
-        // Dispatch an action to remove the subscription from the Redux state
         dispatch(deleteSubscriptionSuccess(stripeSubscriptionId));
       } else {
-        // Handle unsuccessful deletion
         console.error("Failed to delete subscription:", response.message);
-        // Optionally, show an error message to the user
       }
     } catch (error) {
       console.error("Error canceling subscription:", error);
-      // Optionally, handle error (show an alert or notification)
     } finally {
-      setLoadingSubscriptionId(null); // Reset loading state for this specific button
+      setLoadingSubscriptionId(null);
     }
   };
 
@@ -87,22 +85,16 @@ export default function BillingPage() {
     }
   };
 
-  const subscriptions = useSelector((state) => state.subscriptions.items);
   const subscriptionsAvailable = useMemo(
     () => subscriptions.length > 0,
-    [session]
+    [session, subscriptions]
   );
-  // const subscriptionsAvailable = subscriptions.length > 0;
-  // const subscriptionsAvailable = useMemo(
-  //   () => subscriptions.length > 0,
-  //   [subscriptions]
-  // );
 
   useEffect(() => {
-    if (userId && subscriptions.length === 0) {
-      fetchSubscriptionsFromDb();
+    if (userId && subscriptions.length === 0 && !subscriptionsLoading) {
+      dispatch(fetchSubscriptionsFromDb);
     }
-  }, [userId, subscriptions, dispatch]);
+  }, [userId, subscriptions.length, dispatch, subscriptionsLoading]);
 
   return (
     <div className="flex items-start">
