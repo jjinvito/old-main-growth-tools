@@ -22,12 +22,6 @@ export const registerNewUser = async (
 
   const existingUser: any = await getUserByEmail(email);
 
-  if (existingUser) {
-    return {
-      error: "Email already in use!",
-    };
-  }
-
   if (existingUser && !existingUser.name) {
     await db.user.update({
       where: { email },
@@ -38,6 +32,12 @@ export const registerNewUser = async (
       },
     });
     return { success: "User Registered Successfully!" };
+  }
+
+  if (existingUser) {
+    return {
+      error: "Email already in use!",
+    };
   }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
