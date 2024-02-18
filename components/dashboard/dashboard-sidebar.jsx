@@ -4,7 +4,7 @@ import Image from "next/image";
 import { BiHome, BiWrench } from "react-icons/bi";
 import { BiNotepad } from "react-icons/bi";
 import { BiRecycle } from "react-icons/bi";
-import { cn } from "@/lib/util";
+import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 export default function DashboardSidebar() {

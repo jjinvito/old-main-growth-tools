@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
+import Header from "@/components/Header.jsx";
 import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import List from "@/components/List";

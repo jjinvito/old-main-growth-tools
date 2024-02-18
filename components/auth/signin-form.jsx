@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { LoginSchema } from "@/schemas";
-import { cn } from "@/lib/util";
+import { cn } from "@/lib/utils";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";

@@ -1,30 +1,32 @@
 import Modal from "./Modal";
-import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { cn } from "@/lib/util";
+// import { login } from "@/actions/loginAction";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
-import { registerNewUser } from "@/actions/register";
-import { RegisterSchema } from "@/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { login } from "@/actions/login";
 import { signIn } from "next-auth/react";
+import * as z from "zod";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { LoginSchema } from "@/schemas";
 
-export default function SignUp(props) {
-  const [isPending, startTransition] = useTransition();
-
+export default function SignIn(props) {
+  const router = useRouter();
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const onClick = (provider) => {
     signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
   };
 
   const form = useForm({
-    resolver: zodResolver(RegisterSchema),
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
       password: "",
-      name: "",
     },
   });
 
@@ -32,11 +34,9 @@ export default function SignUp(props) {
     setErrorMessage("");
     setSuccessMessage("");
     startTransition(() => {
-      registerNewUser(values).then((data) => {
-        setErrorMessage(data.error);
-        if (data.success) {
-          setSuccessMessage(data.success);
-        }
+      login(values).then((data) => {
+        setErrorMessage(data?.error);
+        setSuccessMessage(data?.success);
       });
     });
   };
@@ -48,9 +48,8 @@ export default function SignUp(props) {
       isAuthenticated={props.isAuthenticated}
       className="max-w-[400px] py-3 px-7"
     >
-      <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8f8f8f] to-black text-center mt-5 mb-2 ">
-        Sign Up
-
+      <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8f8f8f] to-black text-center mt-5 mb-2">
+        Sign In
       </h1>
 
       {/* social auth buttons */}
@@ -87,7 +86,7 @@ export default function SignUp(props) {
             </g>
           </svg>
 
-          <span>Sign up with Google</span>
+          <span>Sign in with Google</span>
         </button>
       </div>
 
@@ -97,44 +96,18 @@ export default function SignUp(props) {
       </div>
 
       <form className="mt-4 grid gap-2" onSubmit={form.handleSubmit(onSubmit)}>
-        {/* onSubmit={handleSignUp} */}
         <div className="relative">
-          <label className="absolute top-0 left-0 flex items-center h-full px-4">
+          <label
+            htmlFor="email"
+            className="absolute top-0 left-0 flex items-center h-full px-4"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-5 text-dark-500"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-              />
-            </svg>
-          </label>
-          <input
-            disabled={isPending}
-            {...form.register("name")}
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Your name"
-            className="w-[100%] px-4 pl-12 py-3 bg-light-100 rounded-xl outline-none focus:bg-white transition-all focus:shadow-[0_0px_10px_0px_rgba(0,0,0,0.1)]"
-          />
-        </div>
-
-        <div className="relative">
-          <label className="absolute top-0 left-0 flex items-center h-full px-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5 text-dark-500"
+              className="w-6 h-6 text-dark-300"
             >
               <path
                 strokeLinecap="round"
@@ -149,20 +122,24 @@ export default function SignUp(props) {
             type="email"
             id="email"
             name="email"
+            required
             placeholder="Your email"
             className="w-[100%] px-4 pl-12 py-3 bg-light-100 rounded-xl outline-none focus:bg-white transition-all focus:shadow-[0_0px_10px_0px_rgba(0,0,0,0.1)]"
           />
         </div>
 
         <div className="relative">
-          <label className="absolute top-0 left-0 flex items-center h-full px-4">
+          <label
+            htmlFor="password"
+            className="absolute top-0 left-0 flex items-center h-full px-4"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-5 text-dark-500"
+              className="w-6 h-6 text-dark-300"
             >
               <path
                 strokeLinecap="round"
@@ -182,24 +159,6 @@ export default function SignUp(props) {
           />
         </div>
 
-        {/* check box */}
-        <div className="flex items-start gap-2 my-3">
-          <input
-            type="checkbox"
-            id="concent"
-            className="w-6 h-6 rounded-sm bg-dark-100 focus:ring-0 focus:ring-offset-0  focus:ring-offset-transparent focus:ring-[0_0px_10px_0px_rgba(0,0,0,0.1)]"
-          />
-          <label htmlFor="concent" className="text-sm text-dark-200">
-            By creating an account, I agree to{" "}
-            <Link href="/terms-of-service" className="text-dark-400">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link href="/privacy-policy" className="text-dark-400">
-              Privacy Policy
-            </Link>
-          </label>
-        </div>
         <div
           className={cn(
             "text-center p-5 text-green-600",
@@ -218,23 +177,22 @@ export default function SignUp(props) {
         >
           {errorMessage}
         </div>
+
         <button
           className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50"
           type="submit"
           disabled={isPending}
-        >{isPending ? 'Processing...' : 'Create account'}
+        >
+          {isPending ? 'Processing...' : 'Sign In'}
 
         </button>
       </form>
-
-      <div className="py-4 text-sm text-dark-200  text-center flex justify-center">
-        <p>
-          Already registered?{" "}
-          <Link href="/sign-in" className="text-dark-400 hover:text-black">
-            Sign in
-          </Link>
-        </p>
+      <div className="py-4 text-sm text-dark-200  text-center flex justify-between">
+        <button className="hover:text-black">Sign Up</button>
+        <Link href="/forgot-password" className="hover:text-black">
+          Forgot password?
+        </Link>
       </div>
-    </Modal>
+    </Modal >
   );
 }

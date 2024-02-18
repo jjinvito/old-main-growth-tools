@@ -5,7 +5,7 @@ import { PiHandsClappingDuotone } from "react-icons/pi";
 import { RiExchangeDollarLine } from "react-icons/ri";
 import { SlBadge } from "react-icons/sl";
 import { AiOutlineDollarCircle } from "react-icons/ai";
-import { cn } from "@/lib/util";
+import { cn } from "@/lib/utils";
 // import Image from "next/image";
 // import companylogo from "../public/companylogo.png";
 

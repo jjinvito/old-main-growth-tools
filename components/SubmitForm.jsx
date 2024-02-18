@@ -6,7 +6,7 @@ import { IoCheckmark } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import getStripe from "@/utils/get-stripejs";
-import { cn } from "@/lib/util";
+import { cn } from "@/lib/utils";
 import { CreateStripeCheckoutSession } from "@/actions/stripe/checkout-session";
 
 export default function SubmitForm(props) {
@@ -70,6 +70,8 @@ export default function SubmitForm(props) {
   const handleBackClick = () => {
     router.push("/");
   };
+
+console.log("userID=", userId);
 
   return (
     <>

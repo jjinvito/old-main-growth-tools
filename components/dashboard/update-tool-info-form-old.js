@@ -28,11 +28,6 @@ import { cn } from "@/lib/utils";
 
 export default function UpdateToolInfo() {
   const [SelectedPriceType, setSelectedPriceType] = useState("");
-  const [category, setCategory] = useState("");
-  const [tierCategory, setTierCategory] = useState("");
-
-  const [featureCount, setFeatureCount] = useState(3);
-  const [useCases, setUseCases] = useState(1);
 
   const {
     register,
@@ -40,44 +35,25 @@ export default function UpdateToolInfo() {
     control,
     formState: { errors },
   } = useForm({
-    // resolver: zodResolver(ToolSchema),
+    resolver: zodResolver(ToolSchema),
   });
 
-  function validateKeyFeature(value) {
-    if (!value || value.trim() === "") {
-      return "Key feature cannot be empty.";
-    }
-
-    // Add other validation rules like minimum length, special characters, etc.
-
-    return null; // No error if all rules pass
-  }
-
-  const handleAddFeature = () => {
-    if (fields.length < 6) {
-      const newValue = ""; // Or a default value you prefer
-      const error = validateKeyFeature(newValue);
-      if (!error) {
-        append(null);
-      } else {
-        // Handle validation error, e.g., display an error message
-      }
-    }
-  };
-
-  const handleUseCases = () => {
-    if (useCases < 3) {
-      setUseCases((prevCount) => prevCount + 1);
-    }
-  };
-
-  // const onFileChange = (event) => {
-  //   setValue("logo", event.target.files[0]);
-  // };
-
-  const { fields, append, remove, replace } = useFieldArray({
+  const {
+    fields: keyFeaturesFields,
+    append: keyFeaturesAppend,
+    remove: keyFeaturesRemove,
+  } = useFieldArray({
     control,
     name: "keyFeatures",
+  });
+
+  const {
+    fields: useCasesFields,
+    append: useCasesAppend,
+    remove: useCasesRemove,
+  } = useFieldArray({
+    control,
+    name: "useCases",
   });
 
   console.log("error", errors);
@@ -89,13 +65,10 @@ export default function UpdateToolInfo() {
   };
 
   useEffect(() => {
-    // This ensures append is only called when the component mounts and not on subsequent updates
-    if (fields.length < 3) {
-      for (let i = fields.length; i < 3; i++) {
-        append(" ");
-      }
-    }
-  }, [append]);
+    keyFeaturesAppend("");
+    useCasesAppend("");
+  }, [keyFeaturesAppend, useCasesAppend]);
+
   return (
     <div className="bg-white p-8 overflow-y-scroll w-full customFont">
       <div className="max-w-4xl mx-auto">
@@ -121,7 +94,6 @@ export default function UpdateToolInfo() {
                   {errors.name ? errors.name.message : "Name"}
                 </label>
                 <Input id="name" {...register("name")} placeholder="Name" />
-                {/* <span className="text-red-500 p-3">error message</span> */}
               </div>
               <div>
                 <label
@@ -142,7 +114,6 @@ export default function UpdateToolInfo() {
                   {...register("shortDescription")}
                   className="drop-shadow-xl rounded-xl h-[150px] resize-none"
                 />
-                {/* <span className="text-red-700">{errors.shortDescription}</span> */}
               </div>
               <div>
                 <label
@@ -163,7 +134,6 @@ export default function UpdateToolInfo() {
                   placeholder="e.g. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
                   className="drop-shadow-xl rounded-xl h-[150px] resize-none	"
                 />
-                {/* <span className="text-red-700">{errors.description}</span> */}
               </div>
               <div>
                 <label
@@ -265,13 +235,6 @@ export default function UpdateToolInfo() {
                     </Link>
                   </div>
                 </div>
-
-                {/* <div className="flex items-center space-x-2">
-                <Badge variant="secondary">Lifetime 50% off</Badge>
-                <p className="text-sm">$49.99 / monthly</p>
-                <p className="text-xs text-gray-500">You save $50.01</p>
-                <Button variant="outline">Create new</Button>
-              </div> */}
               </div>
               <div>
                 <label
@@ -281,20 +244,12 @@ export default function UpdateToolInfo() {
                   )}
                   htmlFor="keyFeatures"
                 >
-                  {errors.keyFeatures
+                  {errors?.keyFeatures?.message
                     ? errors.keyFeatures.message
                     : "Key Features"}
                 </label>
                 <div className="space-y-3">
-                  {/* {[...Array(featureCount)].map((_, index) => (
-                    <Input
-                      {...register(`keyFeatures[` + index + `]`)}
-                      name={`keyFeatures[` + index + `]`}
-                      key={index}
-                      placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
-                    />
-                  ))} */}
-                  {fields.map((field, index) => (
+                  {keyFeaturesFields.map((field, index) => (
                     <div key={field.id} className="space-y-3">
                       {index >= 3 ? (
                         <>
@@ -305,83 +260,120 @@ export default function UpdateToolInfo() {
                               defaultValue={field.value}
                               placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
                             />
+                            {errors.keyFeatures?.[index] && (
+                              <p className="text-red-500 text-xs mt-1">
+                                {errors.keyFeatures[index].message}
+                              </p>
+                            )}
 
                             <button
                               className="absolute right-8 top-5  font-bold text-sm border-s-indigo-500 text-black cursor-pointer"
                               type="button"
-                              onClick={() => remove(index)}
+                              onClick={() => keyFeaturesRemove(index)}
                             >
                               <GoTrash />
                             </button>
                           </div>
                         </>
                       ) : (
-                        <Input
-                          key={field.id}
-                          {...register(`keyFeatures[${index}]`)}
-                          defaultValue={field.value}
-                          placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
-                        />
+                        <>
+                          <Input
+                            key={field.id}
+                            {...register(`keyFeatures[${index}]`)}
+                            defaultValue={field.value}
+                            placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
+                          />
+                          {errors.keyFeatures?.[index] && (
+                            <p className="text-red-500 text-xs mt-1">
+                              {errors.keyFeatures[index].message}
+                            </p>
+                          )}
+                        </>
                       )}
                     </div>
                   ))}
 
-                  {fields.length < 6 && (
+                  {keyFeaturesFields.length < 6 && (
                     <button
                       className="text-sm font-medium text-DBlue"
                       type="button"
-                      // onClick={() => append({ keyFeature: "" })}
-                      // onClick={() => append("")}
-                      // onClick={() => append({ keyFeature: "" })}
-                      onClick={() => append('')}
-                    >
-                      Add Key Feature
-                    </button>
-                  )}
-
-                  {/* {featureCount < 6 && (
-                    <button
-                      className="text-sm font-medium text-DBlue"
-                      onClick={handleAddFeature}
+                      onClick={() => keyFeaturesAppend("")}
                     >
                       Add Key Features +
                     </button>
-                  )} */}
+                  )}
                 </div>
               </div>
+
               <div>
                 <label
-                  className="block text-sm font-semibold mb-1 "
+                  className={cn(
+                    "block text-sm font-semibold mb-1 ",
+                    errors.useCases && "text-red-500"
+                  )}
                   htmlFor="useCases"
                 >
-                  Use Cases
+                  {errors?.useCases?.message
+                    ? errors.useCases.message
+                    : "Use Cases"}
                 </label>
-                {/* <Input
-                id="use-cases"
-                placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
-              />
-              <button className="text-sm font-medium text-DBlue"
-              onClick={handleUseCases}
-              > */}
                 <div className="space-y-3">
-                  {[...Array(useCases)].map((_, index) => (
-                    <Input
-                      {...register(`useCases[` + index + `]`)}
-                      name={`useCases[` + index + `]`}
-                      key={index}
-                      placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
-                    />
+                  {useCasesFields.map((field, index) => (
+                    <div key={field.id} className="space-y-3">
+                      {index >= 1 ? (
+                        <>
+                          <div className="flex w-full relative">
+                            <Input
+                              key={field.id}
+                              {...register(`useCases[${index}]`)}
+                              defaultValue={field.value}
+                              placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
+                            />
+                            {errors.useCases?.[index] && (
+                              <p className="text-red-500 text-xs mt-1">
+                                {errors.useCases[index].message}
+                              </p>
+                            )}
+
+                            <button
+                              className="absolute right-8 top-5 font-bold text-sm border-s-indigo-500 text-black cursor-pointer"
+                              type="button"
+                              onClick={() => useCasesRemove(index)}
+                            >
+                              <GoTrash />
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <Input
+                            key={field.id}
+                            {...register(`useCases[${index}]`)}
+                            defaultValue={field.value}
+                            placeholder="e.g. Sed ut perspiciatis unde omnis iste natus"
+                          />
+                          {errors.useCases?.[index] && (
+                            <p className="text-red-500 text-xs mt-1">
+                              {errors.useCases[index].message}
+                            </p>
+                          )}
+                        </>
+                      )}
+                    </div>
                   ))}
-                  {useCases < 3 && (
+
+                  {useCasesFields.length < 3 && (
                     <button
                       className="text-sm font-medium text-DBlue"
-                      onClick={handleUseCases}
+                      type="button"
+                      onClick={() => useCasesAppend("")} // Ensure you are appending an object with a unique id and value.
                     >
-                      Add Key Features +
+                      Add Use Cases +
                     </button>
                   )}
                 </div>
               </div>
+
               <div>
                 <div className="flex flex-col items-start gap-5">
                   <label
