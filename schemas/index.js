@@ -28,7 +28,6 @@ export const RegisterSchema = z.object({
 
 const priceTypeIdSchema = z.enum(PriceType.map((pt) => pt.id));
 
-
 const itemWordCountValidator = (maxWords) => {
   return (value) => {
     if (value.trim().length === 0) {
@@ -38,6 +37,17 @@ const itemWordCountValidator = (maxWords) => {
     return wordCount <= maxWords;
   };
 };
+
+const SingleDealSchema = z
+  .object({
+    title: z.string().min(1, "Title is required"),
+    price: z.string().min(1, "Price is required"),
+    originalPrice: z.string().min(1, "originalPrice is required"),
+    validity: z.string().min(1, "validity is required"),
+    savings: z.string().min(1, "savings is required"),
+    link: z.string().url("Must be a valid URL").min(1, "link is required"),
+  })
+  .optional(); // This makes the entire object optional, remove if the deal object is required
 
 export const ToolSchema = z.object({
   name: z.string().min(1, {
@@ -108,4 +118,9 @@ export const ToolSchema = z.object({
     )
     .min(1, "At least 1 Use Case is required")
     .max(3, "No more than 3 Use Cases are allowed"),
+
+  deals: z
+    .array(SingleDealSchema)
+    .max(2, "You can only have a maximum of 2 deals")
+    .optional(),
 });
