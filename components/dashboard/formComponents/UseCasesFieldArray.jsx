@@ -66,6 +66,7 @@ const UseCasesFieldArray = ({ fields, register, remove, append, errors }) => (
           Add Use Cases +
         </button>
       )}
+      <p className="text-xs text-mutedField">maximum 25 words per each</p>
     </div>
   </div>
 );
