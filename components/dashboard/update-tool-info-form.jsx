@@ -30,9 +30,22 @@ export default function UpdateToolInfo() {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(ToolSchema),
+    defaultValues: {
+      deals: [
+        {
+          title: "LifeTime 50% off",
+          price: "$4.99",
+          originalPrice: "$10",
+          validity: "monthly",
+          savings: "You save $5.01",
+          link: "https://enterLinkHere/forAboveButton",
+        },
+      ],
+    },
   });
 
   const {
@@ -53,9 +66,19 @@ export default function UpdateToolInfo() {
     name: "useCases",
   });
 
+  const {
+    fields: dealFields,
+    append: dealAppend,
+    remove: dealRemove,
+  } = useFieldArray({
+    control,
+    name: "deals",
+  });
+
   console.log("error", errors);
 
   const onSubmit = async (data) => {
+    console.log("data=", data);
     publishTool(data);
   };
 
@@ -90,14 +113,14 @@ export default function UpdateToolInfo() {
                 id="shortDescription"
                 error={errors.shortDescription}
                 register={register}
-                placeholder="Short Description"
+                placeholder="e.g. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium"
               />
               <TextAreaField
                 name="description"
                 id="description"
                 error={errors.description}
                 register={register}
-                placeholder="Description"
+                placeholder="e.g. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, to "
                 className="resize-y"
               />
               <div>
@@ -115,13 +138,19 @@ export default function UpdateToolInfo() {
               <LogoUpload />
               <ScreenshotsUpload />
 
-              <Deals />
+              <Deals
+                fields={dealFields}
+                remove={dealRemove}
+                append={dealAppend}
+                register={register}
+                setValue={setValue}
+              />
 
               <KeyFeaturesFieldArray
                 fields={keyFeaturesFields}
-                register={register}
                 remove={keyFeaturesRemove}
                 append={keyFeaturesAppend}
+                register={register}
                 errors={errors}
               />
 
@@ -213,7 +242,7 @@ export default function UpdateToolInfo() {
                 />
               </div>
               <button
-                className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50"
+                className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50 font-bold"
                 type="submit"
               >
                 Publish
