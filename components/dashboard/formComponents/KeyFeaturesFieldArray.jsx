@@ -72,6 +72,7 @@ const KeyFeaturesFieldArray = ({
             Add Key Features +
           </button>
         )}
+        <p className="text-xs text-mutedField">maximum 15 words per each</p>
       </div>
     </div>
   );
