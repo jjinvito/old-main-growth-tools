@@ -78,8 +78,11 @@ export default function UpdateToolInfo() {
   console.log("error", errors);
 
   const onSubmit = async (data) => {
-    console.log("data=", data);
-    publishTool(data);
+    let formData = { ...data };
+    if (formData.pricingType !== "amount") {
+      delete formData.priceAmount;
+    }
+    publishTool(formData);
   };
 
   useEffect(() => {
@@ -113,14 +116,14 @@ export default function UpdateToolInfo() {
                 id="shortDescription"
                 error={errors.shortDescription}
                 register={register}
-                placeholder="e.g. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium"
+                placeholder="Short Description"
               />
               <TextAreaField
                 name="description"
                 id="description"
                 error={errors.description}
                 register={register}
-                placeholder="e.g. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, to "
+                placeholder="Description"
                 className="resize-y"
               />
               <div>
@@ -187,13 +190,33 @@ export default function UpdateToolInfo() {
                   />
 
                   {SelectedPriceType === "amount" && (
-                    <div className="flex w-full relative">
-                      <Input className="" placeholder="0.00" />
-                      <div className=" absolute right-20 top-0 h-[54px] w-[2px] bg-gray-300"></div>
-                      <span className="absolute right-8 top-4  font-medium text-gray-600 border-s-indigo-500">
-                        USD
-                      </span>
-                    </div>
+                    <>
+                      <div className="flex w-full relative">
+                        <Input
+                          {...register("priceAmount", {
+                            required:
+                              SelectedPriceType === "amount"
+                                ? "Amount is required"
+                                : false,
+                            pattern: {
+                              value: /^\d+(\.\d{1,2})?$/,
+                              message: "Invalid amount format",
+                            },
+                          })}
+                          className=""
+                          placeholder="0.00"
+                        />
+                        <div className="absolute right-20 top-0 h-[54px] w-[2px] bg-gray-300"></div>
+                        <span className="absolute right-8 top-4 font-medium text-gray-600">
+                          USD
+                        </span>
+                      </div>
+                      <div>
+                        <p className="text-xs text-red-500">
+                          {errors.priceAmount && errors.priceAmount.message}{" "}
+                        </p>
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
