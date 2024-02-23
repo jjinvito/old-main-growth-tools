@@ -1,33 +1,87 @@
-import React from "react";
-import { CardHeader, CardContent, Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-const PreviewCard = () => {
+import Image from "next/image";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+
+const PreviewCard = ({ watch }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const title = watch("name");
+  const description = watch("shortDescription");
+  const logo = watch("logoUrl");
+  const deals = watch("deals");
+
   return (
-    <Card className="w-full h-96">
-      <CardHeader>
-        <div className="space-y-1">
-          <h2 className="text-lg font-semibold">Title</h2>
-          <p className="text-sm text-gray-500">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium.
-          </p>
+    <div
+      role="list-item"
+      className="transition ease-in-out w-96 rounded-xl p-4 h-80 sticky top-0"
+    >
+      <h1 className="font-bold text-xl mb-3">Card Preview</h1>
+      <div
+        className={cn(
+          "relative w-full  rounded-xl h-[250px] bg-cover bg-center border-[1px] border-light-100 dark:border-dark-500 border-solid transition duration-200 overflow-hidden"
+        )}
+        alt=""
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="flex justify-center items-end h-full w-full">
+          <Image
+            height={100}
+            width={100}
+            className={cn(
+              "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
+              isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
+            )}
+            src="/cardImg.png"
+            alt="image"
+          />
         </div>
-      </CardHeader>
-      <CardContent>
-        <img
-          alt="Card preview"
-          className="w-full h-auto mb-2"
-          height="200"
-          src="/placeholder.svg"
-          style={{
-            aspectRatio: "300/200",
-            objectFit: "cover",
-          }}
-          width="300"
-        />
-        <Button variant="secondary">Deal</Button>
-      </CardContent>
-    </Card>
+
+        <div
+          className={cn(
+            "absolute top-0 p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+            isHovered ? "bg-white" : "bg-transparent"
+          )}
+        >
+          <Image
+            src={logo ? logo : "/card1/icon1.png"}
+            width={32}
+            height={32}
+          />
+        </div>
+        {deals.length && (
+          <div className="absolute right-1 top-0 flex items-center justify-center">
+            <div
+              className={cn(
+                "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+                isHovered ? "bg-white" : "bg-transparent"
+              )}
+            >
+              <Image src="/card1/icon4.png" width={35} height={20} />
+            </div>
+          </div>
+        )}
+
+        <div
+          className={cn(
+            "absolute bottom-2 right-2 transition-opacity duration-500 ease-in-out opacity-100 ",
+            isHovered ? "md:opacity-100" : "md:opacity-0"
+          )}
+        >
+          <Image src="/hoverClap.png" width={48} height={48} alt="" />
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center mt-2">
+        <a href="" className="">
+          <h2 className=" hover:text-dark-500  dark:text-white dark:hover:text-dark-100 transition duration-200 font-bold">
+            {title ? title : "Name"}
+          </h2>
+          <p className="hover:text-dark-500  dark:text-white text-sm h-16">
+            {description ? description : "Description"}
+          </p>
+        </a>
+      </div>
+    </div>
   );
 };
 
