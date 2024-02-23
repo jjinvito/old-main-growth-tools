@@ -7,15 +7,52 @@ import { ClipLoader } from "react-spinners";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Modal from "@/components/Modal";
+import { HiOutlineTrash } from "react-icons/hi2";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
-const ScreenshotsUpload = () => {
+const ScreenshotsUpload = ({ setValue, errors }) => {
   const [uploadUrls, setUploadUrls] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [screenshots, setScreenshots] = useState([]);
+  const [selectedScreenshotIndex, setSelectedScreenshotIndex] = useState(null);
 
   const toggleModal = () => setShowModal(!showModal);
+
+  const deleteScreenshot = async (screenshotToDelete, index) => {
+    // Set the loading state to true for the specific screenshot
+    setScreenshots((screenshots) =>
+      screenshots.map((screenshot, i) =>
+        i === index ? { ...screenshot, isLoading: true } : screenshot
+      )
+    );
+
+    const { error } = await supabase.storage
+      .from("bucket-name")
+      .remove([screenshotToDelete.filePath]);
+
+    if (error) {
+      console.error("Error deleting screenshot:", error.message);
+      setScreenshots((screenshots) =>
+        screenshots.map((screenshot, i) =>
+          i === index ? { ...screenshot, isLoading: false } : screenshot
+        )
+      );
+      setErrorMessage("Error deleting screenshot");
+    } else {
+      // Remove the screenshot from the state
+      setScreenshots((screenshots) =>
+        screenshots.filter((screenshot, i) => i !== index)
+      );
+      setValue(
+        "screenshots",
+        screenshots.filter((screenshot, i) => i !== index).map((s) => s.url)
+      );
+      setSuccessMessage("Screenshot deleted successfully");
+    }
+  };
 
   const onFileChange = async (event) => {
     setIsLoading(true);
@@ -24,7 +61,8 @@ const ScreenshotsUpload = () => {
 
     const files = Array.from(event.target.files);
 
-    if (uploadUrls.length + files.length > 10) {
+    // Use the screenshots state that holds objects with url and filePath
+    if (screenshots.length + files.length > 10) {
       setErrorMessage("Cannot upload more than 10 screenshots in total.");
       setIsLoading(false);
       return;
@@ -54,8 +92,7 @@ const ScreenshotsUpload = () => {
       return;
     }
 
-    // Initialize an array to hold the new URLs
-    const newUrls = [];
+    const newScreenshots = [];
 
     for (const file of files) {
       const filePath = `screenshots/${uuidv4()}-${file.name}`;
@@ -75,15 +112,20 @@ const ScreenshotsUpload = () => {
         .getPublicUrl(data.path);
 
       if (res.data) {
-        // Push new URL to the temporary array
-        newUrls.push(res.data.publicUrl);
+        // Push object containing both URL and filePath
+        newScreenshots.push({ url: res.data.publicUrl, filePath });
       }
     }
 
-    if (newUrls.length > 0) {
-      // Concatenate the new URLs with the existing ones and update the state
-      setUploadUrls([...uploadUrls, ...newUrls]);
+    if (newScreenshots.length > 0) {
+      // Merge the new screenshots with the existing ones
+      const updatedScreenshots = [...screenshots, ...newScreenshots];
+      setScreenshots(updatedScreenshots); // Update the screenshots state
       setSuccessMessage("Screenshot(s) uploaded successfully");
+      setValue(
+        "screenshots",
+        updatedScreenshots.map((s) => s.url)
+      ); // Update the form with the URLs
     }
     setIsLoading(false);
   };
@@ -92,10 +134,59 @@ const ScreenshotsUpload = () => {
     <div className="overflow-hidden">
       <div className="flex flex-col gap-3 ">
         <div className="flex items-center space-x-2">
-          <label className="font-semibold">Screenshot</label>
-          <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            PNG or JPEG up to 10MB
-          </span>
+          <label
+            className={cn(
+              "font-semibold",
+              errors.screenshots && "text-red-500"
+            )}
+          >
+            {errors.screenshots
+              ? errors.screenshots.message == "Required"
+                ? "Screenshot is required"
+                : " "
+              : "Screenshot"}
+          </label>
+        </div>
+
+        <div
+          className="flex gap-3 overflow-x-auto w-full"
+          onClick={toggleModal}
+        >
+          {screenshots.map((screenshot, index) => (
+            <div
+              key={index}
+              className="relative group flex min-w-fit hover:backdrop-brightness-50 p-5 rounded-2xl items-center justify-center"
+            >
+              <Image
+                src={screenshot.url}
+                alt="Uploaded Screenshot"
+                height={100}
+                width={100}
+                className="cursor-pointer object-contain aspect-square"
+                placeholder="blur"
+                blurDataURL="/imagePlaceholder.gif"
+                onClick={() => {
+                  setSelectedScreenshotIndex(index);
+                  toggleModal();
+                }}
+              />
+              {screenshot.isLoading ? (
+                <ClipLoader size={15} />
+              ) : (
+                <>
+                  '
+                  <HiOutlineTrash
+                    className="absolute top-3 right-2 text-white cursor-pointer opacity-0 group-hover:opacity-100"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      deleteScreenshot(screenshot, index);
+                    }}
+                  />
+                  <p className=" absolute bottom-2 left-3 text-white text-xs cursor-pointer">Set as Cover</p>
+                </>
+              )}
+            </div>
+          ))}
         </div>
 
         {uploadUrls.length !== 10 && (
@@ -113,17 +204,20 @@ const ScreenshotsUpload = () => {
             <label
               htmlFor="screenshot"
               className={cn(
-                "p-2 rounded-full bg-black text-white flex justify-center items-center w-52 gap-2 cursor-pointer",
+                "p-2 rounded-full border-2 border-black flex justify-center items-center w-36 gap-2 cursor-pointer font-normal ",
                 isLoading && "cursor-not-allowed w-36 opacity-50"
               )}
             >
               {isLoading ? (
                 <>
                   Uploading
-                  <ClipLoader size={15} color="white" />
+                  <ClipLoader size={15} />
                 </>
               ) : (
-                <>Choose File</>
+                <>
+                  Upload
+                  <IoCloudUploadOutline />
+                </>
               )}
             </label>
             <p className="text-xs text-gray-500 mt-3">
@@ -132,34 +226,18 @@ const ScreenshotsUpload = () => {
           </>
         )}
 
-        <div
-          className="flex gap-3 overflow-x-auto w-full"
-          onClick={toggleModal}
-        >
-          {uploadUrls.map((url, index) => (
-            <Image
-              key={index}
-              src={url}
-              alt="Uploaded Screenshot"
-              height={100}
-              width={100}
-              className="cursor-pointer object-contain"
-              placeholder="blur"
-              blurDataURL="/imagePlaceholder.gif"
-            />
-          ))}
-        </div>
-
         {/* Use the existing Modal component */}
-        <Modal showModal={showModal} setShowModal={setShowModal}>
-          {/* Modal Content */}
-          {uploadUrls.map((url, index) => (
-            <div
-              key={index}
-              className="p-10 h-full w-full flex items-center justify-center"
-            >
+        <Modal
+          showModal={showModal}
+          setShowModal={(show) => {
+            setShowModal(show);
+            if (!show) setSelectedScreenshotIndex(null); // Reset selected index when modal is closed
+          }}
+        >
+          {selectedScreenshotIndex !== null && (
+            <div className="p-10 h-full w-full flex items-center justify-center">
               <Image
-                src={url}
+                src={screenshots[selectedScreenshotIndex].url}
                 alt="Screenshot Image"
                 height={500}
                 width={500}
@@ -168,7 +246,7 @@ const ScreenshotsUpload = () => {
                 blurDataURL="/imagePlaceholder.gif"
               />
             </div>
-          ))}
+          )}
         </Modal>
       </div>
       {errorMessage && (
