@@ -22,15 +22,24 @@ import LogoUpload from "./formComponents/logoUpload";
 import Deals from "./formComponents/deals";
 import PreviewCard from "./formComponents/previewCard";
 import { publishTool } from "@/actions/publishTool";
+import { useTransition } from "react";
+
+import { BsExclamationTriangle } from "react-icons/bs";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 export default function UpdateToolInfo() {
   const [SelectedPriceType, setSelectedPriceType] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const {
     register,
     handleSubmit,
     control,
     setValue,
+    getValues,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(ToolSchema),
@@ -80,9 +89,15 @@ export default function UpdateToolInfo() {
   const onSubmit = async (data) => {
     let formData = { ...data };
     if (formData.pricingType !== "amount") {
-      delete formData.priceAmount;
+      delete formData.price;
     }
-    publishTool(formData);
+    startTransition(() => {
+      publishTool(formData, "clsln0ogj0006pr18ywf7eg9y").then((data) => {
+        setErrorMessage(data?.error);
+        setSuccessMessage(data?.success);
+        data?.success && reset();
+      });
+    });
   };
 
   useEffect(() => {
@@ -110,6 +125,7 @@ export default function UpdateToolInfo() {
                 register={register}
                 name="name"
                 placeholder="Name"
+                disabled={isPending}
               />
               <TextAreaField
                 name="shortDescription"
@@ -117,6 +133,7 @@ export default function UpdateToolInfo() {
                 error={errors.shortDescription}
                 register={register}
                 placeholder="Short Description"
+                disabled={isPending}
               />
               <TextAreaField
                 name="description"
@@ -125,6 +142,7 @@ export default function UpdateToolInfo() {
                 register={register}
                 placeholder="Description"
                 className="resize-y"
+                disabled={isPending}
               />
               <div>
                 <InputField
@@ -133,13 +151,14 @@ export default function UpdateToolInfo() {
                   register={register}
                   name="website"
                   placeholder="Website"
+                  disabled={isPending}
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Must include "https://"
                 </p>
               </div>
-              <LogoUpload />
-              <ScreenshotsUpload />
+              <LogoUpload errors={errors} setValue={setValue} />
+              <ScreenshotsUpload errors={errors} setValue={setValue} />
 
               <Deals
                 fields={dealFields}
@@ -193,7 +212,7 @@ export default function UpdateToolInfo() {
                     <>
                       <div className="flex w-full relative">
                         <Input
-                          {...register("priceAmount", {
+                          {...register("price", {
                             required:
                               SelectedPriceType === "amount"
                                 ? "Amount is required"
@@ -213,7 +232,7 @@ export default function UpdateToolInfo() {
                       </div>
                       <div>
                         <p className="text-xs text-red-500">
-                          {errors.priceAmount && errors.priceAmount.message}{" "}
+                          {errors.price && errors.price.message}{" "}
                         </p>
                       </div>
                     </>
@@ -224,19 +243,19 @@ export default function UpdateToolInfo() {
                 <label
                   className={cn(
                     "block text-sm font-semibold mb-1",
-                    errors.category && "text-red-500"
+                    errors.categoryId && "text-red-500"
                   )}
                   htmlFor="tool-category"
                 >
-                  {errors.category
-                    ? errors.category.message == "Required"
+                  {errors.categoryId
+                    ? errors.categoryId.message == "Required"
                       ? "Category is required"
                       : " "
                     : "Category"}
                 </label>
 
                 <SelectField
-                  name="category"
+                  name="categoryId"
                   control={control}
                   options={ToolCategories}
                   placeholder="Select Category"
@@ -248,7 +267,7 @@ export default function UpdateToolInfo() {
                     "block text-sm font-semibold mb-1",
                     errors.tierId && "text-red-500"
                   )}
-                  htmlFor="tool-category"
+                  htmlFor="tier-category"
                 >
                   {errors.tierId
                     ? errors.tierId.message == "Required"
@@ -264,14 +283,37 @@ export default function UpdateToolInfo() {
                   placeholder="Tier Category"
                 />
               </div>
+              <div
+                className={cn(
+                  "w-full flex justify-center items-center text-center text-green-600 gap-2",
+                  successMessage ? "" : "hidden"
+                )}
+                id="successDiv"
+              >
+                <FaRegCheckCircle />
+                {successMessage}
+              </div>
+              <div
+                className={cn(
+                  " w-full flex justify-center items-center text-center text-red-600 gap-2",
+                  errorMessage ? "" : "hidden"
+                )}
+                id="errorDiv"
+              >
+                <BsExclamationTriangle />
+                {errorMessage}
+              </div>
               <button
-                className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50 font-bold"
+                className={cn(
+                  "px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50 font-bold",
+                  isPending && "cursor-not-allowed opacity-50"
+                )}
                 type="submit"
               >
-                Publish
+                {isPending ? "Publishing..." : "Publish"}
               </button>
             </div>
-            <PreviewCard />
+            <PreviewCard watch={watch} />
           </div>
         </form>
       </div>
