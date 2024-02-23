@@ -11,20 +11,44 @@ import { ClipLoader } from "react-spinners";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Modal from "@/components/Modal";
+import { HiOutlineTrash } from "react-icons/hi2";
 
-const LogoUpload = () => {
+const LogoUpload = ({ setValue, errors }) => {
   const [uploadUrl, setUploadUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [localFilePath, setLocalFilePath] = useState("");
 
   const toggleModal = () => setShowModal(!showModal);
+
+  const deleteLogo = async () => {
+    setIsLoading(true);
+    setSuccessMessage("");
+    setErrorMessage("");
+    const filePath = localFilePath;
+
+    const { error } = await supabase.storage
+      .from("growth-tools-media")
+      .remove([filePath]);
+
+    if (error) {
+      console.error("Error deleting logo:", error.message);
+      setErrorMessage("Error deleting logo");
+    } else {
+      setUploadUrl("");
+      setValue("logoUrl", "");
+    }
+    setSuccessMessage("Logo Deleted Success");
+    setIsLoading(false);
+  };
 
   const onFileChange = async (event) => {
     setIsLoading(true);
     setSuccessMessage("");
     setErrorMessage("");
+
     const file = event.target.files[0];
     if (!file) {
       setIsLoading(false);
@@ -64,8 +88,10 @@ const LogoUpload = () => {
     console.log("publicURL", res);
 
     if (res.data) {
+      setLocalFilePath(data.path);
       setUploadUrl(res.data.publicUrl);
       setSuccessMessage("Logo uploaded successfully");
+      setValue("logoUrl", res.data.publicUrl);
     }
     setIsLoading(false);
   };
@@ -73,8 +99,18 @@ const LogoUpload = () => {
   return (
     <div>
       <div>
-        <label htmlFor="logo" className="block text-sm font-semibold mb-5">
-          Logo
+        <label
+          htmlFor="logo"
+          className={cn(
+            "block text-sm font-semibold mb-5",
+            errors.logoUrl && "text-red-500"
+          )}
+        >
+          {errors.logoUrl
+            ? errors.logoUrl.message == "Required"
+              ? "Logo is required"
+              : " "
+            : "Logo"}
         </label>
 
         {!uploadUrl && (
@@ -85,12 +121,12 @@ const LogoUpload = () => {
               hidden
               onChange={onFileChange}
               accept="image/png, image/jpeg"
-              disabled={isLoading}
+              disabled={isLoading || uploadUrl}
             />
             <label
               htmlFor="logo"
               className={cn(
-                "p-2 rounded-full border-2 border-black flex justify-center items-center w-24 gap-2 cursor-pointer",
+                "p-2 rounded-full border-2 border-black flex justify-center items-center w-36 gap-2 cursor-pointer font-normal ",
                 isLoading && "cursor-not-allowed w-36 opacity-50"
               )}
             >
@@ -101,8 +137,8 @@ const LogoUpload = () => {
                 </>
               ) : (
                 <>
-                  <IoCloudUploadOutline />
                   Upload
+                  <IoCloudUploadOutline />
                 </>
               )}
             </label>
@@ -113,7 +149,7 @@ const LogoUpload = () => {
         )}
 
         {uploadUrl && (
-          <div onClick={toggleModal}>
+          <div className="relative group w-32 flex gap-2" onClick={toggleModal}>
             <Image
               src={uploadUrl}
               alt="Uploaded Logo"
@@ -123,6 +159,19 @@ const LogoUpload = () => {
               placeholder="blur"
               blurDataURL="/imagePlaceholder.gif"
             />
+            {isLoading ? (
+              <>
+                <ClipLoader size={15} />
+              </>
+            ) : (
+              <HiOutlineTrash
+                className="text-red-500 cursor-pointer opacity-0 group-hover:opacity-100"
+                onClick={(event) => {
+                  event.stopPropagation(); // Prevent the modal from opening
+                  deleteLogo();
+                }}
+              />
+            )}
           </div>
         )}
 
