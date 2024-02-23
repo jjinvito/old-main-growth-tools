@@ -47,28 +47,12 @@ const SingleDealSchema = z
     savings: z.string().min(1, "savings is required"),
     link: z.string().url("Must be a valid URL").min(1, "link is required"),
   })
-  .optional(); // This makes the entire object optional, remove if the deal object is required
+  .optional();
 
-// Hypothetical priceAmount field assuming you need to capture the actual amount
-// const priceConditionalSchema = z.object({
-//   priceAmount: z
-//     .string()
-//     .optional()
-//     .refine(
-//       (val, ctx) => {
-//         // Check if pricingType is 'amount' and validate priceAmount accordingly
-//         if (ctx.parent.pricingType === "amount") {
-//           return z.string().min(1, "Price amount is required").safeParse(val)
-//             .success;
-//         }
-//         // If pricingType is not 'amount', no validation error for priceAmount
-//         return true;
-//       },
-//       {
-//         message: "Price amount is required for 'Amount' pricing type",
-//       }
-//     ),
-// });
+const urlSchema = z
+  .string()
+  .url({ message: "Must be a valid URL" })
+  .min(1, "URL is required");
 
 export const ToolSchema = z
   .object({
@@ -90,8 +74,19 @@ export const ToolSchema = z
     website: z.string().url({
       message: "Valid website URL is required",
     }),
+
+    logoUrl: urlSchema,
+
+    screenshots: z
+      .array(urlSchema)
+      .min(1, "At least one screenshot is required")
+      .max(10, "Cannot upload more than 10 screenshots"),
+
+    price: z.string().optional(),
+
     pricingType: priceTypeIdSchema,
-    category: z
+
+    categoryId: z
       .string()
       .min(1, "Category is required.")
       .refine(
@@ -100,12 +95,14 @@ export const ToolSchema = z
           message: "Invalid category selected.",
         }
       ),
+
     tierId: z
       .string()
       .min(1, "Tier category is required.")
       .refine((val) => TierCategories.map((tier) => tier.id).includes(val), {
         message: "Invalid tier category selected.",
       }),
+
     keyFeatures: z
       .array(
         z
@@ -123,6 +120,7 @@ export const ToolSchema = z
       )
       .min(3, "At least 3 Key Features are required")
       .max(6, "No more than 6 Key Features are allowed"),
+
     useCases: z
       .array(
         z
@@ -145,16 +143,12 @@ export const ToolSchema = z
       .array(SingleDealSchema)
       .max(2, "You can only have a maximum of 2 deals")
       .optional(),
-
-    // pricingType: z.string(), // Simplified for example
-    priceAmount: z.string().optional(), // Make optional to allow validation logic to decide
-    // other fields...
   })
   .refine(
     (data) => {
       if (
         data.pricingType === "amount" &&
-        (!data.priceAmount || data.priceAmount.trim() === "")
+        (!data.price || data.price.trim() === "")
       ) {
         return false; // Indicate validation failure
       }
@@ -162,6 +156,6 @@ export const ToolSchema = z
     },
     {
       message: "Price amount is required when pricing type is 'amount'",
-      path: ["priceAmount"], // Indicate which field the error message should be associated with
+      path: ["price"],
     }
   );
