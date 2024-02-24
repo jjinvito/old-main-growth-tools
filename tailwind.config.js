@@ -35,6 +35,7 @@ module.exports = {
         mutedField: "#696969",
         dull: "#AFAFAF",
         acentGreen: "#219882",
+        specialOrange: "#FF6B00",
         "custom-blue": "#164CD9",
         "custom-lightblue": "#32AADD",
       },
