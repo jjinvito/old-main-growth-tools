@@ -18,7 +18,7 @@ model User {
   stripeCustomerId String?        @unique
   isActive         Boolean        @default(false)
   accounts         Account[]
-  subscriptions    Subscription[] // Add a relation to Subscription
+  subscriptions    Subscription[] 
 }
 
 model Account {
@@ -56,21 +56,22 @@ model Subscription {
 }
 
 model Tool {
-  id               String      @id @default(cuid())
-  subscriptionId   String      @unique
-  name             String
-  shortDescription String
-  description      String
-  website          String
-  logoUrl          String
-  screenshots      String[]
-  price            Float?
-  pricingType      PricingType
-  categoryId       String
-  tierId           String
-  keyFeatures      String[]
-  useCases         String[]
-  deals            Deal[]
+  id                String      @id @default(cuid())
+  subscriptionId    String      @unique
+  name              String
+  shortDescription  String
+  description       String
+  website           String
+  logoUrl           String
+  screenshots       String[]
+  primaryScreenshot String?
+  price             Float?
+  pricingType       PricingType
+  categoryId        String
+  tierId            String
+  keyFeatures       String[]
+  useCases          String[]
+  deals             Deal[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
