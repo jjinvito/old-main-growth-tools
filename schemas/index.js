@@ -54,6 +54,11 @@ const urlSchema = z
   .url({ message: "Must be a valid URL" })
   .min(1, "URL is required");
 
+const toValidFloat = (val) => {
+  const parsed = parseFloat(val);
+  return isNaN(parsed) ? undefined : parsed;
+};
+
 export const ToolSchema = z
   .object({
     name: z.string().min(1, {
@@ -81,8 +86,14 @@ export const ToolSchema = z
       .array(urlSchema)
       .min(1, "At least one screenshot is required")
       .max(10, "Cannot upload more than 10 screenshots"),
+    primaryScreenshot: urlSchema,
 
-    price: z.string().optional(),
+    price: z
+      .union([
+        z.string().transform(toValidFloat), // Transform a valid float string to a number
+        z.number().min(0), // Validate non-negative numbers for price
+      ])
+      .optional(),
 
     pricingType: priceTypeIdSchema,
 
@@ -146,13 +157,11 @@ export const ToolSchema = z
   })
   .refine(
     (data) => {
-      if (
-        data.pricingType === "amount" &&
-        (!data.price || data.price.trim() === "")
-      ) {
-        return false; // Indicate validation failure
+      // Validate that if pricingType is 'amount', then price is a number and not undefined
+      if (data.pricingType === "amount" && typeof data.price !== "number") {
+        return false;
       }
-      return true; // Validation passes
+      return true;
     },
     {
       message: "Price amount is required when pricing type is 'amount'",
