@@ -19,10 +19,6 @@ export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
 
-  const toolsData = useSelector((state) => state?.tools?.items);
-  const toolsDataStatus = useSelector((state) => state?.tools?.status);
-  const toolsDataError = useSelector((state) => state?.tools?.error);
-
   useEffect(() => {
     if (localStorage.getItem("darkMode")) {
       setDarkMode(localStorage.getItem("darkMode") === "true");
@@ -31,9 +27,6 @@ export default function Home() {
     }
     dispatch(fetchTools());
   }, [dispatch]);
-  console.log("toolsDataStatus---", toolsDataStatus);
-  console.log("toolsData---", toolsData);
-  console.log("toolsDataError---", toolsDataError);
 
   return (
     <main className={`${inter.className} ${darkMode ? "dark" : ""}`}>

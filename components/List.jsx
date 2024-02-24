@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import ListItem from "./ListItem";
 import data from "@/data/data.json";
+import { useSelector } from "react-redux";
 
 export default function List({ search }) {
   const [products, setProducts] = useState([]);
 
+  const toolsData = useSelector((state) => state?.tools?.items);
+  const toolsDataStatus = useSelector((state) => state?.tools?.status);
+  const toolsDataError = useSelector((state) => state?.tools?.error);
+
   useEffect(() => {
-    //  fetch from /api/data endpoint
-    // fetch("/api/data")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-        if (data) {
-          setProducts(data);
-        } else {
-          setProducts([]);
-        }
-      },[List]);
+    if (toolsData) {
+      setProducts(data);
+    } else {
+      setProducts([]);
+    }
+  }, [List]);
   // }, [search]);
 
   return (
