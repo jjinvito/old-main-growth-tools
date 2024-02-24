@@ -9,17 +9,33 @@ import Image from "next/image";
 import Modal from "@/components/Modal";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { FaStar } from "react-icons/fa";
 
 const ScreenshotsUpload = ({ setValue, errors }) => {
-  const [uploadUrls, setUploadUrls] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [screenshots, setScreenshots] = useState([]);
   const [selectedScreenshotIndex, setSelectedScreenshotIndex] = useState(null);
+  const [primaryScreenshot, setPrimaryScreenshot] = useState("");
 
   const toggleModal = () => setShowModal(!showModal);
+
+  let errorsMessage = "";
+  if (errors.screenshots) {
+    errorsMessage =
+      errors.screenshots.message === "Required"
+        ? "Screenshot is required"
+        : errors.screenshots.message;
+  } else if (errors.primaryScreenshot) {
+    errorsMessage =
+      errors.primaryScreenshot.message === "Required"
+        ? "Primary Screenshot is not selected"
+        : errors.primaryScreenshot.message;
+  } else {
+    errorsMessage = "Screenshots";
+  }
 
   const deleteScreenshot = async (screenshotToDelete, index) => {
     // Set the loading state to true for the specific screenshot
@@ -130,6 +146,11 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
     setIsLoading(false);
   };
 
+  const handleSetAsPrimary = (url) => {
+    setValue("primaryScreenshot", url);
+    setPrimaryScreenshot(url);
+  };
+
   return (
     <div className="overflow-hidden">
       <div className="flex flex-col gap-3 ">
@@ -137,14 +158,10 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
           <label
             className={cn(
               "font-semibold",
-              errors.screenshots && "text-red-500"
+              errors.screenshots || errors.primaryScreenshot && "text-red-500"
             )}
           >
-            {errors.screenshots
-              ? errors.screenshots.message == "Required"
-                ? "Screenshot is required"
-                : " "
-              : "Screenshot"}
+            {errorsMessage}
           </label>
         </div>
 
@@ -174,7 +191,6 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
                 <ClipLoader size={15} />
               ) : (
                 <>
-                  '
                   <HiOutlineTrash
                     className="absolute top-3 right-2 text-white cursor-pointer opacity-0 group-hover:opacity-100"
                     onClick={(event) => {
@@ -182,14 +198,25 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
                       deleteScreenshot(screenshot, index);
                     }}
                   />
-                  <p className=" absolute bottom-2 left-3 text-white text-xs cursor-pointer">Set as Cover</p>
+                  <p
+                    className=" absolute bottom-2 left-3 text-white text-xs cursor-pointer"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleSetAsPrimary(screenshot.url);
+                    }}
+                  >
+                    Set as Cover
+                  </p>
+                  {primaryScreenshot === screenshot.url && (
+                    <FaStar className="absolute top-2 left-2 text-specialOrange" />
+                  )}
                 </>
               )}
             </div>
           ))}
         </div>
 
-        {uploadUrls.length !== 10 && (
+        {screenshots.length !== 10 && (
           <>
             <input
               type="file"

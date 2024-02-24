@@ -38,7 +38,7 @@ export default function UpdateToolInfo() {
     handleSubmit,
     control,
     setValue,
-    getValues,
+    reset,
     watch,
     formState: { errors },
   } = useForm({
@@ -88,7 +88,7 @@ export default function UpdateToolInfo() {
 
   const onSubmit = async (data) => {
     let formData = { ...data };
-    if (formData.pricingType !== "amount") {
+    if (formData.pricingType !== "AMOUNT") {
       delete formData.price;
     }
     startTransition(() => {
@@ -208,7 +208,7 @@ export default function UpdateToolInfo() {
                     setSelectedType={setSelectedPriceType}
                   />
 
-                  {SelectedPriceType === "amount" && (
+                  {SelectedPriceType === "AMOUNT" && (
                     <>
                       <div className="flex w-full relative">
                         <Input
@@ -217,11 +217,13 @@ export default function UpdateToolInfo() {
                               SelectedPriceType === "amount"
                                 ? "Amount is required"
                                 : false,
+                            valueAsNumber: true, // This will ensure the value is treated as a number
                             pattern: {
                               value: /^\d+(\.\d{1,2})?$/,
                               message: "Invalid amount format",
                             },
                           })}
+                          type="text" // It remains text to allow decimal points
                           className=""
                           placeholder="0.00"
                         />

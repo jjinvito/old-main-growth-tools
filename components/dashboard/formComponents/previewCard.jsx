@@ -8,6 +8,7 @@ const PreviewCard = ({ watch }) => {
   const description = watch("shortDescription");
   const logo = watch("logoUrl");
   const deals = watch("deals");
+  const primaryScreenshot = watch("primaryScreenshot");
 
   return (
     <div
@@ -31,7 +32,7 @@ const PreviewCard = ({ watch }) => {
               "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
               isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
             )}
-            src="/cardImg.png"
+            src={primaryScreenshot ? primaryScreenshot : "/cardImg.png"}
             alt="image"
           />
         </div>
