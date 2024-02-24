@@ -18,7 +18,7 @@ model User {
   stripeCustomerId String?        @unique
   isActive         Boolean        @default(false)
   accounts         Account[]
-  subscriptions    Subscription[] // Add a relation to Subscription
+  subscriptions    Subscription[] 
 }
 
 model Account {
@@ -50,6 +50,67 @@ model Subscription {
   isActive             Boolean  @default(true)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+  tool                 Tool?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Tool {
+  id                String      @id @default(cuid())
+  subscriptionId    String      @unique
+  name              String
+  shortDescription  String
+  description       String
+  website           String
+  logoUrl           String
+  screenshots       String[]
+  primaryScreenshot String?
+  price             Float?
+  pricingType       PricingType
+  categoryId        String
+  tierId            String
+  keyFeatures       String[]
+  useCases          String[]
+  deals             Deal[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category     ToolCategory @relation(fields: [categoryId], references: [id])
+  tier         TierCategory @relation(fields: [tierId], references: [id])
+  subscription Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+}
+
+model Deal {
+  id            String @id @default(cuid())
+  toolId        String
+  title         String
+  price         String
+  originalPrice String
+  validity      String
+  savings       String
+  link          String
+  tool          Tool   @relation(fields: [toolId], references: [id], onDelete: Cascade)
+}
+
+enum PricingType {
+  FREE
+  AMOUNT
+  REQUEST_PRICE
+}
+
+model ToolCategory {
+  id    String @id @default(cuid())
+  name  String
+  tools Tool[]
+
+  @@unique([name])
+}
+
+model TierCategory {
+  id    String @id @default(cuid())
+  name  String
+  tools Tool[]
+
+  @@unique([name])
 }

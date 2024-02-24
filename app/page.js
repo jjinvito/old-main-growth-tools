@@ -1,32 +1,39 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
+import Header from "@/components/Header.jsx";
 import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import List from "@/components/List";
 import SEO from "@/components/SEO";
-import SignIn from "@/components/SignIn";
-import SignUp from "@/components/SignUp";
-import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
-// import CheckAuthStatus from "../lib/checkAuthStatus";
+import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const dispatch = useDispatch();
+
+  const toolsData = useSelector((state) => state?.tools?.items);
+  const toolsDataStatus = useSelector((state) => state?.tools?.status);
+  const toolsDataError = useSelector((state) => state?.tools?.error);
 
   useEffect(() => {
-    // setIsAuthenticated(CheckAuthStatus());
     if (localStorage.getItem("darkMode")) {
       setDarkMode(localStorage.getItem("darkMode") === "true");
     } else {
       setDarkMode(false);
     }
-  }, []);
+    dispatch(fetchTools());
+  }, [dispatch]);
+  console.log("toolsDataStatus---", toolsDataStatus);
+  console.log("toolsData---", toolsData);
+  console.log("toolsDataError---", toolsDataError);
 
   return (
     <main className={`${inter.className} ${darkMode ? "dark" : ""}`}>

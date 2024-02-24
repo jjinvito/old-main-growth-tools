@@ -1,21 +1,12 @@
 // check if media is loaded
-import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { PiHandsClappingDuotone } from "react-icons/pi";
-import { RiExchangeDollarLine } from "react-icons/ri";
-import { SlBadge } from "react-icons/sl";
-import { AiOutlineDollarCircle } from "react-icons/ai";
-import { cn } from "@/lib/util";
-// import Image from "next/image";
-// import companylogo from "../public/companylogo.png";
+import { cn } from "@/lib/utils";
 
 export default function ListItem(props) {
   const [loaded, setLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    // videos are a priority
-    // if video is present, it uses that by default
     if (props.item.image && !props.item.video) {
       const img = new Image();
       img.src = props.item.image;
@@ -45,14 +36,6 @@ export default function ListItem(props) {
         className="hover:opacity-90 transition"
       >
         <div
-          // style={
-          //   props.item.image && !props.item.video
-          //     ? {
-          //         backgroundImage: `url('${props.item.image}')`,
-          //         padding: "15px",
-          //       }
-          //     : {}
-          // }
           className={cn(
             "relative w-full  rounded-xl h-[250px] bg-cover bg-center border-[1px] border-light-100 dark:border-dark-500 border-solid transition duration-200 overflow-hidden",
             props.item.color
@@ -64,7 +47,8 @@ export default function ListItem(props) {
               <video
                 className={cn(
                   "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
-                  isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
+                  isHovered &&
+                    "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
                 )}
                 playsInline
                 autoPlay
@@ -80,7 +64,8 @@ export default function ListItem(props) {
               <img
                 className={cn(
                   "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
-                  isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
+                  isHovered &&
+                    "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
                 )}
                 src={props.item.image}
                 alt="image"
@@ -117,40 +102,43 @@ export default function ListItem(props) {
           <div
             className={cn(
               "w-[48px] h-[48px] absolute top-0 p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
-              isHovered ? "bg-white" : "bg-transparent",
+              isHovered ? "bg-white" : "bg-transparent"
             )}
           >
-            {/* <img src="/companylogo.png" width={50} height={50} /> */}
             <img src={props.item.icon1} width={32} height={32} />
           </div>
 
           <div className="absolute right-1 top-0 flex items-center justify-center">
             <div
-              className={cn("p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent", isHovered ? "bg-white" : "bg-transparent")}
+              className={cn(
+                "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+                isHovered ? "bg-white" : "bg-transparent"
+              )}
             >
               <img src={props.item.icon2} width={20} height={20} />
             </div>
             <div
               className={cn(
                 "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
-                !props.item.icon3 ? "hidden" : isHovered ? "bg-white" : "bg-transparent"
+                !props.item.icon3
+                  ? "hidden"
+                  : isHovered
+                  ? "bg-white"
+                  : "bg-transparent"
               )}
             >
               <img src={props.item.icon3} width={20} height={20} />
             </div>
             <div
-              className={cn("p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent", isHovered ? "bg-white" : "bg-transparent")}
+              className={cn(
+                "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+                isHovered ? "bg-white" : "bg-transparent"
+              )}
             >
               <img src={props.item.icon4} width={35} height={20} />
             </div>
           </div>
-          {/* {props.item.icon3 && (
-              <div className="absolute top-2 right-2">
-                <img src={props.item.icon3} width={50} height={40} />
-              </div>
-            )} */}
-          {/* </div> */}
-          {/* {isHovered && ( */}
+
           <div
             className={cn(
               "absolute bottom-2 right-2 transition-opacity duration-500 ease-in-out opacity-100 ",
@@ -171,34 +159,7 @@ export default function ListItem(props) {
             {props.item.description}
           </p>
         </a>
-        {/* <div className="flex justify-end gap-2 font-normal">
-          <button className="flex flex-1 justify-end items-center dark:text-white hover:text-dark-500 dark:hover:text-dark-100 transition duration-200 text-[16px] gap-1 cursor-pointer hover:opacity-75">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-[20px]"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8.25 3.75H19.5a.75.75 0 01.75.75v11.25a.75.75 0 01-1.5 0V6.31L5.03 20.03a.75.75 0 01-1.06-1.06L17.69 5.25H8.25a.75.75 0 010-1.5z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div> */}
       </div>
-      {/* Render tags */}
-      {/* <div className="flex mt-1">
-        {props.item.tags.map((tag) => (
-          <div
-            key={tag}
-            className="mr-2 text-xs dark:bg-gray-800 text-tagColor"
-          >
-            #{tag}
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 }

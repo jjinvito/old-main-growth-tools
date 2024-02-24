@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/stripe/checkout-session/route.js", "app/api/webhooks/route.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/stripe/checkout-session/route.js", "app/api/webhooks/route.js", "actions/publishTool.js"],
   "exclude": ["node_modules"]
 }

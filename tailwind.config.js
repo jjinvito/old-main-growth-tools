@@ -29,11 +29,15 @@ module.exports = {
         cardBg4: "#FFFFFF",
         cardBg5: "#FFFFFF",
         cardBg6: "#FFFFFF",
-        tagColor:"#FFFFFF",
-        DBlue:   "#2665F8",
-        muted:"#636363",
+        tagColor: "#FFFFFF",
+        DBlue: "#2665F8",
+        muted: "#636363",
+        mutedField: "#696969",
         dull: "#AFAFAF",
-        acentGreen:"#2CCDA6"
+        acentGreen: "#219882",
+        specialOrange: "#FF6B00",
+        "custom-blue": "#164CD9",
+        "custom-lightblue": "#32AADD",
       },
 
       animation: {
