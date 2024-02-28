@@ -13,7 +13,7 @@ const KeyFeaturesFieldArray = ({
   return (
     <div>
       <label
-        className={`block text-sm font-semibold mb-1 ${
+        className={`block text-sm font-semibold mb-1 dark:text-white ${
           errors.keyFeatures ? "text-red-500" : ""
         }`}
         htmlFor="keyFeatures"
