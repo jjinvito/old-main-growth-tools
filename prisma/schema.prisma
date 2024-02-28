@@ -18,7 +18,7 @@ model User {
   stripeCustomerId String?        @unique
   isActive         Boolean        @default(false)
   accounts         Account[]
-  subscriptions    Subscription[] 
+  subscriptions    Subscription[]
 }
 
 model Account {
@@ -64,7 +64,7 @@ model Tool {
   website           String
   logoUrl           String
   screenshots       String[]
-  primaryScreenshot String?
+  primaryScreenshot String
   price             Float?
   pricingType       PricingType
   categoryId        String

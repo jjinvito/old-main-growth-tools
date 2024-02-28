@@ -1,11 +1,13 @@
 // check if media is loaded
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function ListItem(props) {
   const [loaded, setLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  console.log("props=", props.item);
   useEffect(() => {
     if (props.item.image && !props.item.video) {
       const img = new Image();
@@ -32,7 +34,7 @@ export default function ListItem(props) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <a
-        href={"/view/" + props.item.title}
+        href={"/view/" + props.item.name}
         className="hover:opacity-90 transition"
       >
         <div
@@ -42,7 +44,7 @@ export default function ListItem(props) {
           )}
           alt=""
         >
-          {props.item.video && (
+          {/* {props.item.video && (
             <div className="flex justify-center items-end h-full w-full">
               <video
                 className={cn(
@@ -58,21 +60,21 @@ export default function ListItem(props) {
                 style={{ display: loaded ? "block" : "none" }}
               />
             </div>
-          )}
-          {props.item.image && !props.item.video && (
-            <div className="flex justify-center items-end h-full w-full">
-              <img
-                className={cn(
-                  "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
-                  isHovered &&
-                    "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
-                )}
-                src={props.item.image}
-                alt="image"
-                style={{ display: loaded ? "block" : "none" }}
-              />
-            </div>
-          )}
+          )} */}
+
+          <div className="flex justify-center items-end h-full w-full">
+            <Image
+              className={cn(
+                "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
+                isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
+              )}
+              src={props.item.primaryScreenshot}
+              alt="image"
+              width={225}
+              height={197}
+              style={{ display: loaded ? "block" : "none" }}
+            />
+          </div>
 
           {!loaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white ">
@@ -101,42 +103,46 @@ export default function ListItem(props) {
 
           <div
             className={cn(
-              "w-[48px] h-[48px] absolute top-0 p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+              "absolute top-0 p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
               isHovered ? "bg-white" : "bg-transparent"
             )}
           >
-            <img src={props.item.icon1} width={32} height={32} />
+            <img src={props.item.logoUrl} width={32} height={32} />
           </div>
 
           <div className="absolute right-1 top-0 flex items-center justify-center">
-            <div
+            {/* <div
               className={cn(
                 "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
                 isHovered ? "bg-white" : "bg-transparent"
               )}
             >
               <img src={props.item.icon2} width={20} height={20} />
-            </div>
-            <div
-              className={cn(
-                "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
-                !props.item.icon3
-                  ? "hidden"
-                  : isHovered
-                  ? "bg-white"
-                  : "bg-transparent"
-              )}
-            >
-              <img src={props.item.icon3} width={20} height={20} />
-            </div>
-            <div
-              className={cn(
-                "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
-                isHovered ? "bg-white" : "bg-transparent"
-              )}
-            >
-              <img src={props.item.icon4} width={35} height={20} />
-            </div>
+            </div> */}
+
+            {/* <div
+                className={cn(
+                  "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+                  !props.item.icon3
+                    ? "hidden"
+                    : isHovered
+                    ? "bg-white"
+                    : "bg-transparent"
+                )}
+              >
+                <Image src="/deal.png" width={20} height={20} />
+              </div> */}
+
+            {props.item.deals && (
+              <div
+                className={cn(
+                  "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
+                  isHovered ? "bg-white" : "bg-transparent"
+                )}
+              >
+                <Image src="/deal.png" width={35} height={20} />
+              </div>
+            )}
           </div>
 
           <div
@@ -145,7 +151,7 @@ export default function ListItem(props) {
               isHovered ? "md:opacity-100" : "md:opacity-0"
             )}
           >
-            <img src={props.item.hoverIcon} width={48} height={48} alt="" />
+            <img src="/hoverClap.png" width={48} height={48} alt="" />
           </div>
         </div>
       </a>
@@ -153,10 +159,10 @@ export default function ListItem(props) {
       <div className="flex justify-between items-center mt-2">
         <a href="" className="">
           <h2 className=" hover:text-dark-500  dark:text-white dark:hover:text-dark-100 transition duration-200 font-bold">
-            {props.item.title}
+            {props.item.name}
           </h2>
           <p className="hover:text-dark-500  dark:text-white text-sm h-16">
-            {props.item.description}
+            {props.item.shortDescription}
           </p>
         </a>
       </div>
