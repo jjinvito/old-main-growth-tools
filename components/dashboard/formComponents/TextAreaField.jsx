@@ -12,7 +12,7 @@ const TextAreaField = ({
 }) => (
   <div>
     <label
-      className={`block text-sm font-semibold mb-1 ${error && "text-red-500"}`}
+      className={`block text-sm font-semibold mb-1 dark:text-white ${error && "text-red-500"}`}
       htmlFor={id}
     >
       {error ? error.message : placeholder}

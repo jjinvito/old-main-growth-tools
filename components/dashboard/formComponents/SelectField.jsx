@@ -31,7 +31,9 @@ const SelectField = ({
           }}
         >
           <SelectTrigger id={`${name}-trigger`}>
-            <SelectValue placeholder={placeholder} />
+            <SelectValue
+              placeholder={placeholder}
+            />
           </SelectTrigger>
           <SelectContent position="popper">
             {options.map((option) => (

@@ -7,7 +7,7 @@ const UseCasesFieldArray = ({ fields, register, remove, append, errors }) => (
   <div>
     <label
       className={cn(
-        "block text-sm font-semibold mb-1 ",
+        "block text-sm font-semibold mb-1 dark:text-white ",
         errors.useCases && "text-red-500"
       )}
       htmlFor="useCases"

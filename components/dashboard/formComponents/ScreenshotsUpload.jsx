@@ -157,8 +157,8 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
         <div className="flex items-center space-x-2">
           <label
             className={cn(
-              "font-semibold",
-              errors.screenshots || errors.primaryScreenshot && "text-red-500"
+              "font-semibold dark:text-white",
+              errors.screenshots || (errors.primaryScreenshot && "text-red-500")
             )}
           >
             {errorsMessage}
@@ -172,7 +172,7 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
           {screenshots.map((screenshot, index) => (
             <div
               key={index}
-              className="relative group flex min-w-fit hover:backdrop-brightness-50 p-5 rounded-2xl items-center justify-center"
+              className="relative group flex min-w-fit hover:backdrop-brightness-50 p-5 rounded-2xl items-center justify-center dark:border-white dark:text-white"
             >
               <Image
                 src={screenshot.url}
@@ -231,8 +231,8 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
             <label
               htmlFor="screenshot"
               className={cn(
-                "p-2 rounded-full border-2 border-black flex justify-center items-center w-36 gap-2 cursor-pointer font-normal ",
-                isLoading && "cursor-not-allowed w-36 opacity-50"
+                "p-2 rounded-full border-2 border-black flex justify-center items-center w-36 gap-2 cursor-pointer font-normal dark:border-white dark:text-white",
+                isLoading && "cursor-not-allowed w-36 opacity-50 "
               )}
             >
               {isLoading ? (
