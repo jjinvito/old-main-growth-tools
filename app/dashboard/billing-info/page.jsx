@@ -29,7 +29,6 @@ export default function BillingPage() {
 
   const subscriptionsLoading = subscriptionsStatus === "loading";
 
-
   async function fetchSubscriptionsFromDb() {
     if (userId) {
       try {
@@ -98,15 +97,15 @@ export default function BillingPage() {
 
   return (
     <div className="flex items-start">
-      <div className="p-5 w-[85vw]">
+      <div className="p-5 h-screen w-screen lg:w-[85vw] dark:bg-black">
         <p className="text-3xl font-bold leading-[1] mb-3 capitalize text-transparent bg-clip-text bg-gradient-to-r from-[#707070] to-black dark:to-dark-300 dark:from-white h-10">
           Hello, {session?.user.name}
         </p>
         {subscriptionsLoading ? (
           ""
         ) : (
-          <div className="flex items-center gap-2 mb-3">
-            <FaCreditCard className="text-gray-800" />
+          <div className="flex items-center gap-2 mb-3 dark:text-white">
+            <FaCreditCard className="text-gray-800 dark:text-muted" />
             <p>
               {session?.user.isActive && subscriptionsAvailable
                 ? "Pro"
@@ -117,7 +116,7 @@ export default function BillingPage() {
         <div className="pb-5">
           {subscriptionsAvailable && !subscriptionsLoading && (
             <button
-              className="py-1.5 text-sm bg-black text-white dark:bg-white dark:text-black px-3 rounded-full disabled:opacity-50 w-52"
+              className="py-1.5 text-sm bg-black text-white dark:text-white px-3 rounded-full disabled:opacity-50 w-52 dark:bg-dark-600"
               onClick={openCustomerPortal}
               disabled={managePortalBtnLoading}
             >
@@ -131,21 +130,14 @@ export default function BillingPage() {
           <hr />
         </div>
         {subscriptionsLoading ? (
-          // <div className="flex items-center justify-center h-72">
-          //   {/* Loading spinner or message */}
-          //   <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
-          //     {/* SVG path for spinner */}
-          //   </svg>
-          // </div>
           <div className=" flex justify-center items-center h-96">
-            {/* <div className="animate-spin rounded-full h-14 w-14 border-b-2 border-gray-900"></div> */}
-            <BeatLoader />
+            <BeatLoader color="white"/>
           </div>
         ) : subscriptionsAvailable ? (
           <>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
-              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white  dark:bg-dark-600">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-dark-600 dark:text-white">
                   <tr>
                     <th scope="col" className="px-6 py-3">
                       Tool Url
@@ -168,7 +160,7 @@ export default function BillingPage() {
                   {subscriptions.map((subscription, index) => (
                     <tr
                       key={index}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                      className="bg-white border-b hover:bg-gray-50 dark:hover:bg-dark-400 dark:bg-dark-500"
                     >
                       <th
                         scope="row"
@@ -198,7 +190,7 @@ export default function BillingPage() {
                         >
                           {loadingSubscriptionId ===
                           subscription.stripeSubscriptionId ? (
-                            <div className="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
+                            <div className="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 dark:border-white"></div>
                           ) : (
                             "Cancel Subscription"
                           )}
