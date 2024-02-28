@@ -102,7 +102,7 @@ const LogoUpload = ({ setValue, errors }) => {
         <label
           htmlFor="logo"
           className={cn(
-            "block text-sm font-semibold mb-5",
+            "block text-sm font-semibold mb-5 dark:text-white",
             errors.logoUrl && "text-red-500"
           )}
         >
@@ -126,7 +126,7 @@ const LogoUpload = ({ setValue, errors }) => {
             <label
               htmlFor="logo"
               className={cn(
-                "p-2 rounded-full border-2 border-black flex justify-center items-center w-36 gap-2 cursor-pointer font-normal ",
+                "p-2 rounded-full border-2 border-black flex justify-center items-center w-36 gap-2 cursor-pointer font-normal dark:border-white dark:text-white",
                 isLoading && "cursor-not-allowed w-36 opacity-50"
               )}
             >
@@ -165,7 +165,7 @@ const LogoUpload = ({ setValue, errors }) => {
               </>
             ) : (
               <HiOutlineTrash
-                className="text-red-500 cursor-pointer opacity-0 group-hover:opacity-100"
+                className="text-red-500 dark:text-white cursor-pointer opacity-0 group-hover:opacity-100"
                 onClick={(event) => {
                   event.stopPropagation(); // Prevent the modal from opening
                   deleteLogo();

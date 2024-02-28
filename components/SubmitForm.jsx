@@ -71,7 +71,7 @@ export default function SubmitForm(props) {
     router.push("/");
   };
 
-console.log("userID=", userId);
+  console.log("userID=", userId);
 
   return (
     <>
@@ -90,9 +90,11 @@ console.log("userID=", userId);
           </div>
         )}
 
-        <div className="flex justify-center items-center h-full">
+        <div className="flex justify-center items-center h-full dark:bg-black">
           <div className="w-[100vh] mx-4">
-            <h3 className="text-xl font-bold text-center">Submit</h3>
+            <h3 className="text-xl font-bold text-center dark:text-white">
+              Submit
+            </h3>
             <div className="py-4 max-w-[350px] mx-auto ">
               <form className="">
                 <div className=" my-2">
@@ -115,7 +117,7 @@ console.log("userID=", userId);
                     />
                   </div>
                 )}
-                <div className="p-3 rounded-xl border border-1">
+                <div className="p-3 rounded-xl border border-1 dark:bg-dark-600 dark:text-white dark:border-dark-500">
                   <h1>Price</h1>
 
                   <div
@@ -129,12 +131,11 @@ console.log("userID=", userId);
                     </p>
                     <div className="flex justify-between items-center cursor-pointer">
                       <div>
-                        <p>
-                          <span>$1</span>
+                        <p className="dark:text-black">
+                          <span className="dark:text-black">$1</span>
                           <span className="text-zinc-400 text line-through">
-                            {" "}
                             $5.99
-                          </span>{" "}
+                          </span>
                           /month
                         </p>
                         <p className="text-sm text-zinc-400">
@@ -161,7 +162,7 @@ console.log("userID=", userId);
                     onClick={() => handleCardClick(1)}
                   >
                     <div>
-                      <p>
+                      <p className="dark:text-black">
                         <span>$59</span>
                         <span className="text-zinc-400 text line-through">
                           {" "}

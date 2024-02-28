@@ -106,19 +106,19 @@ export default function UpdateToolInfo() {
   }, [useCasesAppend, keyFeaturesAppend]);
 
   return (
-    <div className="bg-white p-8 overflow-y-scroll w-full customFont">
+    <div className="bg-white p-8 overflow-y-scroll w-full customFont dark:bg-black">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-extrabold mb-6 ">
+        <h1 className="text-3xl font-extrabold mb-6 dark:text-white">
           Post your tool to a global audience
         </h1>
-        <p className="mb-8 text-lg text-gray-600 w-[60%]">
+        <p className="mb-8 text-lg text-gray-600 w-[60%] ">
           We're always looking for the most innovative tools to share with our
           audience. Use our form to submit yours today.
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-6">
-              <hr />
+              <hr className="text-gray-600" />
               <InputField
                 id="name"
                 error={errors.name}
@@ -188,7 +188,7 @@ export default function UpdateToolInfo() {
                 <div className="flex flex-col items-start gap-5">
                   <label
                     className={cn(
-                      "block text-sm font-semibold mb-1 ",
+                      "block text-sm font-semibold mb-1 dark:text-white",
                       errors.pricingType && "text-red-500"
                     )}
                     htmlFor="price"
@@ -244,7 +244,7 @@ export default function UpdateToolInfo() {
               <div>
                 <label
                   className={cn(
-                    "block text-sm font-semibold mb-1",
+                    "block text-sm font-semibold mb-1 dark:text-white",
                     errors.categoryId && "text-red-500"
                   )}
                   htmlFor="tool-category"
@@ -266,7 +266,7 @@ export default function UpdateToolInfo() {
               <div>
                 <label
                   className={cn(
-                    "block text-sm font-semibold mb-1",
+                    "block text-sm font-semibold mb-1 dark:text-white",
                     errors.tierId && "text-red-500"
                   )}
                   htmlFor="tier-category"
@@ -307,7 +307,7 @@ export default function UpdateToolInfo() {
               </div>
               <button
                 className={cn(
-                  "px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50 font-bold",
+                  "px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50 font-bold dark:border-dark-500 dark:text-white dark:bg-dark-600 dark:hover:bg-dark-500",
                   isPending && "cursor-not-allowed opacity-50"
                 )}
                 type="submit"
