@@ -22,6 +22,7 @@ module.exports = {
           300: "#7d7d7d", // Middle (You already have this)
           400: "#4A4A4A",
           500: "#212121", // Darkest
+          600: "#121212"
         },
         cardBg1: "#FFFFFF",
         cardBg2: "#FDEAD4",
