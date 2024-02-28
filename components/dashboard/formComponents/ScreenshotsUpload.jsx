@@ -188,7 +188,11 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
                 }}
               />
               {screenshot.isLoading ? (
-                <ClipLoader size={15} />
+                <ClipLoader
+                  size={15}
+                  color="white"
+                  className="absolute top-3 right-2 cursor-not-allowed "
+                />
               ) : (
                 <>
                   <HiOutlineTrash
@@ -199,7 +203,7 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
                     }}
                   />
                   <p
-                    className=" absolute bottom-2 left-3 text-white text-xs cursor-pointer"
+                    className=" absolute bottom-2 left-3 hover:backdrop-brightness-50 text-white text-xs cursor-pointer opacity-0 group-hover:opacity-100"
                     onClick={(event) => {
                       event.stopPropagation();
                       handleSetAsPrimary(screenshot.url);
@@ -238,7 +242,7 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
               {isLoading ? (
                 <>
                   Uploading
-                  <ClipLoader size={15} />
+                  <ClipLoader size={15} color="white" />
                 </>
               ) : (
                 <>
