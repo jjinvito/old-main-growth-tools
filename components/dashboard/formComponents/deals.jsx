@@ -34,21 +34,24 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
 
   return (
     <div>
-      <label className="block text-sm font-semibold mb-1" htmlFor="deals">
+      <label
+        className="block text-sm font-semibold mb-1 dark:text-white"
+        htmlFor="deals"
+      >
         Deals
       </label>
 
-      <div className="flex gap-10">
+      <div className="flex gap-10 dark:bg-black">
         {fields.map((field, index) => (
           <div
             key={field.id}
             className={cn(
-              "flex flex-col justify-start gap-1  h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white relative",
+              "flex flex-col justify-start gap-1  h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black",
               editableStates[index] ? "h-[180px]" : ""
             )}
           >
             <input
-              className="font-bold outline-1 w-44 disabled:bg-transparent"
+              className="font-bold outline-1 w-44 disabled:bg-transparent dark:text-white dark:border-neutral-700 dark:bg-transparent"
               defaultValue={field.title}
               disabled={!editableStates[index]}
               {...register(`deals.${index}.title`)}
@@ -59,7 +62,7 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
 
             <div className="flex">
               <input
-                className="text-muted text-sm w-11 outline-1 disabled:bg-transparent"
+                className="text-muted text-sm w-11 outline-1 disabled:bg-transparent dark:bg-transparent"
                 defaultValue={field.price}
                 disabled={!editableStates[index]}
                 onChange={(event) =>
@@ -68,7 +71,7 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
                 {...register(`deals.${index}.price`)}
               />
               <input
-                className="line-through text-dull w-8 outline-1 disabled:bg-transparent"
+                className="line-through text-dull w-8 outline-1 disabled:bg-transparent dark:bg-transparent"
                 defaultValue={field.originalPrice}
                 disabled={!editableStates[index]}
                 onChange={(event) =>
@@ -77,7 +80,7 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
                 {...register(`deals.${index}.originalPrice`)}
               />
               <input
-                className="text-muted text-sm w-16 outline-1 disabled:bg-transparent"
+                className="text-muted text-sm w-16 outline-1 disabled:bg-transparent dark:bg-transparent"
                 defaultValue={field.validity}
                 disabled={!editableStates[index]}
                 onChange={(event) =>
@@ -88,7 +91,7 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
             </div>
 
             <input
-              className="font-medium text-acentGreen p-2 border rounded-lg w-[132px] disabled:bg-transparent"
+              className="font-medium text-acentGreen p-2 border rounded-lg w-[132px] disabled:bg-transparent dark:bg-transparent"
               defaultValue={field.savings}
               disabled={!editableStates[index]}
               onChange={(event) =>
@@ -102,7 +105,7 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
             </a>
             {editableStates[index] && (
               <input
-                className="text-xs disabled:bg-transparent"
+                className="text-xs disabled:bg-transparent dark:bg-transparent dark:text-white"
                 defaultValue={field.link}
                 disabled={!editableStates[index]}
                 {...register(`deals.${index}.link`)}
@@ -132,7 +135,7 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
         ))}
 
         {fields.length < 2 && (
-          <div className="flex flex-col justify-center items-center h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white gap-5">
+          <div className="flex flex-col justify-center items-center h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white gap-5 dark:border-neutral-800 dark:bg-black">
             <button type="button" onClick={handleAddDeal}>
               <Image
                 src="/plusicon.png"
