@@ -15,7 +15,7 @@ const PreviewCard = ({ watch }) => {
       role="list-item"
       className="transition ease-in-out w-96 rounded-xl p-4 h-80 sticky top-0"
     >
-      <h1 className="font-bold text-xl mb-3">Card Preview</h1>
+      <h1 className="font-bold text-xl mb-3 dark:text-white">Card Preview</h1>
       <div
         className={cn(
           "relative w-full  rounded-xl h-[250px] bg-cover bg-center border-[1px] border-light-100 dark:border-dark-500 border-solid transition duration-200 overflow-hidden"
