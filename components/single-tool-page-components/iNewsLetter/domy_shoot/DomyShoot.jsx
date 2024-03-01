@@ -51,11 +51,11 @@ export default function DomyShoot() {
           <h1 className=" font-extrabold sm:text-5xl text-xl">Domyshoot</h1>
           <PeerButton />
         </div>
-        <p className=" sm:w-full w-[80%]">
+        <p className=" sm:w-full w-[80%] text-greyColorMuted font-normal">
           DoMyShoot is an AI powered product photography app to help online
           sellers create pro-quality photos,cheaper and faster
         </p>
-        <VisiteWebsite />
+        <VisiteWebsite />   
       </div>
     </div>
   );

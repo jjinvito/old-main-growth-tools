@@ -4,9 +4,9 @@ import Image from "next/image";
 
 export default function AdsManagement() {
   return (
-    <div className=" flex flex-col gap-3">
+    <div className=" flex flex-col gap-3 w-full">
       <h1 className=" font-extrabold">
-        Discover <span className=" text-[blue]">more</span> Ads Management tools
+        Discover <span className=" text-DBlue">more</span> Ads Management tools
       </h1>
       <div className=" inline-flex gap-2 border-2 rounded-xl w-full p-2 shadow-xl">
         <Image
@@ -47,7 +47,7 @@ export default function AdsManagement() {
           </p>
         </div>
       </div>
-      <small className=" text-[#006cd1] font-bold mb-6">
+      <small className=" text-DBlue font-medium mb-6">
         Browse 1 Ads Management tool
       </small>
       <VisiteWebsite />
