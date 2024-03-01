@@ -4,16 +4,14 @@ import Image from "next/image";
 import { BiHome, BiWrench } from "react-icons/bi";
 import { BiNotepad } from "react-icons/bi";
 import { BiRecycle } from "react-icons/bi";
-import { FaMoon } from "react-icons/fa";
-import { FaSun } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
-export default function DashboardSidebar({ darkMode, setDarkMode }) {
+export default function DashboardSidebar() {
   const currentPath = usePathname();
 
   return (
-    <div className="flex h-screen dark:bg-black">
+    <div className="flex dark:bg-black top-0 h-screen">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-black">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4">
@@ -21,7 +19,8 @@ export default function DashboardSidebar({ darkMode, setDarkMode }) {
               <Image
                 width="105"
                 height="29"
-                src={darkMode ? "/logo-dark.png" : "/logo.png"}
+                // src={darkMode ? "/logo-dark.png" : "/logo.png"}
+                src="/logo.png"
               />
             </Link>
           </div>
@@ -76,6 +75,7 @@ export default function DashboardSidebar({ darkMode, setDarkMode }) {
                 <BiWrench />
                 Add New Tool
               </Link>
+              
               {/* <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                 href="#"
@@ -83,7 +83,7 @@ export default function DashboardSidebar({ darkMode, setDarkMode }) {
                 <LogOutIcon className="h-4 w-4" />
                 Logout
                 </Link> */}
-              <button
+              {/* <button
                 type="button"
                 className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-gray-900 dark:text-white dark:hover:text-gray-50"
                 onClick={() => {
@@ -102,7 +102,7 @@ export default function DashboardSidebar({ darkMode, setDarkMode }) {
                     Dark Mode
                   </>
                 )}
-              </button>
+              </button> */}
             </nav>
           </div>
         </div>
