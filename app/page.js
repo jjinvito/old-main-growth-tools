@@ -21,7 +21,7 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <main className={`${inter.className} ${darkMode ? "dark" : ""}`}>
+    <main className={`${inter.className}`}>
       <SEO
         title="Dir - A simple directory listing template"
         description="A simple directory listing template built with Next.js and Tailwind CSS."
@@ -32,22 +32,11 @@ export default function Home() {
       />
 
       <div className="flex dark:bg-black">
-        {/* Sidebar */}
-        {/* <Sidebar showSidebar={showSidebar} /> */}
+        <Sidebar showSidebar={true} />
 
         <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
-          {/* Header */}
-          {/* <Header
-            showSidebar={showSidebar}
-            setShowSidebar={setShowSidebar}
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
-          /> */}
-
-          {/* Hero */}
           <Hero />
 
-          {/* List */}
           <List />
         </div>
       </div>

@@ -20,7 +20,7 @@ export default async function RootLayout({ children }) {
           <body className="overflow-hidden">
             <Providers>
               <div className="flex dark:bg-black">
-                <Sidebar showSidebar={true} />
+                {/* <Sidebar showSidebar={true} /> */}
                 <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
                   <Header
                     showSidebar

@@ -7,7 +7,6 @@ export default function DashboardLayout({ children }) {
     <main className={cn("flex h-screen scrollbar-hide")}>
       <DashboardSidebar />
       <div className="main w-full scrollbar-hide">
-        <Header className="" />
         {children}
       </div>
     </main>
