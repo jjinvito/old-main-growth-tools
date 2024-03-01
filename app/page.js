@@ -14,17 +14,9 @@ import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem("darkMode")) {
-      setDarkMode(localStorage.getItem("darkMode") === "true");
-    } else {
-      setDarkMode(false);
-    }
     dispatch(fetchTools());
   }, [dispatch]);
 
@@ -41,17 +33,16 @@ export default function Home() {
 
       <div className="flex dark:bg-black">
         {/* Sidebar */}
-        <Sidebar showSidebar={showSidebar} />
+        {/* <Sidebar showSidebar={showSidebar} /> */}
 
         <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
           {/* Header */}
-          <Header
+          {/* <Header
             showSidebar={showSidebar}
             setShowSidebar={setShowSidebar}
             darkMode={darkMode}
             setDarkMode={setDarkMode}
-            isAuthenticated={isAuthenticated}
-          />
+          /> */}
 
           {/* Hero */}
           <Hero />
