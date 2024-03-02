@@ -6,7 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import List from "@/components/List";
 import SEO from "@/components/SEO";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
@@ -32,7 +32,7 @@ export default function Home() {
       />
 
       <div className="flex dark:bg-black">
-        <Sidebar showSidebar={true} />
+        <Sidebar showSidebar={false} />
 
         <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
           <Hero />
