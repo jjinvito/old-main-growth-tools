@@ -1,17 +1,12 @@
 import React from "react";
 import { BsLightbulbFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa6";
-export default function () {
+export default function ({ data }) {
   return (
     <div className=" flex flex-col gap-6">
       <div className="flex flex-col gap-3">
         <h1 className=" font-extrabold text-xl">Description</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Exercitationem, quod sequi. Cum adipisci nesciunt quibusdam! Delectus
-          possimus iste cum quasi? Aliquam maxime eius excepturi provident
-          doloribus itaque ad repellendus quidem?
-        </p>
+        <p>{data?.description}</p>
       </div>
       <div className=" inline-flex  border-2 border-[#00aeff] gap-2 justify-between p-5 rounded-2xl">
         <div className=" inline-flex gap-6 items-center">

@@ -6,7 +6,7 @@ export default function () {
     <div className=" bg-gradient-to-r from-blueStart to-blueEnd to-99% inline-flex items-center  p-2 rounded-lg px-2 gap-2">
       {/* <PiMedalBold size={13} className=" text-white" /> */}
       <Image src="/peerReviewedWhite.png" width={20} height={20} />
-      <h1 className=" text-white sm:text-[13px] text-[8px]">Peer Reviewed</h1>
+      <h1 className=" text-white sm:text-[11px] text-[8px]">Peer Reviewed</h1>
     </div>
   );
 }

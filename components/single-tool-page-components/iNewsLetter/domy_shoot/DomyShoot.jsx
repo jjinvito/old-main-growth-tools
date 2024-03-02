@@ -3,7 +3,7 @@ import { RxSlash } from "react-icons/rx";
 import Image from "next/image";
 import PeerButton from "../PeerButton";
 import VisiteWebsite from "../VisiteWebsite";
-export default function DomyShoot() {
+export default function DomyShoot({ data }) {
   return (
     <div className=" flex flex-col sm:items-start items-center gap-8 pb-8 border-b-2 ">
       {/* Breadcrumb Div */}
@@ -42,20 +42,19 @@ export default function DomyShoot() {
       <div className="flex gap-6 flex-col sm:items-start items-center ">
         <div className=" inline-flex gap-5  items-center">
           <Image
-            src="/logo-dark.png"
+            src={data?.logoUrl}
             alt="Logo Image"
             className=" w-10 h-10"
             width={50}
             height={50}
           />
-          <h1 className=" font-extrabold sm:text-5xl text-xl">Domyshoot</h1>
+          <h1 className=" font-extrabold sm:text-5xl text-xl">{data?.name}</h1>
           <PeerButton />
         </div>
         <p className=" sm:w-full w-[80%] text-greyColorMuted font-normal">
-          DoMyShoot is an AI powered product photography app to help online
-          sellers create pro-quality photos,cheaper and faster
+          {data?.shortDescription}
         </p>
-        <VisiteWebsite />   
+        <VisiteWebsite data={data} />
       </div>
     </div>
   );
