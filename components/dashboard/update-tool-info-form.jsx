@@ -106,7 +106,7 @@ export default function UpdateToolInfo() {
   }, [useCasesAppend, keyFeaturesAppend]);
 
   return (
-    <div className="bg-white p-8 overflow-y-scroll w-full customFont dark:bg-black">
+    <div className="bg-white p-8 h-[calc(100vh-70px)] customFont dark:bg-black overflow-y-auto">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-extrabold mb-6 dark:text-white">
           Post your tool to a global audience

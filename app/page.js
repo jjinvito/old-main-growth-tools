@@ -6,7 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import List from "@/components/List";
 import SEO from "@/components/SEO";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
@@ -14,22 +14,14 @@ import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem("darkMode")) {
-      setDarkMode(localStorage.getItem("darkMode") === "true");
-    } else {
-      setDarkMode(false);
-    }
     dispatch(fetchTools());
   }, [dispatch]);
 
   return (
-    <main className={`${inter.className} ${darkMode ? "dark" : ""}`}>
+    <main className={`${inter.className}`}>
       <SEO
         title="Dir - A simple directory listing template"
         description="A simple directory listing template built with Next.js and Tailwind CSS."
@@ -40,23 +32,11 @@ export default function Home() {
       />
 
       <div className="flex dark:bg-black">
-        {/* Sidebar */}
-        <Sidebar showSidebar={showSidebar} />
+        <Sidebar showSidebar={false} />
 
         <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
-          {/* Header */}
-          <Header
-            showSidebar={showSidebar}
-            setShowSidebar={setShowSidebar}
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
-            isAuthenticated={isAuthenticated}
-          />
-
-          {/* Hero */}
           <Hero />
 
-          {/* List */}
           <List />
         </div>
       </div>

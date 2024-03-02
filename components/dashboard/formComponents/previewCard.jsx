@@ -15,7 +15,7 @@ const PreviewCard = ({ watch }) => {
       role="list-item"
       className="transition ease-in-out w-96 rounded-xl p-4 h-80 sticky top-0"
     >
-      <h1 className="font-bold text-xl mb-3">Card Preview</h1>
+      <h1 className="font-bold text-xl mb-3 dark:text-white">Card Preview</h1>
       <div
         className={cn(
           "relative w-full  rounded-xl h-[250px] bg-cover bg-center border-[1px] border-light-100 dark:border-dark-500 border-solid transition duration-200 overflow-hidden"
@@ -43,11 +43,7 @@ const PreviewCard = ({ watch }) => {
             isHovered ? "bg-white" : "bg-transparent"
           )}
         >
-          <Image
-            src={logo ? logo : "/card1/icon1.png"}
-            width={32}
-            height={32}
-          />
+          <Image src={logo ? logo : "/logov2.png"} width={32} height={32} />
         </div>
         {deals.length && (
           <div className="absolute right-1 top-0 flex items-center justify-center">
@@ -57,7 +53,7 @@ const PreviewCard = ({ watch }) => {
                 isHovered ? "bg-white" : "bg-transparent"
               )}
             >
-              <Image src="/card1/icon4.png" width={35} height={20} />
+              <Image src="/deal.png" width={35} height={20} />
             </div>
           </div>
         )}

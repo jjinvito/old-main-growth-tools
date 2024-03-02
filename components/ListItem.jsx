@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ListItem(props) {
   const [loaded, setLoaded] = useState(false);
@@ -33,8 +34,8 @@ export default function ListItem(props) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <a
-        href={"/view/" + props.item.name}
+      <Link
+        href={"/tool/" + props.item.id}
         className="hover:opacity-90 transition"
       >
         <div
@@ -154,17 +155,17 @@ export default function ListItem(props) {
             <img src="/hoverClap.png" width={48} height={48} alt="" />
           </div>
         </div>
-      </a>
+      </Link>
 
       <div className="flex justify-between items-center mt-2">
-        <a href="" className="">
+        <div href="" className="">
           <h2 className=" hover:text-dark-500  dark:text-white dark:hover:text-dark-100 transition duration-200 font-bold">
             {props.item.name}
           </h2>
           <p className="hover:text-dark-500  dark:text-white text-sm h-16">
             {props.item.shortDescription}
           </p>
-        </a>
+        </div>
       </div>
     </div>
   );
