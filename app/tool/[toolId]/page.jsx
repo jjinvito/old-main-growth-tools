@@ -5,7 +5,7 @@ import INewsLetters from "@/components/single-tool-page-components/iNewsLetter/I
 import Feature from "@/components/single-tool-page-components/features/Feature";
 import AdsManagement from "@/components/single-tool-page-components/iNewsLetter/ads_managements/AdsManagement";
 import Sidebar from "@/components/Sidebar";
-import SingleToolPageSkeleton from "@/components/component/singleToolPageSkele";
+import SingleToolPageSkeleton from "@/components/singleToolPageSkele";
 import { fetchToolById } from "@/lib/redux/features/tools/singleToolSlice";
 
 export default function ToolView({ params }) {
