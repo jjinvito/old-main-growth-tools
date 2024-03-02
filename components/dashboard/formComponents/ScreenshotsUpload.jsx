@@ -154,7 +154,12 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
   return (
     <div className="overflow-hidden">
       <div className="flex flex-col gap-3 ">
-        <div className="flex items-center space-x-2">
+        <div
+          className={cn(
+            "flex items-center space-x-2",
+            errors.screenshots || (errors.primaryScreenshot && "text-red-500")
+          )}
+        >
           <label
             className={cn(
               "font-semibold dark:text-white",
