@@ -37,9 +37,9 @@ export default function Header(props) {
 
   return (
     <div className="header fixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center px-4 pr-4 z-10 bg-white dark:bg-black dark:border-b dark:border-b-dark-400">
-      <a href="/">
+      <Link href="/">
         <img src="https://copyui.com/favicon.ico" width="40px" />
-      </a>
+      </Link>
 
       <div className="flex items-center justify-end">
         {/* dark mode toggle */}
