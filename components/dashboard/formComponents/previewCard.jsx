@@ -43,11 +43,7 @@ const PreviewCard = ({ watch }) => {
             isHovered ? "bg-white" : "bg-transparent"
           )}
         >
-          <Image
-            src={logo ? logo : "/card1/icon1.png"}
-            width={32}
-            height={32}
-          />
+          <Image src={logo ? logo : "/logov2.png"} width={32} height={32} />
         </div>
         {deals.length && (
           <div className="absolute right-1 top-0 flex items-center justify-center">
@@ -57,7 +53,7 @@ const PreviewCard = ({ watch }) => {
                 isHovered ? "bg-white" : "bg-transparent"
               )}
             >
-              <Image src="/card1/icon4.png" width={35} height={20} />
+              <Image src="/deal.png" width={35} height={20} />
             </div>
           </div>
         )}
