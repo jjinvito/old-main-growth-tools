@@ -14,6 +14,7 @@ export default function AdsManagement() {
           className=" w-12 h-12 p-2 border-2 rounded-lg"
           width={50}
           height={50}
+          alt="growth tools logo"
         />
         <div className="flex flex-col gap-1">
           <h1 className=" font-extrabold">iNewsLetter</h1>

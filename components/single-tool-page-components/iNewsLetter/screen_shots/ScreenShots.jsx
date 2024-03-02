@@ -20,10 +20,15 @@ export default function ScreenShots({ data }) {
             {data?.screenshots?.map((screenshot, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
-                  <Card >
+                  <Card>
                     <CardContent className="flex aspect-auto items-center justify-center p-6">
                       {/* Render each screenshot image */}
-                      <Image src={screenshot} width={1080} height={720} />
+                      <Image
+                        src={screenshot}
+                        width={1080}
+                        height={720}
+                        alt="screenshot"
+                      />
                     </CardContent>
                   </Card>
                 </div>

@@ -33,7 +33,7 @@ const PreviewCard = ({ watch }) => {
               isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
             )}
             src={primaryScreenshot ? primaryScreenshot : "/cardImg.png"}
-            alt="image"
+            alt="primaryScreenshot"
           />
         </div>
 
@@ -43,7 +43,7 @@ const PreviewCard = ({ watch }) => {
             isHovered ? "bg-white" : "bg-transparent"
           )}
         >
-          <Image src={logo ? logo : "/logov2.png"} width={32} height={32} />
+          <Image src={logo ? logo : "/logov2.png"} width={32} height={32} alt="logo"/>
         </div>
         {deals.length && (
           <div className="absolute right-1 top-0 flex items-center justify-center">
@@ -53,7 +53,7 @@ const PreviewCard = ({ watch }) => {
                 isHovered ? "bg-white" : "bg-transparent"
               )}
             >
-              <Image src="/deal.png" width={35} height={20} />
+              <Image src="/deal.png" width={35} height={20} alt="deal Icon"/>
             </div>
           </div>
         )}
@@ -64,7 +64,7 @@ const PreviewCard = ({ watch }) => {
             isHovered ? "md:opacity-100" : "md:opacity-0"
           )}
         >
-          <Image src="/hoverClap.png" width={48} height={48} alt="" />
+          <Image src="/hoverClap.png" width={48} height={48} alt="clap icon" />
         </div>
       </div>
 

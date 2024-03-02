@@ -70,7 +70,7 @@ export default function ListItem(props) {
                 isHovered && "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
               )}
               src={props.item.primaryScreenshot}
-              alt="image"
+              alt={`This is the primary screenshot of ${props.item.name}`}
               width={225}
               height={197}
               style={{ display: loaded ? "block" : "none" }}
@@ -141,7 +141,7 @@ export default function ListItem(props) {
                   isHovered ? "bg-white" : "bg-transparent"
                 )}
               >
-                <Image src="/deal.png" width={35} height={20} />
+                <Image src="/deal.png" width={35} height={20} alt="deal icon used to identify if any deal offered by tool owner"/>
               </div>
             )}
           </div>

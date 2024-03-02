@@ -11,6 +11,7 @@ export default function Advertisement() {
             className=" w-10 h-10 rounded-3xl"
             width={26.67}
             height={21.33}
+            alt="profile photo place holder"
           />
           <h2 className=" font-medium">John Def</h2>
         </div>
@@ -23,6 +24,7 @@ export default function Advertisement() {
             className=" w-10 h-10 p-2 rounded-xl"
             width={50}
             height={50}
+            alt="advertisement logo"
           />
           <h1 className=" font-extrabold">Advertisement</h1>
         </div>

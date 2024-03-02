@@ -108,7 +108,7 @@ export default function Search(props) {
                       muted
                     />
                   ) : (
-                    <img src={result.image} className="w-20 h-20 rounded-xl" />
+                    <img src={result.image} className="w-20 h-20 rounded-xl" alt="search bar icon"/>
                   )}
                   <div className="flex flex-col">
                     <p className="text-sm font-semibold">{result.title}</p>

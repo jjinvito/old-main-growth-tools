@@ -14,6 +14,7 @@ export default function AuthFooter() {
                 width="94"
                 height="29"
               src="/footerLogo.png"
+              alt="Growth verality logo"
             />
           </div>
           <div className="flex space-x-12">
@@ -48,7 +49,7 @@ export default function AuthFooter() {
                       className="flex items-center text-gray-600 hover:text-gray-800 gap-2"
                       href="#"
                     >
-                      <Image src="/discord.png" width="20" height="14"/>
+                      <Image src="/discord.png" width="20" height="14" alt="Discord logo"/>
                       Join our Discord community
                     </a>
                   </li>

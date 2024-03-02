@@ -25,10 +25,22 @@ export default function ThemeSwitch() {
     );
 
   if (resolvedTheme === "dark") {
-    return <FiSun onClick={() => setTheme("light")} size={23} className="mx-3 cursor-pointer"/>;
+    return (
+      <FiSun
+        onClick={() => setTheme("light")}
+        size={23}
+        className="mx-3 cursor-pointer"
+      />
+    );
   }
 
   if (resolvedTheme === "light") {
-    return <FiMoon onClick={() => setTheme("dark")} size={23} className="mx-3 cursor-pointer"/>;
+    return (
+      <FiMoon
+        onClick={() => setTheme("dark")}
+        size={23}
+        className="mx-3 cursor-pointer"
+      />
+    );
   }
 }
