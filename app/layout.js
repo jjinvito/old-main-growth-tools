@@ -3,7 +3,6 @@ import { auth } from "@/auth";
 import StoreProvider from "./storeProvider";
 import "@/styles/globals.css";
 import { Providers } from "./providers";
-import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 
 export const metadata = {
@@ -23,8 +22,6 @@ export default async function RootLayout({ children }) {
                 {/* <Sidebar showSidebar={true} /> */}
                 <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
                   <Header
-                    showSidebar
-                    setShowSidebar={true}
                   />
                   {children}
                 </div>

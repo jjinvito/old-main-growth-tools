@@ -8,7 +8,7 @@ export default function DomyShoot({ data }) {
     <div className=" flex flex-col sm:items-start items-center gap-8 pb-8 border-b-2 ">
       {/* Breadcrumb Div */}
       <nav className="flex" aria-label="Breadcrumb">
-        <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+        <ol className="inline-flex items-center space-x-0 md:space-x-2 rtl:space-x-reverse">
           <li className="inline-flex items-center">
             <a
               href="#"

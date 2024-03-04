@@ -13,9 +13,9 @@ export default function Advertisement() {
             height={21.33}
             alt="profile photo place holder"
           />
-          <h2 className=" font-medium">John Def</h2>
+          <h2 className=" font-medium lg:text-[12px]">John Def</h2>
         </div>
-        <h1 className=" font-medium text-DBlue">View Profile</h1>
+        <h1 className=" font-medium text-DBlue lg:text-[12px]">View Profile</h1>
       </div>
       <div className=" flex  flex-col gap-2 border-2 rounded-xl w-full p-3  shadow-xl">
         <div className="flex flex-row items-center gap-1 ">
@@ -26,7 +26,7 @@ export default function Advertisement() {
             height={50}
             alt="advertisement logo"
           />
-          <h1 className=" font-extrabold">Advertisement</h1>
+          <h1 className=" font-extrabold lg:text-[12px]">Advertisement</h1>
         </div>
         <p className=" pl-2 text-greyColorMuted">
           Lorem, ipsum dolor sit amet ctetur adipisicing elit.

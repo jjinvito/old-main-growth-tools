@@ -31,12 +31,13 @@ export default function ScreenShots({ data }) {
                       />
                     </CardContent>
                   </Card>
+                  
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          {/* <CarouselPrevious />
+          <CarouselNext /> */}
         </Carousel>
       </div>
     </>

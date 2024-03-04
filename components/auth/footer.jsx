@@ -6,9 +6,9 @@ import Image from "next/image";
 
 export default function AuthFooter() {
   return (
-    <div className="bg-white py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+    <div className="bg-white py-8 ">
+      <div className="w-full  lg:px-8 flex justify-evenly items-center sm:flex-row flex-col gap-2">
+        <div className="flex justify-between items-center sm:flex-row flex-col sm:gap-0 gap-3 w-full">
           <div>
             <Image
                 width="94"
@@ -41,12 +41,12 @@ export default function AuthFooter() {
               </nav>
             </div>
             <div>
-              <h3 className="text-lg font-semibold">Get in touch</h3>
+              <h3 className="text-lg font-semibold text-center">Get in touch</h3>
               <nav className="mt-4">
-                <ul className="space-y-3">
+                <ul className="space-y-3 ">
                   <li>
                     <a
-                      className="flex items-center text-gray-600 hover:text-gray-800 gap-2"
+                      className="flex sm:flex-row flex-col  items-center text-gray-600 hover:text-gray-800 gap-2 text-center"
                       href="#"
                     >
                       <Image src="/discord.png" width="20" height="14" alt="Discord logo"/>
@@ -58,7 +58,7 @@ export default function AuthFooter() {
             </div>
             <div>
               <h3 className="text-lg font-semibold">Follow Us</h3>
-              <nav className="mt-4 flex space-x-4">
+              <nav className="mt-4 flex items-center sm:flex-row flex-col">
                 <a className=" hover:text-gray-800" href="#">
                   <BiLogoTiktok className="h-5 w-5" />
                 </a>

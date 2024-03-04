@@ -6,12 +6,12 @@ export default function Deals({ data }) {
     <div>
       <div className="text-lg font-semibold dark:text-white pb-2">Deals</div>
 
-      <div className="flex gap-10">
+      <div className="flex gap-10 w-full flex-wrap">
         {data?.deals?.map((deal, index) => (
-          <div key={index} className="flex dark:bg-black">
+          <div key={index} className="flex dark:bg-black sm:w-[45%] w-full">
             <div
               className={
-                "flex flex-col justify-start gap-1 h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black"
+                "flex flex-col justify-start gap-1 h-[156px] w-full  p-5 border rounded-lg drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black"
               }
             >
               <div className="font-bold outline-1 w-44 disabled:bg-transparent dark:text-white dark:border-neutral-700 dark:bg-transparent">

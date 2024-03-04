@@ -41,12 +41,12 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
         Deals
       </label>
 
-      <div className="flex gap-10 dark:bg-black">
+      <div className="flex sm:gap-10 gap-2 dark:bg-black sm:flex-row flex-col">
         {fields.map((field, index) => (
           <div
             key={field.id}
             className={cn(
-              "flex flex-col justify-start gap-1  h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black",
+              "flex flex-col justify-start gap-1  h-[156px] w-[285px] p-5 border rounded-lg drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black",
               editableStates[index] ? "h-[180px]" : ""
             )}
           >
@@ -135,7 +135,7 @@ const Deals = ({ fields, register, remove, errors, append, setValue }) => {
         ))}
 
         {fields.length < 2 && (
-          <div className="flex flex-col justify-center items-center h-[156px] w-[295px] p-5 border rounded-lg drop-shadow-xl bg-white gap-5 dark:border-neutral-800 dark:bg-black">
+          <div className="flex flex-col justify-center items-center h-[156px] w-[285px] p-5 border rounded-lg drop-shadow-xl bg-white gap-5 dark:border-neutral-800 dark:bg-black">
             <button type="button" onClick={handleAddDeal}>
               <Image
                 src="/plusicon.png"
