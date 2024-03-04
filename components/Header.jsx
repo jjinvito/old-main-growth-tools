@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
-import { cn } from "@/lib/utils";
 
 export default function Header(props) {
   const session = useSession();
@@ -22,7 +21,6 @@ export default function Header(props) {
   const router = useRouter();
 
   useEffect(() => {
-    // setisAuthenticated(session.data?.user);
     session.data?.user ? setisAuthenticated(true) : setisAuthenticated(false);
 
     setLoading(false);
