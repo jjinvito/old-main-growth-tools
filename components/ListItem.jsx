@@ -154,6 +154,7 @@ export default function ListItem(props) {
           >
             <img src="/hoverClap.png" width={48} height={48} alt="" />
           </div>
+
         </div>
       </Link>
 
