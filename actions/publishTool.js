@@ -29,9 +29,9 @@ export const publishTool = async (toolData, subscriptionId) => {
         deals: true,
       },
     });
-    return { success: "Tool Updated Success!" };
+    return { success: "Tool Published Successfully!" };
   } catch (error) {
     console.error("Error publishing tool", error);
-    return { error: "Something went wrong!" };
+    return { error: "Something went wrong! Please try again" };
   }
 };

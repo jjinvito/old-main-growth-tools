@@ -28,6 +28,8 @@ import { useSelector } from "react-redux";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
 
+import { toast } from "react-toastify";
+
 export default function UpdateToolInfo() {
   const [SelectedPriceType, setSelectedPriceType] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -95,8 +97,8 @@ export default function UpdateToolInfo() {
     }
     startTransition(() => {
       publishTool(formData, selectedSubscriptionId).then((data) => {
-        setErrorMessage(data?.error);
-        setSuccessMessage(data?.success);
+        toast.error(data?.error);
+        toast.success(data?.success);
         data?.success && reset();
       });
     });

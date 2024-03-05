@@ -23,6 +23,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
+import { toast } from "react-toastify";
+
 export default function PublishedTools() {
   const [isHovered, setIsHovered] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
@@ -43,10 +45,10 @@ export default function PublishedTools() {
     if (!toolId) return;
     try {
       await deleteToolById(toolId);
-      console.log("Tool deleted successfully!");
+      toast.success("Tool deleted successfully!");
     } catch (error) {
       console.error("Failed to delete tool:", error);
-      console.log("Tool deleted ERROR!");
+      toast.success("Failed to delete tool!, Please try again.");
     }
   };
 
@@ -121,6 +123,7 @@ export default function PublishedTools() {
             {userData?.subscriptions?.map(
               (subscription) =>
                 subscription?.tool && (
+                  
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white  dark:bg-dark-600">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-dark-600 dark:text-white">
                       <tr>
