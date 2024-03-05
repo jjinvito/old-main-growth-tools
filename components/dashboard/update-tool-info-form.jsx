@@ -23,6 +23,7 @@ import Deals from "./formComponents/deals";
 import PreviewCard from "./formComponents/previewCard";
 import { publishTool } from "@/actions/publishTool";
 import { useTransition } from "react";
+import { useSelector } from "react-redux";
 
 import { BsExclamationTriangle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -32,6 +33,9 @@ export default function UpdateToolInfo() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isPending, startTransition] = useTransition();
+  const selectedSubscriptionId = useSelector(
+    (state) => state.subscriptions.selectedSubscriptionId
+  );
 
   const {
     register,
@@ -84,15 +88,13 @@ export default function UpdateToolInfo() {
     name: "deals",
   });
 
-  console.log("error", errors);
-
   const onSubmit = async (data) => {
     let formData = { ...data };
     if (formData.pricingType !== "AMOUNT") {
       delete formData.price;
     }
     startTransition(() => {
-      publishTool(formData, "clsln0ogj0006pr18ywf7eg9y").then((data) => {
+      publishTool(formData, selectedSubscriptionId).then((data) => {
         setErrorMessage(data?.error);
         setSuccessMessage(data?.success);
         data?.success && reset();
