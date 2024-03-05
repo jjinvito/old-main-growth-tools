@@ -13,6 +13,7 @@ import {
   fetchSubscriptions,
 } from "@/lib/redux/features/subscriptions/subscriptionSlice";
 import { BeatLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 export default function BillingPage() {
   const router = useRouter();
@@ -35,6 +36,7 @@ export default function BillingPage() {
         await dispatch(fetchSubscriptions(userId));
       } catch (error) {
         console.error("Error fetching subscriptions:", error);
+        toast.error("Failed to fetch subscriptions. Please refresh the page.");
       } finally {
       }
     }
@@ -55,11 +57,14 @@ export default function BillingPage() {
       );
       if (response.success) {
         dispatch(deleteSubscriptionSuccess(stripeSubscriptionId));
+        toast.success("Subscription canceled successfully!");
       } else {
         console.error("Failed to delete subscription:", response.message);
+        toast.error("Failed to cancel subscription. Please try again.");
       }
     } catch (error) {
       console.error("Error canceling subscription:", error);
+      toast.error("Failed to cancel subscription. Please try again.");
     } finally {
       setLoadingSubscriptionId(null);
     }
@@ -76,9 +81,13 @@ export default function BillingPage() {
         window.location.href = stripeSession.url;
       } else {
         console.error("Failed to create a Stripe billing session.");
+        toast.error(
+          "Failed to create a Stripe billing session. Please try again!"
+        );
       }
     } catch (error) {
       console.error("Error opening customer portal:", error);
+      ("Error opening customer portal. Please try again!");
     } finally {
       setManagePortalBtnLoading(false);
     }
@@ -131,7 +140,7 @@ export default function BillingPage() {
         </div>
         {subscriptionsLoading ? (
           <div className=" flex justify-center items-center h-96">
-            <BeatLoader color="white"/>
+            <BeatLoader color="white" />
           </div>
         ) : subscriptionsAvailable ? (
           <>
