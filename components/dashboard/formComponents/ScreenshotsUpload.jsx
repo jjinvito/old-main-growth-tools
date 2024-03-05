@@ -247,7 +247,10 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
               {isLoading ? (
                 <>
                   Uploading
-                  <ClipLoader size={15} color="white" />
+                  <ClipLoader
+                    size={15}
+                    className="text-black dark:text-white"
+                  />
                 </>
               ) : (
                 <>
