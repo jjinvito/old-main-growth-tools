@@ -5,6 +5,8 @@ import "@/styles/globals.css";
 import { Providers } from "./providers";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { ToastContainer, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
   title: "Next.js",
@@ -22,11 +24,22 @@ export default async function RootLayout({ children }) {
               <div className="flex dark:bg-black">
                 {/* <Sidebar showSidebar={true} /> */}
                 <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
-                  <Header
-                    showSidebar
-                    setShowSidebar={true}
-                  />
+                  <Header showSidebar setShowSidebar={true} />
+
                   {children}
+                  <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    transition={Bounce}
+                  />
                 </div>
               </div>
             </Providers>
