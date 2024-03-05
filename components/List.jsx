@@ -21,7 +21,7 @@ export default function List({ search }) {
   // }, [search]);
   console.log("toolsData=", toolsData);
   console.log("products=", toolsDataStatus);
-  return toolsDataStatus === "loading" ? (
+  return toolsDataStatus === "loadings" ? (
     <div className="flex gap-5 flex-wrap items-center justify-evenly">
       <div
         role="status"
