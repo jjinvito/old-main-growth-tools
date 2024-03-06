@@ -47,11 +47,11 @@ export default function PublishedTools() {
       await deleteToolById(toolId);
       dispatch(fetchUserById(session.data?.user?.id));
       console.log("Tool deleted successfully!");
-      toast.success("Tool deleted successfully!")
+      toast.success("Tool deleted successfully!");
     } catch (error) {
       console.error("Failed to delete tool:", error);
       console.log("Tool deleted ERROR!");
-      toast.error("Failed to delete tool!, Please try again")
+      toast.error("Failed to delete tool!, Please try again");
     } finally {
       setloadingToolDelete(null);
     }
@@ -120,101 +120,129 @@ export default function PublishedTools() {
       </div>
       <div>
         {loading === "loading" ? (
-          <div className="p-5">
-            <ToolCardSkeleton />
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white  dark:bg-dark-600">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-dark-600 dark:text-white">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    logo
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Tool Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Price
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Ceated At
+                  </th>
+                  <th scope="col" className="py-3">
+                    Published Status
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <ToolCardSkeleton />
+              </tbody>
+            </table>
           </div>
         ) : (
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
-            {userData?.subscriptions?.map(
-              (subscription) =>
-                subscription?.tool && (
-                  
-                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white  dark:bg-dark-600">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-dark-600 dark:text-white">
-                      <tr>
-                        <th scope="col" className="px-6 py-3">
-                          logo
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Tool Name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Price
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Ceated At
-                        </th>
-                        <th scope="col" className="py-3">
-                          Published Status
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        key={subscription?.tool?.id}
-                        className="bg-white border-b hover:bg-gray-50 dark:hover:bg-dark-400 dark:bg-dark-500"
-                      >
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-white  dark:bg-dark-600">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-dark-600 dark:text-white">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    logo
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Tool Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Price
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Ceated At
+                  </th>
+                  <th scope="col" className="py-3">
+                    Published Status
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {userData?.subscriptions?.map(
+                  (subscription) =>
+                    subscription?.tool && (
+                      <>
+                        <tr
+                          key={subscription?.tool?.id}
+                          className="bg-white border-b hover:bg-gray-50 dark:hover:bg-dark-400 dark:bg-dark-500"
                         >
-                          <Image
-                            src={subscription?.tool?.logoUrl}
-                            height={75}
-                            width={75}
-                          />
-                        </th>
-                        <td className="px-6 py-4">
-                          {subscription?.tool?.name}
-                        </td>
-                        <td className="px-6 py-4">
-                          ${subscription?.tool?.price}
-                        </td>
-                        <td className="px-6 py-4">
-                          {formatDate(subscription?.tool?.createdAt)}
-                        </td>
-                        <td className="px-11 py-4">
-                          <div className="flex items-center">
-                            {subscription?.tool?.isPublished ? (
-                              <GrStatusGoodSmall color="green" />
-                            ) : (
-                              <GrStatusGoodSmall color="grey" />
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className=" flex gap-10 items-center h-full">
-                            <LuPencil
-                              className="hover:text-red hover:cursor-pointer"
-                              size={25}
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            <Image
+                              src={subscription?.tool?.logoUrl}
+                              height={75}
+                              width={75}
                             />
-                            <button
-                              onClick={() =>
-                                handleDelete(subscription?.tool?.id)
-                              }
-                              disabled={
-                                loadingToolDelete === subscription?.tool?.id
-                              }
-                            >
-                              {loadingToolDelete === subscription?.tool?.id ? (
-                                <div className="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 dark:border-white"></div>
+                          </th>
+                          <td className="px-6 py-4">
+                            {subscription?.tool?.name}
+                          </td>
+                          <td className="px-6 py-4">
+                            ${subscription?.tool?.price}
+                          </td>
+                          <td className="px-6 py-4">
+                            {formatDate(subscription?.tool?.createdAt)}
+                          </td>
+                          <td className="px-11 py-4">
+                            <div className="flex items-center">
+                              {subscription?.tool?.isPublished ? (
+                                <GrStatusGoodSmall color="green" />
                               ) : (
-                                <HiOutlineTrash
-                                  className="hover:text-red hover:cursor-pointer"
-                                  size={25}
-                                />
+                                <GrStatusGoodSmall color="grey" />
                               )}
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                )
-            )}
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className=" flex gap-10 items-center h-full">
+                              <LuPencil
+                                className="hover:text-red hover:cursor-pointer"
+                                size={25}
+                              />
+                              <button
+                                onClick={() =>
+                                  handleDelete(subscription?.tool?.id)
+                                }
+                                disabled={
+                                  loadingToolDelete === subscription?.tool?.id
+                                }
+                              >
+                                {loadingToolDelete ===
+                                subscription?.tool?.id ? (
+                                  <div className="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 dark:border-white"></div>
+                                ) : (
+                                  <HiOutlineTrash
+                                    className="hover:text-red hover:cursor-pointer"
+                                    size={25}
+                                  />
+                                )}
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )
+                )}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
