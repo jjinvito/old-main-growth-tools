@@ -75,7 +75,7 @@ export default function SubmitForm(props) {
 
   return (
     <>
-      <div className="w-full  dark:bg-dark-500 rounded-xl">
+      <div className="w-full  dark:bg-dark-500 rounded-xl xl:mt-0 mt-[70px]">
         {!props.backButton ? (
           " "
         ) : (

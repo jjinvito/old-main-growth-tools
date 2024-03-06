@@ -105,9 +105,9 @@ export default function BillingPage() {
   }, [userId, subscriptions.length, dispatch, subscriptionsLoading]);
 
   return (
-    <div className="flex items-start">
-      <div className="p-5 h-screen w-screen lg:w-[85vw] dark:bg-black">
-        <p className="text-3xl font-bold leading-[1] mb-3 capitalize text-transparent bg-clip-text bg-gradient-to-r from-[#707070] to-black dark:to-dark-300 dark:from-white h-10">
+    <div className="flex items-start xl:mt-0 mt-[70px] w-full">
+      <div className="p-5 h-screen w-screen lg:w-[95%]  dark:bg-black flex flex-col">
+        <p className="text-3xl font-bold leading-[1] mb-3 capitalize text-transparent bg-clip-text bg-gradient-to-r from-[#707070] to-black dark:to-dark-300 dark:from-white h-fit py-2  w-full">
           Hello, {session?.user.name}
         </p>
         {subscriptionsLoading ? (
@@ -135,7 +135,7 @@ export default function BillingPage() {
             </button>
           )}
         </div>
-        <div className="w-[55rem]">
+        <div className="w-[full]">
           <hr />
         </div>
         {subscriptionsLoading ? (
@@ -181,7 +181,7 @@ export default function BillingPage() {
                       <td className="px-6 py-4">
                         {subscription.isActive ? "Yes" : "No"}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 inline-block w-40">
                         {formatDate(subscription.endDate)}
                       </td>
                       <td className="px-6 py-4 text-right">
@@ -201,7 +201,9 @@ export default function BillingPage() {
                           subscription.stripeSubscriptionId ? (
                             <div className="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 dark:border-white"></div>
                           ) : (
-                            "Cancel Subscription"
+                            <div className=" w-44 ">
+                            Cancel Subscription
+                            </div>
                           )}
                         </button>
                       </td>

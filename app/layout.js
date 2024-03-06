@@ -3,7 +3,6 @@ import { auth } from "@/auth";
 import StoreProvider from "./storeProvider";
 import "@/styles/globals.css";
 import { Providers } from "./providers";
-import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -95,21 +95,21 @@ export const SignUpForm = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-3/5 gap-10 customFont">
+    <div className="flex flex-col justify-center items-center min-h-screen mt-20 xl:mt-0 gap-10 customFont w-full">
       <div className="flex justify-center items-center flex-col gap-5 text-slate-600">
         <h1 className="font-bold text-6xl  text-black">Sign Up</h1>
 
-        <p className="w-96 text-center">
+        <p className="w-full text-center">
           Browse through hundreds of unique tools to boost your marketing &
           startup
         </p>
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-start gap-7"
+        className="flex flex-col justify-center items-center gap-7 w-[70%]"
       >
         <input
-          className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
+          className="sm:max-w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
           {...register("name")}
           type="text"
@@ -119,7 +119,7 @@ export const SignUpForm = () => {
           required
         />
         <input
-          className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
+          className="sm:max-w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={!!email || isPending}
           {...register("email")}
           type="email"
@@ -129,7 +129,7 @@ export const SignUpForm = () => {
           placeholder="Email address"
         />
         <input
-          className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
+          className="sm:max-w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
           {...register("password")}
           type="password"
@@ -162,16 +162,16 @@ export const SignUpForm = () => {
         <button
           disabled={isPending}
           type="submit"
-          className=" text-lg ml-2 bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 rounded-full w-[467px] h-[56px]"
+          className=" text-lg ml-2 bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 rounded-full sm:max-w-[467px] w-full h-[56px]"
         >
           {isPending ? "Processing..." : "Sign Up"}
         </button>
       </form>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 w-[70%] items-center">
         <button
           disabled={isPending}
           type="button"
-          className="flex items-center justify-center gap-2 bg-white text-black border border-1 disabled:opacity-50 border-light-300 rounded-full w-[467px] h-[56px]"
+          className="flex items-center justify-center gap-2 bg-white text-black border border-1 disabled:opacity-50 border-light-300 rounded-full sm:max-w-[467px] w-full h-[56px]"
           onClick={() => onClick("google")}
         >
           <svg

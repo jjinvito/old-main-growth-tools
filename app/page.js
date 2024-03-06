@@ -31,7 +31,7 @@ export default function Home() {
       />
 
       <div className="flex dark:bg-black">
-        <Sidebar showSidebar={false} />
+        <Sidebar/>
 
         <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
           <Hero />

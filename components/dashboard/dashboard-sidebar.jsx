@@ -12,7 +12,7 @@ export default function DashboardSidebar() {
   const currentPath = usePathname();
 
   return (
-    <div className="flex dark:bg-black top-0 h-screen">
+    <div className="flex dark:bg-black xl:mt-0 mt-[70px] h-screen">
       <div className="hidden border-r  lg:block dark:bg-black">
         <div className="flex h-full max-h-screen flex-col gap-2">
           {/* <div className="flex h-14 items-center border-b px-4">

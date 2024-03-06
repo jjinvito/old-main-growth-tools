@@ -13,7 +13,7 @@ const PreviewCard = ({ watch }) => {
   return (
     <div
       role="list-item"
-      className="transition ease-in-out w-96 rounded-xl p-4 h-80 sticky top-0"
+      className="transition ease-in-out lg:w-auto xl:w-96 sm:w-96 max-w-full rounded-xl p-4 h-80 sticky top-0"
     >
       <h1 className="font-bold text-xl mb-3 dark:text-white">Card Preview</h1>
       <div
