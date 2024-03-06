@@ -106,8 +106,8 @@ export default function UpdateToolInfo() {
   }, [useCasesAppend, keyFeaturesAppend]);
 
   return (
-    <div className="bg-white p-8 h-[calc(100vh-70px)] customFont dark:bg-black overflow-y-auto">
-      <div className="max-w-4xl mx-auto">
+    <div className="bg-white p-8 h-full customFont dark:bg-black overflow-y-auto xl:mt-0 mt-20 flex justify-center">
+      <div className="lg:max-w-[980px] ">
         <h1 className="text-3xl font-extrabold mb-6 dark:text-white">
           Post your tool to a global audience
         </h1>
@@ -116,7 +116,7 @@ export default function UpdateToolInfo() {
           audience. Use our form to submit yours today.
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12  ">
             <div className="lg:col-span-2 space-y-6">
               <hr className="text-gray-600" />
               <InputField
@@ -185,7 +185,7 @@ export default function UpdateToolInfo() {
               />
 
               <div>
-                <div className="flex flex-col items-start gap-5">
+                <div className="flex flex-col items-start gap-5 ">
                   <label
                     className={cn(
                       "block text-sm font-semibold mb-1 dark:text-white",

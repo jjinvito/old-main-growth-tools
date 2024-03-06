@@ -7,7 +7,7 @@ import AuthFooter from "@/components/auth/footer";
 const SignInPage = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <SignUpForm />
       <AuthFooter />
     </>

@@ -17,7 +17,7 @@ export default function ({ data }) {
         </div>
         <div className="inline-flex gap-2 items-center sm:p-2 p-1 lg:px-3 sm:px-5 px-1 bg-[#0091aa] rounded-3xl cursor-pointer">
           <FaPlus size={25} className=" text-white " />
-          <h1 className=" font-semibold text-white sm:text-md lg:text-md sm:w-[100px] w-[70px] text-xs">
+          <h1 className=" font-semibold text-white sm:text-md lg:text-md sm:w-[100px] w-[70px] text-[10px]">
             Submit Tool
           </h1>
         </div>

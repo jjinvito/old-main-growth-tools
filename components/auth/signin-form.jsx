@@ -39,20 +39,20 @@ export const SignInForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-4/5 gap-10 customFont">
-      <div className="flex justify-center items-center flex-col gap-5 text-slate-600">
+    <div className="flex flex-col justify-center items-center min-h-fit gap-10 customFont xl:mt-0 mt-20 w-full">
+      <div className="flex justify-center items-center flex-col gap-5 text-slate-600 ">
         <h1 className="font-bold text-6xl text-black">Sign In</h1>
-        <p className="w-96 text-center">
+        <p className="w-full text-center">
           Browse through hundreds of unique tools to boost your marketing &
           startup
         </p>
       </div>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-start gap-10"
+        className="flex flex-col justify-center items-center gap-10 w-[65%]  "
       >
         <input
-          className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
+          className="sm:w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
           {...form.register("email")}
           type="email"
@@ -62,7 +62,7 @@ export const SignInForm = () => {
           placeholder="Email address"
         />
         <input
-          className="w-[467px] h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
+          className="sm:w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
           {...form.register("password")}
           type="password"
@@ -91,7 +91,7 @@ export const SignInForm = () => {
         </div>
         <div
           className={cn(
-            " w-full flex justify-center items-center text-center text-red-600 gap-2",
+            " sm:w-[467px] w-full  flex justify-center items-center text-center text-red-600 gap-2",
             errorMessage ? "" : "hidden"
           )}
           id="errorDiv"
@@ -102,16 +102,16 @@ export const SignInForm = () => {
         <button
           disabled={isPending}
           type="submit"
-          className="py-1.5 text-sm ml-2 bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 px-3 rounded-full w-[467px] h-[56px]"
+          className="py-1.5 text-sm ml-2 bg-black text-white dark:bg-white dark:text-black disabled:opacity-50 px-3 rounded-full sm:w-[467px] w-full h-[56px]"
         >
           {isPending ? "Processing..." : "Sign In"}
         </button>
       </form>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 w-[65%] items-center">
         <button
           disabled={isPending}
           type="button"
-          className="flex items-center justify-center gap-2 px-4 py-4 bg-white text-black border border-1 disabled:opacity-50 border-light-300 rounded-full w-[467px] h-[56px]"
+          className="flex items-center justify-center gap-2 px-4 py-4 bg-white text-black border border-1 disabled:opacity-50 border-light-300 rounded-full sm:w-[467px] w-full h-[56px] text-sm"
           onClick={() => onClick("google")}
         >
           <svg

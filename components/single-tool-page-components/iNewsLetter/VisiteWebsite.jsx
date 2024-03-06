@@ -5,13 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 export default function VisiteWebsite({ data }) {
   return (
-    <div className=" inline-flex gap-6 w-full sm:justify-start justify-center ">
+    <div className=" inline-flex gap-4 w-full sm:justify-start justify-center ">
       <Link
         className=" inline-flex bg-black p-2 items-center gap-2 sm:px-32 md:px-48 xl:px-44 lg:px-28 px-10   rounded-3xl "
         href={data?.website || "#"}
         target="_blank"
       >
-        <h1 className=" text-white font-bold sm:text-sm text-[10px] lg:w-[100px] w-full">
+        <h1 className=" text-white font-bold sm:text-sm text-[9px] lg:w-[100px] w-full">
           Visit Website
         </h1>
         <HiExternalLink className=" text-white" size={25} />

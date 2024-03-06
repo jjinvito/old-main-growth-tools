@@ -22,9 +22,9 @@ export default function ToolView({ params }) {
   }, [dispatch, params.toolId]);
 
   return (
-    <div className="flex lg:flex-row flex-col justify-center lg:items-start items-center w-full lg:h-screen min-h-screen p-2 gap-8 xl:gap-36 lg:gap-28 pt-6 overflow-y-auto customFont lg:justify-start">
+    <div className="flex lg:flex-row flex-col justify-center lg:items-start items-center w-full lg:h-screen min-h-screen p-2 gap-8 xl:gap-36 lg:gap-28 pt-6 overflow-y-auto customFont lg:justify-start mt-12 lg:mt-16 xl:mt-0">
       <div className="lg:sticky lg:top-16 xl:top-0 lg:left-0 lg:right-0 lg:bottom-0">
-        <Sidebar showSidebar={true} className="min-h-screen" />
+        <Sidebar showSidebar={false} className="min-h-screen" />
       </div>
       {loading ? (
         <SingleToolPageSkeleton />
@@ -34,7 +34,7 @@ export default function ToolView({ params }) {
             <INewsLetters />
           </div>
           <div className="lg:sticky lg:top-16 xl:top-0 lg:left-0 lg:right-0 lg:bottom-0 lg:w-[25%] sm:w-[85%] w-[95%]">
-            <div className="min-h-screen">
+            <div className="lg:min-h-screen">
               <Feature />
             </div>
             <div className="block lg:hidden mt-4">
