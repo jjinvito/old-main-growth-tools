@@ -1,19 +1,14 @@
 "use client"
 
-import {useEffect, useState,useContext} from "react"
-import SignIn from "./SignIn"
-import SignUp from "./SignUp"
-import Search from "./Search"
-import {logout} from "@/actions/logout"
-import {useRouter} from "next/navigation"
-import {useSession} from "next-auth/react"
-import Link from "next/link"
-import ThemeSwitch from "./ThemeSwitch"
-import {RxHamburgerMenu} from "react-icons/rx"
-
-
-
-import {cn} from "@/lib/utils"
+import { useEffect, useState } from "react";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import Search from "./Search";
+import { logout } from "@/actions/logout";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import ThemeSwitch from "./ThemeSwitch";
 
 export default function Header(props) {
   const session = useSession()
@@ -25,8 +20,7 @@ export default function Header(props) {
   const router = useRouter()
 
   useEffect(() => {
-    // setisAuthenticated(session.data?.user);
-    session.data?.user ? setisAuthenticated(true) : setisAuthenticated(false)
+    session.data?.user ? setisAuthenticated(true) : setisAuthenticated(false);
 
     setLoading(false)
   }, [])

@@ -24,3 +24,10 @@ export const getToolById = async (toolId: string) => {
   });
   return tool;
 };
+
+export const deleteToolById = async (toolId: string) => {
+  const tool = await db.tool.delete({
+    where: { id: toolId },
+  });
+  return tool;
+}
