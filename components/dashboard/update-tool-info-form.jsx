@@ -24,11 +24,13 @@ import PreviewCard from "./formComponents/previewCard";
 import { publishTool } from "@/actions/publishTool";
 import { useTransition } from "react";
 import { useSelector } from "react-redux";
+import { fetchUserById } from "@/lib/redux/features/user/userSlice";
 
 import { BsExclamationTriangle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
 
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 export default function UpdateToolInfo() {
   const [SelectedPriceType, setSelectedPriceType] = useState("");
@@ -38,6 +40,8 @@ export default function UpdateToolInfo() {
   const selectedSubscriptionId = useSelector(
     (state) => state.subscriptions.selectedSubscriptionId
   );
+
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -100,6 +104,10 @@ export default function UpdateToolInfo() {
         toast.error(data?.error);
         toast.success(data?.success);
         data?.success && reset();
+        if (data?.success) {
+          reset();
+          dispatch(fetchUserById(session.data?.user?.id));
+        }
       });
     });
   };

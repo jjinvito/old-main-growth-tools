@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { CiCirclePlus } from "react-icons/ci";
-import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import { fetchUserById } from "@/lib/redux/features/user/userSlice";
 import { ToolCardSkeleton } from "../tool-card-skeleton";
@@ -26,9 +25,9 @@ import {
 import { toast } from "react-toastify";
 
 export default function PublishedTools() {
-  const [isHovered, setIsHovered] = useState(false);
   const [canPublish, setCanPublish] = useState(false);
   const [selectedSubscriptionId, setSubscriptionId] = useState("");
+  const [loadingToolDelete, setloadingToolDelete] = useState(null);
 
   const userData = useSelector((state) => state?.user?.data);
   const loading = useSelector((state) => state?.user?.status);
@@ -42,13 +41,19 @@ export default function PublishedTools() {
   }, []);
 
   const handleDelete = async (toolId) => {
+    setloadingToolDelete(toolId);
     if (!toolId) return;
     try {
       await deleteToolById(toolId);
-      toast.success("Tool deleted successfully!");
+      dispatch(fetchUserById(session.data?.user?.id));
+      console.log("Tool deleted successfully!");
+      toast.success("Tool deleted successfully!")
     } catch (error) {
       console.error("Failed to delete tool:", error);
-      toast.success("Failed to delete tool!, Please try again.");
+      console.log("Tool deleted ERROR!");
+      toast.error("Failed to delete tool!, Please try again")
+    } finally {
+      setloadingToolDelete(null);
     }
   };
 
@@ -190,11 +195,18 @@ export default function PublishedTools() {
                               onClick={() =>
                                 handleDelete(subscription?.tool?.id)
                               }
+                              disabled={
+                                loadingToolDelete === subscription?.tool?.id
+                              }
                             >
-                              <HiOutlineTrash
-                                className="hover:text-red hover:cursor-pointer"
-                                size={25}
-                              />
+                              {loadingToolDelete === subscription?.tool?.id ? (
+                                <div className="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 dark:border-white"></div>
+                              ) : (
+                                <HiOutlineTrash
+                                  className="hover:text-red hover:cursor-pointer"
+                                  size={25}
+                                />
+                              )}
                             </button>
                           </div>
                         </td>
@@ -204,111 +216,6 @@ export default function PublishedTools() {
                 )
             )}
           </div>
-
-          // <div
-          //   key={subscription?.tool?.id}
-          //   role="list-item"
-          //   className="transition ease-in-out w-[100%] sm:w-[100%] md:w-[100%] lg:w-[33.3%] rounded-xl p-4"
-          //   onMouseEnter={() => setIsHovered(true)}
-          //   onMouseLeave={() => setIsHovered(false)}
-          // >
-          //   <Link
-          //     href={`/tool/${subscription?.tool?.id}`}
-          //     className="hover:opacity-90 transition"
-          //   >
-          //     <div
-          //       className={cn(
-          //         "relative w-full  rounded-xl h-[250px] bg-cover bg-center border-[1px] border-light-100 dark:border-dark-500 border-solid transition duration-200 overflow-hidden"
-          //       )}
-          //     >
-          //       <div className="flex justify-center items-end h-full w-full">
-          //         <Image
-          //           className={cn(
-          //             "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
-          //             isHovered &&
-          //               "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
-          //           )}
-          //           src={subscription?.tool?.primaryScreenshot}
-          //           alt={`Logo of ${subscription?.tool?.name}`}
-          //           width={225}
-          //           height={197}
-          //         />
-          //       </div>
-
-          //       <div
-          //         className={cn(
-          //           "absolute top-0 p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
-          //           isHovered ? "bg-white" : "bg-transparent"
-          //         )}
-          //       >
-          //         <img
-          //           src={subscription?.tool?.logoUrl}
-          //           width={32}
-          //           height={32}
-          //         />
-          //       </div>
-          //       <div className="absolute right-1 top-0 flex items-center justify-center">
-          //         {subscription?.tool?.deals && (
-          //           <div
-          //             className={cn(
-          //               "p-2 m-2 rounded-lg transition-colors duration-400 ease-in-out bg-transparent",
-          //               isHovered ? "bg-white" : "bg-transparent"
-          //             )}
-          //           >
-          //             <Image
-          //               src="/deal.png"
-          //               width={35}
-          //               height={20}
-          //               alt="deal icon used to identify if any deal offered by tool owner"
-          //             />
-          //           </div>
-          //         )}
-          //       </div>
-
-          //       <div
-          //         className={cn(
-          //           "absolute bottom-2 right-2 transition-opacity duration-500 ease-in-out opacity-100 ",
-          //           isHovered ? "md:opacity-100" : "md:opacity-0"
-          //         )}
-          //       >
-          //         <img
-          //           src="/hoverClap.png"
-          //           width={48}
-          //           height={48}
-          //           alt=""
-          //         />
-          //       </div>
-          //     </div>
-          //   </Link>
-
-          //   <div className="flex justify-between items-center mt-2">
-          //     <div>
-          //       <h2 className="transition duration-200 font-bold">
-          //         {subscription?.tool?.name}
-          //       </h2>
-          //       <p className="text-sm h-16">
-          //         {subscription?.tool?.shortDescription}
-          //       </p>
-          //     </div>
-          //   </div>
-          //   <div className="flex items-center">
-          //     <button className="flex gap-4 w-1/2 bg-blueStart h-7 items-center justify-center text-white rounded-xl">
-          //       Edit
-          //       <LuPencil />
-          //     </button>
-
-          //     <button
-          //       className="flex w-1/2 gap-4 bg-red-600 h-7 items-center justify-center text-white rounded-xl"
-          //       onClick={() => handleDelete(subscription?.tool?.id)}
-          //     >
-          //       Delete
-          //       <HiOutlineTrash />
-          //     </button>
-          //   </div>
-          // </div>
-
-          //   )}
-          // </div>
         )}
       </div>
     </div>
