@@ -25,6 +25,7 @@ import { publishTool } from "@/actions/publishTool";
 import { useTransition } from "react";
 import { useSelector } from "react-redux";
 import { fetchUserById } from "@/lib/redux/features/user/userSlice";
+import { useSession } from "next-auth/react";
 
 import { BsExclamationTriangle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
@@ -40,6 +41,7 @@ export default function UpdateToolInfo() {
   const selectedSubscriptionId = useSelector(
     (state) => state.subscriptions.selectedSubscriptionId
   );
+  const session = useSession();
 
   const dispatch = useDispatch();
 
@@ -229,13 +231,13 @@ export default function UpdateToolInfo() {
                               SelectedPriceType === "amount"
                                 ? "Amount is required"
                                 : false,
-                            valueAsNumber: true, // This will ensure the value is treated as a number
+                            valueAsNumber: true,
                             pattern: {
                               value: /^\d+(\.\d{1,2})?$/,
                               message: "Invalid amount format",
                             },
                           })}
-                          type="text" // It remains text to allow decimal points
+                          type="text"
                           className=""
                           placeholder="0.00"
                         />
