@@ -1,39 +1,44 @@
-"use client"
-
+"use client";
 import { useEffect, useState } from "react";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Search from "./Search";
 import { logout } from "@/actions/logout";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useDispatch } from "react-redux";
+import { toggleSidebar } from "@/lib/redux/features/sideBar/sideBarSlice";
+
 
 export default function Header(props) {
-  const session = useSession()
-  const [showSignInModal, setShowSignInModal] = useState(false)
-  const [showSignUpModal, setShowSignUpModal] = useState(false)
-  const [showSearch, setShowSearch] = useState(false)
-  const [isAuthenticated, setisAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
+  const session = useSession();
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [isAuthenticated, setisAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     session.data?.user ? setisAuthenticated(true) : setisAuthenticated(false);
 
-    setLoading(false)
-  }, [])
+    setLoading(false);
+  }, []);
 
   const handleSignOut = () => {
-    logout()
-    setisAuthenticated(false)
-    setLoading(false)
-    setLoading(false)
-  }
+    logout();
+    setisAuthenticated(false);
+    setLoading(false);
+    setLoading(false);
+  };
+
+  const handleToggleSidebar = () => {
+    dispatch(toggleSidebar());
+  };
 
   return (
-   
     <div className="header fixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center   px-4 pr-4 z-10 bg-white dark:bg-black dark:border-b dark:border-b-dark-400">
       <Link href="/">
         <img src="https://copyui.com/favicon.ico" width="40px" />
@@ -44,7 +49,7 @@ export default function Header(props) {
         <button
           className="py-2 text-sm sm:ml-2 text-black dark:text-white dark:hover:bg-dark-500  hover:bg-light-100 transition px-3 rounded-full"
           onClick={() => {
-            setShowSearch(!showSearch)
+            setShowSearch(!showSearch);
           }}
         >
           <svg
@@ -74,7 +79,7 @@ export default function Header(props) {
                   <button
                     className="py-1.5 sm:text-sm text-[8px] sm:ml-2 border border-1 border-light-200 text-black dark:border-dark-400 dark:text-dark-200 px-3 rounded-full"
                     onClick={() => {
-                      setShowSignInModal(!showSignInModal)
+                      setShowSignInModal(!showSignInModal);
                     }}
                   >
                     Sign in
@@ -83,7 +88,7 @@ export default function Header(props) {
                   <button
                     className="py-1.5 text-sm sm:ml-2 bg-black text-white dark:bg-white dark:text-black px-3 rounded-full"
                     onClick={() => {
-                      setShowSignUpModal(!showSignUpModal)
+                      setShowSignUpModal(!showSignUpModal);
                     }}
                   >
                     Sign up
@@ -114,7 +119,9 @@ export default function Header(props) {
         >
           Submit
         </Link>
-        <button ><RxHamburgerMenu size={25} /></button>
+        <button onClick={handleToggleSidebar}>
+          <RxHamburgerMenu size={25} />
+        </button>
       </div>
 
       {/* sign in component (modal) */}
@@ -132,7 +139,6 @@ export default function Header(props) {
 
       {/* search component */}
       <Search showSearch={showSearch} setShowSearch={setShowSearch} />
-     
     </div>
-  )
+  );
 }
