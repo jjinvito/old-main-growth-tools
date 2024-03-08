@@ -1,25 +1,20 @@
-import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { registerNewUser } from "@/actions/register";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition, useEffect } from "react";
 import { RegisterSchema } from "@/schemas";
-import { cn } from "@/lib/utils";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import { BsExclamationTriangle } from "react-icons/bs";
 import { RxCrossCircled } from "react-icons/rx";
-import { FaRegCheckCircle } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { BeatLoader } from "react-spinners";
+import { toast } from "react-toastify";
 import { verifyPaymentSuccess } from "@/actions/stripe/verify-payment-success";
 import Link from "next/link";
 
 export const SignUpForm = () => {
   const searchParams = useSearchParams();
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isPending, startTransition] = useTransition();
   const session_id = searchParams.get("session_id");
   const [email, setEmail] = useState("");
@@ -48,7 +43,6 @@ export const SignUpForm = () => {
           setSuccessMessage(result.message);
         } else {
           setVerificationMessage(result.error || "Verification failed.");
-          // Optionally, redirect or take other actions
         }
       });
     }
@@ -59,14 +53,10 @@ export const SignUpForm = () => {
   };
 
   const onSubmit = (values) => {
-    setErrorMessage("");
-    setSuccessMessage("");
     startTransition(() => {
       registerNewUser(values).then((data) => {
-        setErrorMessage(data.error);
-        if (data.success) {
-          setSuccessMessage(data.success);
-        }
+        toast.error(data?.error);
+        toast.success(data?.success);
       });
     });
   };
@@ -138,27 +128,6 @@ export const SignUpForm = () => {
           required
           placeholder="Password"
         />
-        <div
-          className={cn(
-            "w-full flex justify-center items-center text-center text-green-600 gap-2",
-            successMessage ? "" : "hidden"
-          )}
-          id="successDiv"
-        >
-          <FaRegCheckCircle />
-
-          {successMessage}
-        </div>
-        <div
-          className={cn(
-            " w-full flex justify-center items-center text-center text-red-600 gap-2",
-            errorMessage ? "" : "hidden"
-          )}
-          id="errorDiv"
-        >
-          <BsExclamationTriangle />
-          {errorMessage}
-        </div>
         <button
           disabled={isPending}
           type="submit"
