@@ -19,9 +19,9 @@ export default function ScreenShots({ data }) {
           <CarouselContent>
             {data?.screenshots?.map((screenshot, index) => (
               <CarouselItem key={index}>
-                <div className="p-1">
+                <div >
                   <Card>
-                    <CardContent className="flex aspect-auto items-center justify-center p-6">
+                    <CardContent className="flex aspect-square items-center justify-center">
                       {/* Render each screenshot image */}
                       <Image
                         src={screenshot}
@@ -31,13 +31,12 @@ export default function ScreenShots({ data }) {
                       />
                     </CardContent>
                   </Card>
-                  
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          {/* <CarouselPrevious />
-          <CarouselNext /> */}
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </div>
     </>

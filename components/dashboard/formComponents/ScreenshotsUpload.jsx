@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { v4 as uuidv4 } from "uuid";
 import { FiAlertTriangle } from "react-icons/fi";
@@ -11,7 +11,7 @@ import { HiOutlineTrash } from "react-icons/hi2";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 
-const ScreenshotsUpload = ({ setValue, errors }) => {
+const ScreenshotsUpload = ({ setValue, errors, watch, action }) => {
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -38,7 +38,6 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
   }
 
   const deleteScreenshot = async (screenshotToDelete, index) => {
-    // Set the loading state to true for the specific screenshot
     setScreenshots((screenshots) =>
       screenshots.map((screenshot, i) =>
         i === index ? { ...screenshot, isLoading: true } : screenshot
@@ -58,7 +57,6 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
       );
       setErrorMessage("Error deleting screenshot");
     } else {
-      // Remove the screenshot from the state
       setScreenshots((screenshots) =>
         screenshots.filter((screenshot, i) => i !== index)
       );
@@ -77,7 +75,6 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
 
     const files = Array.from(event.target.files);
 
-    // Use the screenshots state that holds objects with url and filePath
     if (screenshots.length + files.length > 10) {
       setErrorMessage("Cannot upload more than 10 screenshots in total.");
       setIsLoading(false);
@@ -128,20 +125,18 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
         .getPublicUrl(data.path);
 
       if (res.data) {
-        // Push object containing both URL and filePath
         newScreenshots.push({ url: res.data.publicUrl, filePath });
       }
     }
 
     if (newScreenshots.length > 0) {
-      // Merge the new screenshots with the existing ones
       const updatedScreenshots = [...screenshots, ...newScreenshots];
-      setScreenshots(updatedScreenshots); // Update the screenshots state
+      setScreenshots(updatedScreenshots);
       setSuccessMessage("Screenshot(s) uploaded successfully");
       setValue(
         "screenshots",
         updatedScreenshots.map((s) => s.url)
-      ); // Update the form with the URLs
+      );
     }
     setIsLoading(false);
   };
@@ -150,6 +145,19 @@ const ScreenshotsUpload = ({ setValue, errors }) => {
     setValue("primaryScreenshot", url);
     setPrimaryScreenshot(url);
   };
+
+  const watchedScreenshots = watch("screenshots");
+  const watchPrimaryScreenshot = watch("primaryScreenshot");
+
+  useEffect(() => {
+    if (watchedScreenshots) {
+      const formattedScreenshots = watchedScreenshots.map((url) =>
+        typeof url === "object" ? url : { url }
+      );
+      setScreenshots(formattedScreenshots);
+      setPrimaryScreenshot(watchPrimaryScreenshot);
+    }
+  }, [watchedScreenshots, watchPrimaryScreenshot]);
 
   return (
     <div className="overflow-hidden">

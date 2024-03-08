@@ -40,6 +40,7 @@ const itemWordCountValidator = (maxWords) => {
 
 const SingleDealSchema = z
   .object({
+    id: z.string().optional(),
     title: z.string().min(1, "Title is required"),
     price: z.string().min(1, "Price is required"),
     originalPrice: z.string().min(1, "originalPrice is required"),

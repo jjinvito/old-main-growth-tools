@@ -24,16 +24,21 @@ import {
 
 import { toast } from "react-toastify";
 
+import { useRouter } from "next/navigation";
+import { fetchToolById } from "@/lib/redux/features/tools/singleToolSlice";
+
 export default function PublishedTools() {
   const [canPublish, setCanPublish] = useState(false);
   const [selectedSubscriptionId, setSubscriptionId] = useState("");
   const [loadingToolDelete, setloadingToolDelete] = useState(null);
+  const [loadingToolEdit, setloadingToolEdit] = useState(null);
 
   const userData = useSelector((state) => state?.user?.data);
   const loading = useSelector((state) => state?.user?.status);
   const session = useSession();
   const dispatch = useDispatch();
-
+  const router = useRouter();
+  
   const formatDate = useCallback((dateString) => {
     const options = { day: "2-digit", month: "short", year: "2-digit" };
     const date = new Date(dateString);
@@ -55,6 +60,17 @@ export default function PublishedTools() {
     } finally {
       setloadingToolDelete(null);
     }
+  };
+
+  const handleEdit = async (toolId) => {
+    setloadingToolEdit(toolId);
+    if (!toolId) return;
+    dispatch(fetchToolById(toolId));
+    router.push(`/dashboard/update-tool-info/?id=${toolId}&action=edit`);
+
+    // <Link
+    //   href={`/dashboard/update-tool-info/?id=${toolId}&action=edit`}
+    // ></Link>;
   };
 
   useEffect(() => {
@@ -213,10 +229,21 @@ export default function PublishedTools() {
                           </td>
                           <td className="px-6 py-4">
                             <div className=" flex gap-10 items-center h-full">
-                              <LuPencil
-                                className="hover:text-red hover:cursor-pointer"
-                                size={25}
-                              />
+                              <button
+                                onClick={() =>
+                                  handleEdit(subscription?.tool?.id)
+                                }
+                              >
+                                {loadingToolEdit === subscription?.tool?.id ? (
+                                  <div className="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 dark:border-white"></div>
+                                ) : (
+                                  <LuPencil
+                                    className="hover:text-red hover:cursor-pointer"
+                                    size={25}
+                                  />
+                                )}
+                              </button>
+
                               <button
                                 onClick={() =>
                                   handleDelete(subscription?.tool?.id)
