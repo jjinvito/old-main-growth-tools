@@ -131,7 +131,6 @@ export default function UpdateToolInfo() {
     setValue("pricingType", pricingType);
     setSelectedPriceType(pricingType);
   };
-
   const onSubmit = async (data) => {
     let formData = { ...data };
     if (formData.pricingType !== "AMOUNT") {
