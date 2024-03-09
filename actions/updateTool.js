@@ -1,43 +1,70 @@
 "use server";
 import { ToolSchema } from "@/schemas";
-import { PrismaClientKnownRequestError } from "@prisma/client";
+import { PrismaClientKnownRequestError, Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 
 export const updateTool = async (toolId, toolData) => {
   const validatedFields = ToolSchema.safeParse(toolData);
 
   if (!validatedFields.success) {
-    console.error("Validation failed for update", validatedFields.error);
+    console.error("Validation failed for update:", validatedFields.error);
     return {
-      error: "Invalid Fields!",
+      error: "Invalid fields",
       details: validatedFields.error.issues,
     };
   }
 
   try {
-    const { deals, ...restOfToolData } = validatedFields.data;
+    const { deals: clientDeals, ...restOfToolData } = validatedFields.data;
+    const updateData = {
+      ...restOfToolData,
+      price:
+        restOfToolData.pricingType === "AMOUNT" ? restOfToolData.price : null,
+    };
 
     const result = await db.$transaction(async (prisma) => {
       const updatedTool = await prisma.tool.update({
         where: { id: toolId },
-        data: { ...restOfToolData },
+        data: updateData,
+      });
+
+      const existingDeals = await prisma.deal.findMany({
+        where: { toolId: toolId },
+      });
+
+      const dealsToDelete = existingDeals
+        .filter(
+          (existingDeal) =>
+            !clientDeals.some((deal) => deal.id === existingDeal.id)
+        )
+        .map((deal) => deal.id);
+
+      await prisma.deal.deleteMany({
+        where: { id: { in: dealsToDelete } },
+      });
+
+      for (const deal of clientDeals) {
+        if (deal.id) {
+          await prisma.deal.update({
+            where: { id: deal.id },
+            data: { ...deal, toolId: toolId },
+          });
+        } else {
+          await prisma.deal.create({
+            data: { ...deal, toolId: toolId },
+          });
+        }
+      }
+
+      return prisma.tool.findUnique({
+        where: { id: toolId },
         include: { deals: true },
       });
-
-      await prisma.deal.deleteMany({ where: { toolId: toolId } });
-
-      const updatedDeals = await prisma.deal.createMany({
-        data: deals.map((deal) => ({ ...deal, toolId })),
-      });
-
-      return { tool: updatedTool, deals: updatedDeals };
     });
 
-    return { success: "Tool Updated Successfully!", result };
+    return { success: "Tool Updated Successfully!", tool: result };
   } catch (error) {
-    console.error("Error updating tool", error);
-    if (error instanceof PrismaClientKnownRequestError) {
-    }
+    console.error("Error updating tool:", error);
     return { error: "Something went wrong! Please try again." };
   }
 };
