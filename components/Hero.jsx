@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import { SubscribeNewsletter } from "../actions/subscribeNewsletter";
+import { toast } from "react-toastify";
 
 export default function Hero() {
   const [showModal, setShowModal] = useState(false);
@@ -15,23 +16,10 @@ export default function Hero() {
     const result = await SubscribeNewsletter(email);
 
     if (result === "success") {
-      successMessage.style.display = "block";
-      errorMessage.style.display = "none";
-
-      setEmail("");
-
-      setTimeout(() => {
-        successMessage.style.display = "none";
-      }, 7000);
+      toast.success("Subscribed successfully! Thankyou for subscribing");
     } else {
-      successMessage.style.display = "none";
-      errorMessage.style.display = "block";
-
-      setTimeout(() => {
-        errorMessage.style.display = "none";
-      }, 7000);
+      toast.error("Error! Please try again");
     }
-
   };
 
   return (
@@ -92,17 +80,6 @@ export default function Hero() {
                 </svg>
               </button>
             </form>
-            <p className="text-green-700 text-center pt-4 hidden" id="successMessage">
-              Thankyou for subscribing to our News Letter
-            </p>
-            <p className="text-red-700 text-center pt-4 hidden" id="errorMessage">
-              Something Went Wrong! :(
-            </p>
-            <p className="py-5 text-sm text-dark-200 text-center">
-              Join over 4 million people who kickstart their day with
-              CopyUI&apos;s daily newsletter - delivering the latest headlines
-              worldwide with a touch of humor, all for free.
-            </p>
           </Modal>
         </div>
       </div>

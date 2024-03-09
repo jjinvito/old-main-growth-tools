@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Search from "./Search";
@@ -8,9 +9,9 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { RxCross2 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "@/lib/redux/features/sideBar/sideBarSlice";
-
 
 export default function Header(props) {
   const session = useSession();
@@ -20,6 +21,8 @@ export default function Header(props) {
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+
+  const isVisible = useSelector((state) => state.sideBar.isVisible);
 
   useEffect(() => {
     session.data?.user ? setisAuthenticated(true) : setisAuthenticated(false);
@@ -119,8 +122,11 @@ export default function Header(props) {
         >
           Submit
         </Link>
-        <button onClick={handleToggleSidebar}>
-          <RxHamburgerMenu size={25} />
+        <button
+          onClick={handleToggleSidebar}
+          className="block xl:hidden transition-transform duration-300 ease-in-out transform hover:scale-110"
+        >
+          {isVisible ? <RxCross2 size={25} /> : <RxHamburgerMenu size={25} />}
         </button>
       </div>
 
