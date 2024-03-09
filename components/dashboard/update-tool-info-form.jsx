@@ -92,11 +92,28 @@ export default function UpdateToolInfo() {
       delete formData.price;
     }
     startTransition(() => {
-      publishTool(formData, "clsln0ogj0006pr18ywf7eg9y").then((data) => {
-        setErrorMessage(data?.error);
-        setSuccessMessage(data?.success);
-        data?.success && reset();
-      });
+      if (action == "edit") {
+        console.log("formData", formData);
+        updateTool(toolId, formData).then((data) => {
+          toast.error(data?.error);
+          toast.success(data?.success);
+          data?.success && reset();
+          if (data?.success) {
+            reset();
+            dispatch(fetchUserById(session.data?.user?.id));
+          }
+        });
+      } else {
+        publishTool(formData, selectedSubscriptionId).then((data) => {
+          toast.error(data?.error);
+          toast.success(data?.success);
+          data?.success && reset();
+          if (data?.success) {
+            reset();
+            dispatch(fetchUserById(session.data?.user?.id));
+          }
+        });
+      }
     });
   };
 
