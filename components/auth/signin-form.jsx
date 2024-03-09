@@ -9,10 +9,9 @@ import { cn } from "@/lib/utils";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export const SignInForm = () => {
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isPending, startTransition] = useTransition();
 
   const onClick = (provider) => {
@@ -28,12 +27,10 @@ export const SignInForm = () => {
   });
 
   const onSubmit = (values) => {
-    setErrorMessage("");
-    setSuccessMessage("");
     startTransition(() => {
       login(values).then((data) => {
-        setErrorMessage(data?.error);
-        setSuccessMessage(data?.success);
+        toast.error(data?.error);
+        toast.success(data?.success);
       });
     });
   };
@@ -78,27 +75,6 @@ export const SignInForm = () => {
         >
           Forgot Password?
         </button>
-        <div
-          className={cn(
-            "w-full flex justify-center items-center text-center text-green-600 gap-2",
-            successMessage ? "" : "hidden"
-          )}
-          id="successDiv"
-        >
-          <FaRegCheckCircle />
-
-          {successMessage}
-        </div>
-        <div
-          className={cn(
-            " sm:w-[467px] w-full  flex justify-center items-center text-center text-red-600 gap-2",
-            errorMessage ? "" : "hidden"
-          )}
-          id="errorDiv"
-        >
-          <BsExclamationTriangle />
-          {errorMessage}
-        </div>
         <button
           disabled={isPending}
           type="submit"

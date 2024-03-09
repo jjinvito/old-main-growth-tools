@@ -19,8 +19,7 @@ export default function List({ search }) {
     }
   }, [List]);
   // }, [search]);
-  console.log("toolsData=", toolsData);
-  console.log("products=", toolsDataStatus);
+
   return toolsDataStatus === "loadings" ? (
     <div className="flex gap-5 flex-wrap items-center justify-evenly">
       <div
@@ -43,9 +42,7 @@ export default function List({ search }) {
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-        <div class="flex items-center mt-4">
-
-        </div>
+        <div class="flex items-center mt-4"></div>
         <span class="sr-only">Loading...</span>
       </div>
       <div
@@ -68,8 +65,7 @@ export default function List({ search }) {
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-        <div class="flex items-center mt-4">
-        </div>
+        <div class="flex items-center mt-4"></div>
         <span class="sr-only">Loading...</span>
       </div>
       <div
@@ -92,9 +88,7 @@ export default function List({ search }) {
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
         <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-        <div class="flex items-center mt-4">
-
-        </div>
+        <div class="flex items-center mt-4"></div>
         <span class="sr-only">Loading...</span>
       </div>
     </div>
