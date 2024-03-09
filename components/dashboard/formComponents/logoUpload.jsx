@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 import { v4 as uuidv4 } from "uuid";
@@ -13,7 +13,7 @@ import Image from "next/image";
 import Modal from "@/components/Modal";
 import { HiOutlineTrash } from "react-icons/hi2";
 
-const LogoUpload = ({ setValue, errors }) => {
+const LogoUpload = ({ setValue, errors, watch }) => {
   const [uploadUrl, setUploadUrl] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -95,6 +95,16 @@ const LogoUpload = ({ setValue, errors }) => {
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      if (name === "logoUrl") {
+        setUploadUrl(value.logoUrl);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <div>

@@ -25,15 +25,12 @@ const SelectField = ({
           value={field.value}
           onValueChange={(val) => {
             field.onChange(val);
-            {
-              setSelectedType && setSelectedType(val);
-            }
+            if (setSelectedType) setSelectedType(val);
           }}
+          selected={field.value}
         >
           <SelectTrigger id={`${name}-trigger`}>
-            <SelectValue
-              placeholder={placeholder}
-            />
+            <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent position="popper">
             {options.map((option) => (

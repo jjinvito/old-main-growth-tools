@@ -7,7 +7,7 @@ import { LuPencil } from "react-icons/lu";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { FaRegCircleCheck } from "react-icons/fa6";
 
-const Deals = ({ fields, register, remove, errors, append, setValue }) => {
+const Deals = ({ fields, register, remove, errors, append, setValue, action }) => {
   const [editableStates, setEditableStates] = useState({});
 
   const toggleEditable = (index) => {

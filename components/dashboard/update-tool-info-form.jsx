@@ -23,15 +23,33 @@ import Deals from "./formComponents/deals";
 import PreviewCard from "./formComponents/previewCard";
 import { publishTool } from "@/actions/publishTool";
 import { useTransition } from "react";
+import { useSelector } from "react-redux";
+import { fetchUserById } from "@/lib/redux/features/user/userSlice";
+import { useSession } from "next-auth/react";
 
-import { BsExclamationTriangle } from "react-icons/bs";
-import { FaRegCheckCircle } from "react-icons/fa";
+import { updateTool } from "@/actions/updateTool";
+
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useSearchParams } from "next/navigation";
+import { fetchToolById } from "@/lib/redux/features/tools/singleToolSlice";
 
 export default function UpdateToolInfo() {
   const [SelectedPriceType, setSelectedPriceType] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isPending, startTransition] = useTransition();
+  const selectedSubscriptionId = useSelector(
+    (state) => state.subscriptions.selectedSubscriptionId
+  );
+  const toolsData = useSelector((state) => state?.tool?.item);
+
+  const searchParams = useSearchParams();
+
+  const session = useSession();
+
+  const dispatch = useDispatch();
+
+  const toolId = searchParams.get("id");
+  const action = searchParams.get("action");
 
   const {
     register,
@@ -84,7 +102,35 @@ export default function UpdateToolInfo() {
     name: "deals",
   });
 
-  console.log("error", errors);
+  const getButtonText = () => {
+    if (isPending) {
+      return action === "edit" ? "Updating..." : "Publishing...";
+    } else {
+      return action === "edit" ? "Update" : "Publish";
+    }
+  };
+
+  const preFillFieldsWithData = () => {
+    console.log("toolsdata", toolsData);
+    setValue("name", toolsData.name);
+    setValue("shortDescription", toolsData.shortDescription);
+    setValue("description", toolsData.description);
+    setValue("website", toolsData.website);
+    setValue("logoUrl", toolsData.logoUrl);
+    setValue("primaryScreenshot", toolsData.primaryScreenshot);
+    setValue("screenshots", toolsData.screenshots);
+    setValue("keyFeatures", toolsData.keyFeatures);
+    setValue("useCases", toolsData.useCases);
+    setValue("deals", toolsData.deals);
+    setValue("pricingType", toolsData.pricingType);
+    setValue("price", toolsData.price);
+    setValue("categoryId", toolsData.categoryId);
+    setValue("tierId", toolsData.tierId);
+
+    const pricingType = toolsData.pricingType;
+    setValue("pricingType", pricingType);
+    setSelectedPriceType(pricingType);
+  };
 
   const onSubmit = async (data) => {
     let formData = { ...data };
@@ -92,29 +138,69 @@ export default function UpdateToolInfo() {
       delete formData.price;
     }
     startTransition(() => {
-      publishTool(formData, "clsln0ogj0006pr18ywf7eg9y").then((data) => {
-        setErrorMessage(data?.error);
-        setSuccessMessage(data?.success);
-        data?.success && reset();
-      });
+      if (action == "edit") {
+        updateTool(toolId, formData).then((data) => {
+          toast.error(data?.error);
+          toast.success(data?.success);
+          data?.success && reset();
+          if (data?.success) {
+            reset();
+            dispatch(fetchUserById(session.data?.user?.id));
+          }
+        });
+      } else {
+        publishTool(formData, selectedSubscriptionId).then((data) => {
+          toast.error(data?.error);
+          toast.success(data?.success);
+          data?.success && reset();
+          if (data?.success) {
+            reset();
+            dispatch(fetchUserById(session.data?.user?.id));
+          }
+        });
+      }
     });
   };
 
   useEffect(() => {
+    if (toolId && action === "edit" && !toolsData) {
+      dispatch(fetchToolById(toolId));
+    }
     useCasesAppend("");
     keyFeaturesAppend("");
-  }, [useCasesAppend, keyFeaturesAppend]);
+  }, [, useCasesAppend, keyFeaturesAppend, toolId, action, dispatch]);
+
+  useEffect(() => {
+    if (toolsData && action === "edit") {
+      preFillFieldsWithData();
+    }
+  }, [toolsData, action]);
 
   return (
     <div className="bg-white p-8 h-full customFont dark:bg-black overflow-y-auto xl:mt-0 mt-20 flex justify-center">
       <div className="lg:max-w-[980px] ">
-        <h1 className="text-3xl font-extrabold mb-6 dark:text-white">
-          Post your tool to a global audience
-        </h1>
-        <p className="mb-8 text-lg text-gray-600 w-[60%] ">
-          We're always looking for the most innovative tools to share with our
-          audience. Use our form to submit yours today.
-        </p>
+        {action === "edit" ? (
+          <h1 className="text-3xl font-extrabold mb-6 dark:text-white">
+            Edit your tool
+          </h1>
+        ) : (
+          <h1 className="text-3xl font-extrabold mb-6 dark:text-white">
+            Post your tool to a global audience
+          </h1>
+        )}
+        {action === "edit" ? (
+          <p className="mb-8 text-lg text-gray-600 w-[60%] ">
+            Keep Your Tool Up-to-Date and Maximize Its Impact. Use our form to
+            update your tool's details and ensure it meets the evolving needs of
+            our audience.
+          </p>
+        ) : (
+          <p className="mb-8 text-lg text-gray-600 w-[60%] ">
+            We're always looking for the most innovative tools to share with our
+            audience. Use our form to submit yours today.
+          </p>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12  ">
             <div className="lg:col-span-2 space-y-6">
@@ -157,8 +243,13 @@ export default function UpdateToolInfo() {
                   Must include "https://"
                 </p>
               </div>
-              <LogoUpload errors={errors} setValue={setValue} />
-              <ScreenshotsUpload errors={errors} setValue={setValue} />
+              <LogoUpload errors={errors} setValue={setValue} watch={watch} />
+              <ScreenshotsUpload
+                errors={errors}
+                setValue={setValue}
+                watch={watch}
+                action={action}
+              />
 
               <Deals
                 fields={dealFields}
@@ -217,13 +308,13 @@ export default function UpdateToolInfo() {
                               SelectedPriceType === "amount"
                                 ? "Amount is required"
                                 : false,
-                            valueAsNumber: true, // This will ensure the value is treated as a number
+                            valueAsNumber: true,
                             pattern: {
                               value: /^\d+(\.\d{1,2})?$/,
                               message: "Invalid amount format",
                             },
                           })}
-                          type="text" // It remains text to allow decimal points
+                          type="text"
                           className=""
                           placeholder="0.00"
                         />
@@ -285,26 +376,6 @@ export default function UpdateToolInfo() {
                   placeholder="Tier Category"
                 />
               </div>
-              <div
-                className={cn(
-                  "w-full flex justify-center items-center text-center text-green-600 gap-2",
-                  successMessage ? "" : "hidden"
-                )}
-                id="successDiv"
-              >
-                <FaRegCheckCircle />
-                {successMessage}
-              </div>
-              <div
-                className={cn(
-                  " w-full flex justify-center items-center text-center text-red-600 gap-2",
-                  errorMessage ? "" : "hidden"
-                )}
-                id="errorDiv"
-              >
-                <BsExclamationTriangle />
-                {errorMessage}
-              </div>
               <button
                 className={cn(
                   "px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50 font-bold dark:border-dark-500 dark:text-white dark:bg-dark-600 dark:hover:bg-dark-500",
@@ -312,7 +383,7 @@ export default function UpdateToolInfo() {
                 )}
                 type="submit"
               >
-                {isPending ? "Publishing..." : "Publish"}
+                {getButtonText()}
               </button>
             </div>
             <PreviewCard watch={watch} />

@@ -1,7 +1,9 @@
 import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export default function Sidebar(props) {
+  const isVisible = useSelector((state) => state.sideBar.isVisible);
+
   const categories = [
     {
       icon: (
@@ -272,10 +274,12 @@ export default function Sidebar(props) {
 
   return (
     <div
-      className={ cn(`max-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[70px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2 w-[100vw] md:w-[215px] min-w-[215px] border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400 transition duration-400 ease-in-out z-20 transform ${
-        !props.showSidebar &&
-        "translate-x-full sm:translate-x-full xl:translate-x-0"
-      }`, props.className )}
+      className={cn(
+        `max-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[70px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2 w-[100vw] md:w-[215px] min-w-[215px] border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400 transition duration-400 ease-in-out z-20 transform ${
+          !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0"
+        }`,
+        props.className
+      )}
     >
       {categories.map((category, index) => (
         <a
