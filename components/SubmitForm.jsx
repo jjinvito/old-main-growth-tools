@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { FaExclamationTriangle } from "react-icons/fa";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { IoCheckmark } from "react-icons/io5";
 import { useRouter } from "next/navigation";
@@ -8,6 +7,7 @@ import { useSession } from "next-auth/react";
 import getStripe from "@/utils/get-stripejs";
 import { cn } from "@/lib/utils";
 import { CreateStripeCheckoutSession } from "@/actions/stripe/checkout-session";
+import { toast } from "react-toastify";
 
 export default function SubmitForm(props) {
   const session = useSession();
@@ -17,7 +17,6 @@ export default function SubmitForm(props) {
   const [emailAddress, setEmailAddress] = useState("");
   const [priceId, setpriceId] = useState(null);
   const [planType, setplanType] = useState(null);
-  const [errorMessage, seterrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [cardSelected, setcardSelected] = useState(false);
   const userId = session.data?.user?.id;
@@ -27,11 +26,10 @@ export default function SubmitForm(props) {
 
     const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
     if (!urlRegex.test(toolUrl)) {
-      seterrorMessage("Please enter a valid tool URL.");
+      toast.error("Please enter a valid tool URL.");
       return;
     }
 
-    seterrorMessage("");
     setLoading(true);
 
     try {
@@ -47,7 +45,7 @@ export default function SubmitForm(props) {
         sessionId: response.session.id,
       });
     } catch (error) {
-      seterrorMessage("Something Went Wrong! Please try again.");
+      toast.error("Something Went Wrong! Please try again.");
     } finally {
       setLoading(false);
     }
@@ -56,11 +54,9 @@ export default function SubmitForm(props) {
   const handleCardClick = (cardIndex) => {
     setSelectedCard(cardIndex);
     if (cardIndex === 0) {
-      // setpriceId("price_1OfJRjGZiJ9FqoFUZORhBvGi");
       setpriceId(process.env.NEXT_PUBLIC_MONTHLY_PRODUCT_ID);
       setplanType("Monthly");
     } else if (cardIndex === 1) {
-      // setpriceId("price_1OfJSeGZiJ9FqoFUCjJyZ0qY");
       setpriceId(process.env.NEXT_PUBLIC_YEARLY_PRODUCT_ID);
       setplanType("Annual");
     }
@@ -211,17 +207,6 @@ export default function SubmitForm(props) {
                       </div>
                     </div>
                   </div>
-                  <p
-                    className="text-red-700 pb-2 flex items-center text-center justify-center gap-2 text-sm"
-                    id="errorMessage"
-                  >
-                    {errorMessage && (
-                      <>
-                        <FaExclamationTriangle className="h-4 w-4" />
-                        {errorMessage}
-                      </>
-                    )}
-                  </p>
 
                   <button
                     className={cn(

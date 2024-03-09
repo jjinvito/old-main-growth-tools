@@ -11,6 +11,7 @@ import { signIn } from "next-auth/react";
 import * as z from "zod";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schemas";
+import { toast } from "react-toastify";
 
 export default function SignIn(props) {
   const router = useRouter();
@@ -31,12 +32,10 @@ export default function SignIn(props) {
   });
 
   const onSubmit = (values) => {
-    setErrorMessage("");
-    setSuccessMessage("");
     startTransition(() => {
       login(values).then((data) => {
-        setErrorMessage(data?.error);
-        setSuccessMessage(data?.success);
+        toast.error(data?.error);
+        toast.success(data?.success);
       });
     });
   };
@@ -159,32 +158,12 @@ export default function SignIn(props) {
           />
         </div>
 
-        <div
-          className={cn(
-            "text-center p-5 text-green-600",
-            successMessage ? "" : "hidden"
-          )}
-          id="successDiv"
-        >
-          {successMessage}
-        </div>
-        <div
-          className={cn(
-            "text-center p-5 text-red-600",
-            errorMessage ? "" : "hidden"
-          )}
-          id="errorDiv"
-        >
-          {errorMessage}
-        </div>
-
         <button
           className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50"
           type="submit"
           disabled={isPending}
         >
-          {isPending ? 'Processing...' : 'Sign In'}
-
+          {isPending ? "Processing..." : "Sign In"}
         </button>
       </form>
       <div className="py-4 text-sm text-dark-200  text-center flex justify-between">
@@ -193,6 +172,6 @@ export default function SignIn(props) {
           Forgot password?
         </Link>
       </div>
-    </Modal >
+    </Modal>
   );
 }

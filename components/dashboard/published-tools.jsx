@@ -38,7 +38,7 @@ export default function PublishedTools() {
   const session = useSession();
   const dispatch = useDispatch();
   const router = useRouter();
-  
+
   const formatDate = useCallback((dateString) => {
     const options = { day: "2-digit", month: "short", year: "2-digit" };
     const date = new Date(dateString);
@@ -51,11 +51,9 @@ export default function PublishedTools() {
     try {
       await deleteToolById(toolId);
       dispatch(fetchUserById(session.data?.user?.id));
-      console.log("Tool deleted successfully!");
       toast.success("Tool deleted successfully!");
     } catch (error) {
       console.error("Failed to delete tool:", error);
-      console.log("Tool deleted ERROR!");
       toast.error("Failed to delete tool!, Please try again");
     } finally {
       setloadingToolDelete(null);
@@ -67,10 +65,6 @@ export default function PublishedTools() {
     if (!toolId) return;
     dispatch(fetchToolById(toolId));
     router.push(`/dashboard/update-tool-info/?id=${toolId}&action=edit`);
-
-    // <Link
-    //   href={`/dashboard/update-tool-info/?id=${toolId}&action=edit`}
-    // ></Link>;
   };
 
   useEffect(() => {
@@ -86,12 +80,8 @@ export default function PublishedTools() {
     }
   }, [dispatch, userData]);
 
-  console.log("userData", userData);
-  console.log("loading", loading);
-
   const handleSubscriptionChange = (value) => {
     setSubscriptionId(value);
-    console.log("value==", value);
     dispatch(setSelectedSubscriptionId(value));
   };
 

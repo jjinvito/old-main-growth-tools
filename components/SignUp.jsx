@@ -8,6 +8,7 @@ import { registerNewUser } from "@/actions/register";
 import { RegisterSchema } from "@/schemas";
 import { signIn } from "next-auth/react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { toast } from "react-toastify";
 
 export default function SignUp(props) {
   const [isPending, startTransition] = useTransition();
@@ -29,14 +30,10 @@ export default function SignUp(props) {
   });
 
   const onSubmit = (values) => {
-    setErrorMessage("");
-    setSuccessMessage("");
     startTransition(() => {
       registerNewUser(values).then((data) => {
-        setErrorMessage(data.error);
-        if (data.success) {
-          setSuccessMessage(data.success);
-        }
+        toast.error(data?.error);
+        toast.success(data?.success);
       });
     });
   };
@@ -50,7 +47,6 @@ export default function SignUp(props) {
     >
       <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#8f8f8f] to-black text-center mt-5 mb-2 ">
         Sign Up
-
       </h1>
 
       {/* social auth buttons */}
@@ -200,30 +196,12 @@ export default function SignUp(props) {
             </Link>
           </label>
         </div>
-        <div
-          className={cn(
-            "text-center p-5 text-green-600",
-            successMessage ? "" : "hidden"
-          )}
-          id="successDiv"
-        >
-          {successMessage}
-        </div>
-        <div
-          className={cn(
-            "text-center p-5 text-red-600",
-            errorMessage ? "" : "hidden"
-          )}
-          id="errorDiv"
-        >
-          {errorMessage}
-        </div>
         <button
           className="px-2 py-4 rounded-full w-full flex gap-2 justify-center bg-black text-white disabled:opacity-50"
           type="submit"
           disabled={isPending}
-        >{isPending ? 'Processing...' : 'Create account'}
-
+        >
+          {isPending ? "Processing..." : "Create account"}
         </button>
       </form>
 
