@@ -57,7 +57,10 @@ const urlSchema = z
 
 const toValidFloat = (val) => {
   const parsed = parseFloat(val);
-  return isNaN(parsed) ? undefined : parsed;
+  if (isNaN(parsed)) {
+    throw new Error("Invalid number format");
+  }
+  return parsed;
 };
 
 export const ToolSchema = z
@@ -90,10 +93,7 @@ export const ToolSchema = z
     primaryScreenshot: urlSchema,
 
     price: z
-      .union([
-        z.string().transform(toValidFloat), // Transform a valid float string to a number
-        z.number().min(0), // Validate non-negative numbers for price
-      ])
+      .union([z.string().transform(toValidFloat), z.number().min(0), z.null()])
       .optional(),
 
     pricingType: priceTypeIdSchema,
@@ -158,7 +158,6 @@ export const ToolSchema = z
   })
   .refine(
     (data) => {
-      // Validate that if pricingType is 'amount', then price is a number and not undefined
       if (data.pricingType === "amount" && typeof data.price !== "number") {
         return false;
       }
