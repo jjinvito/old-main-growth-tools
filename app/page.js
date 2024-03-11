@@ -1,9 +1,9 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import List from "@/components/List";
+import CollapsedCard from "@/components/CollapsedCard/CollapsedCard";
 import SEO from "@/components/SEO";
 import { useDispatch } from "react-redux";
 
@@ -31,11 +31,10 @@ export default function Home() {
       />
 
       <div className="flex dark:bg-black">
-        <Sidebar/>
-
-        <div className="main w-full max-h-[100vh] scrollbar-hide overflow-y-auto">
+        <Sidebar />
+        <div className="main pl-7 w-full min-h-[100vh] scrollbar-hide overflow-y-auto">
           <Hero />
-
+          <CollapsedCard />
           <List />
         </div>
       </div>
