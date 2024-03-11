@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import List from "@/components/List";
-import CollapsedCard from "@/components/CollapsedCard/CollapsedCard";
+import CollapsedCard from "@/components/collapsed-card/CollapsedCard";
 import SEO from "@/components/SEO";
 import { useDispatch } from "react-redux";
 
