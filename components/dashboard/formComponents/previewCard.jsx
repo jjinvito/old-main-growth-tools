@@ -45,7 +45,7 @@ const PreviewCard = ({ watch }) => {
         >
           <Image src={logo ? logo : "/logov2.png"} width={32} height={32} alt="logo"/>
         </div>
-        {deals.length && (
+        {deals?.length && (
           <div className="absolute right-1 top-0 flex items-center justify-center">
             <div
               className={cn(

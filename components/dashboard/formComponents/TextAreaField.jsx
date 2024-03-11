@@ -9,10 +9,14 @@ const TextAreaField = ({
   register,
   placeholder,
   className,
+  action,
+  toolsData,
 }) => (
   <div>
     <label
-      className={`block text-sm font-semibold mb-1 dark:text-white ${error && "text-red-500"}`}
+      className={`block text-sm font-semibold mb-1 dark:text-white ${
+        error && "text-red-500"
+      }`}
       htmlFor={id}
     >
       {error ? error.message : placeholder}
@@ -23,6 +27,7 @@ const TextAreaField = ({
       placeholder={placeholder}
       className={cn(
         "drop-shadow-xl rounded-xl h-[150px] resize-none",
+        action == "edit" && !toolsData ? "cursor-wait" : "",
         className
       )}
     />

@@ -1,7 +1,7 @@
 // KeyFeaturesFieldArray.js
 import { Input } from "@/components/ui/input";
 import { GoTrash } from "react-icons/go";
-import { useFieldArray } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const KeyFeaturesFieldArray = ({
   fields,
@@ -9,7 +9,22 @@ const KeyFeaturesFieldArray = ({
   remove,
   errors,
   append,
+  watch,
 }) => {
+  const fieldArrayValues = watch("keyFeatures");
+
+  const handleAppend = () => {
+    const lastItemValue = fieldArrayValues[fieldArrayValues.length - 1];
+
+    if (lastItemValue !== "") {
+      append("");
+    } else {
+      toast.info(
+        "Please fill in the last Key Feature before adding a new one!"
+      );
+    }
+  };
+
   return (
     <div>
       <label
@@ -67,7 +82,7 @@ const KeyFeaturesFieldArray = ({
           <button
             className="text-sm font-medium text-DBlue"
             type="button"
-            onClick={() => append("")}
+            onClick={handleAppend}
           >
             Add Key Features +
           </button>
