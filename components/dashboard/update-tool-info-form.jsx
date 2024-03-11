@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -29,14 +29,17 @@ import { useSession } from "next-auth/react";
 
 import { updateTool } from "@/actions/updateTool";
 
-import { toast } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "next/navigation";
 import { fetchToolById } from "@/lib/redux/features/tools/singleToolSlice";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function UpdateToolInfo() {
   const [SelectedPriceType, setSelectedPriceType] = useState("");
   const [isPending, startTransition] = useTransition();
+  const loadingToastId = useRef(null);
+
   const selectedSubscriptionId = useSelector(
     (state) => state.subscriptions.selectedSubscriptionId
   );
@@ -51,6 +54,43 @@ export default function UpdateToolInfo() {
   const toolId = searchParams.get("id");
   const action = searchParams.get("action");
 
+  function mapToolsDataToDefaultValues(toolsData) {
+    return {
+      name: toolsData.name,
+      shortDescription: toolsData.shortDescription,
+      description: toolsData.description,
+      website: toolsData.website,
+      logoUrl: toolsData.logoUrl,
+      screenshots: toolsData.screenshots,
+      primaryScreenshot: toolsData.primaryScreenshot,
+      keyFeatures: toolsData.keyFeatures,
+      useCases: toolsData.useCases,
+      deals: toolsData.deals || [],
+      pricingType: toolsData.pricingType,
+      price: toolsData.price,
+      categoryId: toolsData.categoryId,
+      tierId: toolsData.tierId,
+    };
+  }
+
+  const formOptions = {
+    defaultValues:
+      toolsData && action == " edit"
+        ? mapToolsDataToDefaultValues(toolsData)
+        : {
+            deals: [
+              {
+                title: "LifeTime 50% off",
+                price: "$4.99",
+                originalPrice: "$10",
+                validity: "monthly",
+                savings: "You save $5.01",
+                link: "https://enterLinkHere/forAboveButton",
+              },
+            ],
+          },
+  };
+
   const {
     register,
     handleSubmit,
@@ -61,18 +101,7 @@ export default function UpdateToolInfo() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(ToolSchema),
-    defaultValues: {
-      deals: [
-        {
-          title: "LifeTime 50% off",
-          price: "$4.99",
-          originalPrice: "$10",
-          validity: "monthly",
-          savings: "You save $5.01",
-          link: "https://enterLinkHere/forAboveButton",
-        },
-      ],
-    },
+    ...formOptions,
   });
 
   const {
@@ -110,27 +139,6 @@ export default function UpdateToolInfo() {
     }
   };
 
-  const preFillFieldsWithData = () => {
-    console.log("toolsdata", toolsData);
-    setValue("name", toolsData.name);
-    setValue("shortDescription", toolsData.shortDescription);
-    setValue("description", toolsData.description);
-    setValue("website", toolsData.website);
-    setValue("logoUrl", toolsData.logoUrl);
-    setValue("primaryScreenshot", toolsData.primaryScreenshot);
-    setValue("screenshots", toolsData.screenshots);
-    setValue("keyFeatures", toolsData.keyFeatures);
-    setValue("useCases", toolsData.useCases);
-    setValue("deals", toolsData.deals);
-    setValue("pricingType", toolsData.pricingType);
-    setValue("price", toolsData.price);
-    setValue("categoryId", toolsData.categoryId);
-    setValue("tierId", toolsData.tierId);
-
-    const pricingType = toolsData.pricingType;
-    setValue("pricingType", pricingType);
-    setSelectedPriceType(pricingType);
-  };
   const onSubmit = async (data) => {
     let formData = { ...data };
     if (formData.pricingType !== "AMOUNT") {
@@ -165,15 +173,25 @@ export default function UpdateToolInfo() {
     if (toolId && action === "edit" && !toolsData) {
       dispatch(fetchToolById(toolId));
     }
-    useCasesAppend("");
-    keyFeaturesAppend("");
-  }, [, useCasesAppend, keyFeaturesAppend, toolId, action, dispatch]);
+    if (!action == "edit") {
+      useCasesAppend("");
+      keyFeaturesAppend("");
+    }
+  }, [useCasesAppend, keyFeaturesAppend, toolsData, action, dispatch]);
 
   useEffect(() => {
-    if (toolsData && action === "edit") {
-      preFillFieldsWithData();
+    if (action === "edit" && toolsData) {
+      reset(mapToolsDataToDefaultValues(toolsData));
     }
-  }, [toolsData, action]);
+
+    if (action == "edit" && !toolsData && loadingToastId.current === null) {
+      const id = toast.loading("Fetching data...");
+      loadingToastId.current = id;
+    } else if (toolsData && loadingToastId.current !== null) {
+      toast.dismiss(loadingToastId.current);
+      loadingToastId.current = null;
+    }
+  }, [toolsData, action, reset]);
 
   return (
     <div className="bg-white p-8 h-full customFont dark:bg-black overflow-y-auto xl:mt-0 mt-20 flex justify-center">
@@ -211,6 +229,8 @@ export default function UpdateToolInfo() {
                 name="name"
                 placeholder="Name"
                 disabled={isPending}
+                action={action}
+                toolsData={toolsData}
               />
               <TextAreaField
                 name="shortDescription"
@@ -219,6 +239,8 @@ export default function UpdateToolInfo() {
                 register={register}
                 placeholder="Short Description"
                 disabled={isPending}
+                action={action}
+                toolsData={toolsData}
               />
               <TextAreaField
                 name="description"
@@ -228,6 +250,8 @@ export default function UpdateToolInfo() {
                 placeholder="Description"
                 className="resize-y"
                 disabled={isPending}
+                action={action}
+                toolsData={toolsData}
               />
               <div>
                 <InputField
@@ -237,6 +261,8 @@ export default function UpdateToolInfo() {
                   name="website"
                   placeholder="Website"
                   disabled={isPending}
+                  action={action}
+                  toolsData={toolsData}
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Must include "https://"
@@ -264,6 +290,7 @@ export default function UpdateToolInfo() {
                 append={keyFeaturesAppend}
                 register={register}
                 errors={errors}
+                watch={watch}
               />
 
               <UseCasesFieldArray
@@ -272,6 +299,7 @@ export default function UpdateToolInfo() {
                 remove={useCasesRemove}
                 append={useCasesAppend}
                 errors={errors}
+                watch={watch}
               />
 
               <div>

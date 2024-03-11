@@ -1,6 +1,5 @@
 "use server";
 import { ToolSchema } from "@/schemas";
-import { PrismaClientKnownRequestError, Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
 
 export const updateTool = async (toolId, toolData) => {
@@ -28,33 +27,39 @@ export const updateTool = async (toolId, toolData) => {
         data: updateData,
       });
 
-      const existingDeals = await prisma.deal.findMany({
-        where: { toolId: toolId },
-      });
-
-      const dealsToDelete = existingDeals
-        .filter(
-          (existingDeal) =>
-            !clientDeals.some((deal) => deal.id === existingDeal.id)
-        )
+      // Identify deals to delete directly using a query to minimize data transfer and processing
+      const clientDealIds = clientDeals
+        .filter((deal) => deal.id)
         .map((deal) => deal.id);
-
       await prisma.deal.deleteMany({
-        where: { id: { in: dealsToDelete } },
+        where: {
+          toolId: toolId,
+          NOT: {
+            id: { in: clientDealIds },
+          },
+        },
       });
 
-      for (const deal of clientDeals) {
-        if (deal.id) {
-          await prisma.deal.update({
+      // Batch create/update operations
+      // Assuming Prisma doesn't support createOrUpdate directly, split operations
+      const updates = clientDeals
+        .filter((deal) => deal.id)
+        .map((deal) =>
+          prisma.deal.update({
             where: { id: deal.id },
             data: { ...deal, toolId: toolId },
-          });
-        } else {
-          await prisma.deal.create({
+          })
+        );
+      const creates = clientDeals
+        .filter((deal) => !deal.id)
+        .map((deal) =>
+          prisma.deal.create({
             data: { ...deal, toolId: toolId },
-          });
-        }
-      }
+          })
+        );
+
+      // Execute all updates and creates in parallel, cautiously
+      await Promise.all([...updates, ...creates]);
 
       return prisma.tool.findUnique({
         where: { id: toolId },
