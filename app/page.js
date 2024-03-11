@@ -10,10 +10,14 @@ import { useDispatch } from "react-redux";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
+import { useSearchParams } from "next/navigation";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  const showAs = searchParams.get("showAs");
 
   useEffect(() => {
     dispatch(fetchTools());
@@ -34,8 +38,7 @@ export default function Home() {
         <Sidebar />
         <div className="main pl-7 w-full min-h-[100vh] scrollbar-hide overflow-y-auto">
           <Hero />
-          <CollapsedCard />
-          <List />
+          {showAs == "collapsed" ? <CollapsedCard /> : <List />}
         </div>
       </div>
     </main>
