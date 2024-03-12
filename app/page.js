@@ -11,6 +11,7 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
 import { useSearchParams } from "next/navigation";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,9 +37,14 @@ export default function Home() {
 
       <div className="flex dark:bg-black">
         <Sidebar />
-        <div className="main pl-7 w-full min-h-[100vh] scrollbar-hide overflow-y-auto">
-          <Hero />
-          {showAs == "collapsed" ? <CollapsedCard /> : <List />}
+        <div className="main w-full min-h-[100vh] scrollbar-hide overflow-y-auto h-[calc(100vh-70px)] flex flex-col justify-between">
+          <div>
+            <Hero />
+            {showAs == "Collapsed" ? <CollapsedCard /> : <List />}
+          </div>
+          <div>
+            <Footer />
+          </div>
         </div>
       </div>
     </main>

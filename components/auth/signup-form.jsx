@@ -85,7 +85,7 @@ export const SignUpForm = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen mt-20 xl:mt-0 gap-10 customFont w-full">
+    <div className="flex flex-col justify-center items-center min-h-fit gap-10 customFont xl:mt-0 mt-20 w-[671px] h-[589px]">
       <div className="flex justify-center items-center flex-col gap-5 text-slate-600">
         <h1 className="font-bold text-6xl  text-black">Sign Up</h1>
 

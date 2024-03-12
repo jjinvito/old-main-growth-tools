@@ -7,9 +7,9 @@ export default function Hero() {
 
 
   return (
-    <div className=" w-full h-[400px] flex flex-col xl:mt-0 mt-16 mb-2 ">
-      <div className=" w-full h-[280px] flex flex-row">
-        <div className="  w-[75%] h-[325px]  customFont font-bold gap-4 flex flex-col ">
+    <div className=" w-full h-[41vh] flex flex-col xl:mt-0 mt-16 mb-2 ">
+      <div className=" w-screen xl:w-[85vw] 2xl:w-screen h-[30vh] flex flex-row">
+        <div className="  w-[75%] h-[325px] customFont font-bold gap-4 flex flex-col ">
           <h1 className=" text-[40px] ">
             Discover{" "}
             <span className="bg-gradient-to-r from-[#2661FA] to-[#32DDB4]  text-transparent bg-clip-text ">

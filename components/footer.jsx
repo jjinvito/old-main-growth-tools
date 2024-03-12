@@ -4,9 +4,9 @@ import { BiLogoInstagramAlt } from "react-icons/bi";
 import { FaTwitter } from "react-icons/fa";
 import Image from "next/image";
 
-export default function AuthFooter() {
+export default function Footer() {
   return (
-    <div className="bg-white py-8 ">
+    <div className="bg-white py-8 h-[15vh] shadow-2xl">
       <div className="w-full  lg:px-8 flex justify-evenly items-center sm:flex-row flex-col gap-2">
         <div className="flex justify-between items-center sm:flex-row flex-col sm:gap-0 gap-3 w-full">
           <div>

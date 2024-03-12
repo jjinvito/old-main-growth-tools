@@ -1,16 +1,17 @@
 "use client";
 
 import { SignUpForm } from "@/components/auth/signup-form";
-import Header from "@/components/Header";
-import AuthFooter from "@/components/auth/footer";
+import Footer from "@/components/footer";
 
 const SignInPage = () => {
   return (
-    <>
+    <div className="flex flex-col justify-between h-[calc(100vh-70px)]">
       {/* <Header /> */}
-      <SignUpForm />
-      <AuthFooter />
-    </>
+      <div className="flex justify-center items-center w-full h-full">
+        <SignUpForm />
+      </div>
+      <Footer />
+    </div>
   );
 };
 

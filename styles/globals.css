@@ -111,3 +111,17 @@
 .customFont {
   font-family: 'ClashDisplay-Variable', sans-serif;
 }
+.filter-shadow{
+  box-shadow: 0px 152px 42px 0px rgba(186, 186, 186, 0) !important;
+}
+/* #main-content.blurapply {
+ opacity: 0.2;
+  
+}
+#exclude-blur.blurnone{
+
+ opacity: 1;
+ 
+  background-color: aqua !important;
+} */
+
