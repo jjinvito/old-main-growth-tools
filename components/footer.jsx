@@ -3,16 +3,17 @@ import { BiLogoTiktok } from "react-icons/bi";
 import { BiLogoInstagramAlt } from "react-icons/bi";
 import { FaTwitter } from "react-icons/fa";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-export default function Footer() {
+export default function Footer({ className }) {
   return (
-    <div className="bg-white py-8 h-[15vh] shadow-2xl">
+    <div className={cn("bg-white py-8 h-[195px] shadow-2xl", className)}>
       <div className="w-full  lg:px-8 flex justify-evenly items-center sm:flex-row flex-col gap-2">
         <div className="flex justify-between items-center sm:flex-row flex-col sm:gap-0 gap-3 w-full">
           <div>
             <Image
-                width="94"
-                height="29"
+              width="94"
+              height="29"
               src="/footerLogo.png"
               alt="Growth verality logo"
             />
@@ -41,7 +42,9 @@ export default function Footer() {
               </nav>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-center">Get in touch</h3>
+              <h3 className="text-lg font-semibold text-center">
+                Get in touch
+              </h3>
               <nav className="mt-4">
                 <ul className="space-y-3 ">
                   <li>
@@ -49,7 +52,12 @@ export default function Footer() {
                       className="flex sm:flex-row flex-col  items-center text-gray-600 hover:text-gray-800 gap-2 text-center"
                       href="#"
                     >
-                      <Image src="/discord.png" width="20" height="14" alt="Discord logo"/>
+                      <Image
+                        src="/discord.png"
+                        width="20"
+                        height="14"
+                        alt="Discord logo"
+                      />
                       Join our Discord community
                     </a>
                   </li>
@@ -72,14 +80,14 @@ export default function Footer() {
             </div>
           </div>
           <div>
-          <button
-          className="py-1.5 text-sm ml-2 bg-white text-black  px-3 rounded-full w-[134px] h-[48px] border border-black font-semibold"
-          // onClick={() => {
-          //   setShowSignUpModal(!showSignUpModal);
-          // }}
-        >
-          Contact Us
-        </button>
+            <button
+              className="py-1.5 text-sm ml-2 bg-white text-black  px-3 rounded-full w-[134px] h-[48px] border border-black font-semibold"
+              // onClick={() => {
+              //   setShowSignUpModal(!showSignUpModal);
+              // }}
+            >
+              Contact Us
+            </button>
           </div>
         </div>
       </div>

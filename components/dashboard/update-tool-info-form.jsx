@@ -31,7 +31,7 @@ import { updateTool } from "@/actions/updateTool";
 
 import { toast, Bounce } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { fetchToolById } from "@/lib/redux/features/tools/singleToolSlice";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -46,6 +46,7 @@ export default function UpdateToolInfo() {
   const toolsData = useSelector((state) => state?.tool?.item);
 
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const session = useSession();
 
@@ -153,6 +154,7 @@ export default function UpdateToolInfo() {
           if (data?.success) {
             reset();
             dispatch(fetchUserById(session.data?.user?.id));
+            router.push("/dashboard/published-tools");
           }
         });
       } else {
@@ -163,6 +165,7 @@ export default function UpdateToolInfo() {
           if (data?.success) {
             reset();
             dispatch(fetchUserById(session.data?.user?.id));
+            router.push("/dashboard/published-tools");
           }
         });
       }
@@ -173,7 +176,7 @@ export default function UpdateToolInfo() {
     if (toolId && action === "edit" && !toolsData) {
       dispatch(fetchToolById(toolId));
     }
-    if (!action == "edit") {
+    if (!(action == "edit")) {
       useCasesAppend("");
       keyFeaturesAppend("");
     }
@@ -194,7 +197,7 @@ export default function UpdateToolInfo() {
   }, [toolsData, action, reset]);
 
   return (
-    <div className="bg-white p-8 h-full customFont dark:bg-black overflow-y-auto xl:mt-0 mt-20 flex justify-center">
+    <div className="bg-white p-8 h-full clash-display dark:bg-black overflow-y-auto xl:mt-0 mt-20 flex justify-center">
       <div className="lg:max-w-[980px] ">
         {action === "edit" ? (
           <h1 className="text-3xl font-extrabold mb-6 dark:text-white">

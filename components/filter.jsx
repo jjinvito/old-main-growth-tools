@@ -14,23 +14,8 @@ export default function Filter() {
   console.log("showAs", showAs);
   const [toggleNav, setToggleNav] = useState(false);
 
-  // useEffect(() => {
-  //   const content = document.getElementById('main-content');
-  //   const conten = document.getElementById('exclude-blur');
-  //   console.log("content",content)
-  //   console.log("conten",conten)
-
-  //   if (toggleNav) {
-  //     content.classList.add('blurapply');
-  //     conten.classList.add('blurnone');
-  //   } else {
-  //     content.classList.remove('blurapply');
-  //     conten.classList.remove('blurnone');
-  //   }
-  // }, [toggleNav]);
-
   return (
-    <div className="w-11/12 flex items-center gap-2 pt-9 border-t-2">
+    <div className="w-11/12 flex items-center gap-2 h-[72px] border-t-2 pt-5">
       <div className="relative z-50">
         <button
           onClick={() => {
@@ -38,12 +23,14 @@ export default function Filter() {
           }}
           className={cn(
             "rounded-3xl w-20 h-10 py-1 px-3 bg-[#F6F6F6] inline-flex justify-center gap-1 text-[#1855D9] items-center",
-            toggleNav &&
-              "bg-gradient-to-r from-blueStart to-blueEnd to-99% text-white shadow-xl"
+            toggleNav && "bg-blueStart text-white shadow-custom"
           )}
         >
           <IoFilterCircleOutline
-            className={cn("text-[#1855D9]", toggleNav && "text-white")}
+            className={cn(
+              "text-[#1855D9]",
+              toggleNav && "text-white satoshi-variable"
+            )}
             size={30}
           />
           Filter
@@ -51,9 +38,9 @@ export default function Filter() {
         <FilterCard toggleNav={toggleNav} />
       </div>
 
-      <PageOverlay visibility={toggleNav} />
+      <PageOverlay visibility={toggleNav} setToggleNav={setToggleNav} />
 
-      <p className=" text-center text-[#636363]">Show as:</p>
+      <p className=" text-center text-[#636363] satoshi-variable">Show as:</p>
       <div className="flex h-[24px] w-[64px] gap-3 justify-center items-center">
         <button
           onClick={() => {

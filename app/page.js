@@ -12,6 +12,7 @@ import "@/styles/globals.css";
 import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
 import { useSearchParams } from "next/navigation";
 import Footer from "@/components/footer";
+import Filter from "@/components/filter";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,14 +38,28 @@ export default function Home() {
 
       <div className="flex dark:bg-black">
         <Sidebar />
-        <div className="main w-full min-h-[100vh] scrollbar-hide overflow-y-auto h-[calc(100vh-70px)] flex flex-col justify-between">
-          <div>
+        <div className="main w-full min-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col justify-between">
+          <div className="pl-7">
             <Hero />
-            {showAs == "Collapsed" ? <CollapsedCard /> : <List />}
+            <Filter />
+            {showAs == "Collapsed" ? (
+              <CollapsedCard />
+            ) : (
+              <>
+                <List />
+                <div className=" flex justify-center w-full ">
+                  <button
+                    type="button"
+                    className=" w-[131px] h-[48px] text-center rounded-full mb-20 border border-[#000000] clash-display font-medium text-base"
+                  >
+                    View More
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-          <div>
-            <Footer />
-          </div>
+
+          <Footer />
         </div>
       </div>
     </main>

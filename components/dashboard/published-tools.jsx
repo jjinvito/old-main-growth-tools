@@ -87,7 +87,7 @@ export default function PublishedTools() {
 
   return (
     <div>
-      <div className="customFont font-semibold p-4 text-2xl">Add New Tool</div>
+      <div className="clash-display font-semibold p-4 text-2xl">Add New Tool</div>
       {loading === "loading" ? (
         <BeatLoader color="white" />
       ) : (
@@ -121,7 +121,7 @@ export default function PublishedTools() {
         </div>
       )}
 
-      <div className="customFont font-semibold p-4 text-2xl">
+      <div className="clash-display font-semibold p-4 text-2xl">
         Your Published Tools
       </div>
       <div>

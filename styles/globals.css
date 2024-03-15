@@ -2,68 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
-  font-family: 'ClashDisplay-Variable';
-  /* src: url('../fonts/ClashDisplay-Variable.woff2') format('woff2'); */
-  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
-       font-weight: 200 700;
-       font-display: swap;
-       font-style: normal;
+  font-family: "ClashDisplay-Variable";
+  src: url("/fonts/ClashDisplay/ClashDisplay-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'ClashDisplay-Extralight';
-  src: url('/fonts/ClashDisplay-Extralight.woff2') format('woff2');
-       font-weight: 200;
-       font-display: swap;
-       font-style: normal;
+  font-family: "ClashDisplay-Extralight";
+  src: url("/fonts/ClashDisplay/ClashDisplay-Extralight.woff2") format("woff2");
+  font-weight: 200;
+  font-display: swap;
+  font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'ClashDisplay-Light';
-  src: url('/fonts/ClashDisplay-Light.woff2') format('woff2');
-       font-weight: 300;
-       font-display: swap;
-       font-style: normal;
+  font-family: "ClashDisplay-Light";
+  src: url("/fonts/ClashDisplay/ClashDisplay-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'ClashDisplay-Regular';
-  src: url('/fonts/ClashDisplay-Regular.woff2') format('woff2');
-       font-weight: 400;
-       font-display: swap;
-       font-style: normal;
+  font-family: "ClashDisplay-Regular";
+  src: url("/fonts/ClashDisplay/ClashDisplay-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'ClashDisplay-Medium';
-  src: url('/fonts/ClashDisplay-Medium.woff2') format('woff2');
-       font-weight: 500;
-       font-display: swap;
-       font-style: normal;
+  font-family: "ClashDisplay-Medium";
+  src: url("/fonts/ClashDisplay/ClashDisplay-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'ClashDisplay-Semibold';
-  src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
-       font-weight: 600;
-       font-display: swap;
-       font-style: normal;
+  font-family: "ClashDisplay-Semibold";
+  src: url("/fonts/ClashDisplay/ClashDisplay-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: "ClashDisplay-Bold";
+  src: url("/fonts/ClashDisplay/ClashDisplay-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
 
 @font-face {
-  font-family: 'ClashDisplay-Bold';
-  src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
-       font-weight: 700;
-       font-display: swap;
-       font-style: normal;
+  font-family: "SatoshiVariable-Variable";
+  src: url("/fonts/SatoshiVariable/Satoshi-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SatoshiVariable-Light";
+  src: url("/fonts/SatoshiVariable/Satoshi-Italic.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SatoshiVariable-Regular";
+  src: url("/fonts/SatoshiVariable/Satoshi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SatoshiVariable-Medium";
+  src: url("/fonts/SatoshiVariable/Satoshi-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SatoshiVariable-Bold";
+  src: url("/fonts/SatoshiVariable/Satoshi-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
 }
 
 .custom-shadow-1 {
@@ -108,20 +140,140 @@
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
-.customFont {
-  font-family: 'ClashDisplay-Variable', sans-serif;
+.clash-display {
+  font-family: "ClashDisplay-Variable", sans-serif;
 }
-.filter-shadow{
+
+.satoshi-variable {
+  font-family: "SatoshiVariable-Variable", sans-serif;
+}
+.filter-shadow {
   box-shadow: 0px 152px 42px 0px rgba(186, 186, 186, 0) !important;
 }
-/* #main-content.blurapply {
- opacity: 0.2;
-  
-}
-#exclude-blur.blurnone{
 
- opacity: 1;
- 
-  background-color: aqua !important;
-} */
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  .checkbox-wrapper-13 input[type="checkbox"] {
+    --active: #275efe;
+    --active-inner: #fff;
+    --focus: 2px rgba(39, 94, 254, 0.3);
+    --border: #c2c2c2;
+    --border-hover: #275efe;
+    --background: #fff;
+    --disabled: #f6f8ff;
+    --disabled-inner: #e1e6f9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:after {
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+      opacity var(--d-o, 0.2s);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:checked {
+    --b: var(--active);
+    --bc: var(--active);
+    --d-o: 0.3s;
+    --d-t: 0.6s;
+    --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:disabled {
+    --b: var(--disabled);
+    cursor: not-allowed;
+    opacity: 0.9;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:disabled:checked {
+    --b: var(--disabled-inner);
+    --bc: var(--border);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:disabled + label {
+    cursor: not-allowed;
+  }
+  .checkbox-wrapper-13
+    input[type="checkbox"]:hover:not(:checked):not(:disabled) {
+    --bc: var(--border-hover);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 var(--focus);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch) {
+    width: 21px;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):after {
+    opacity: var(--o, 0);
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):checked {
+    --o: 1;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"] + label {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch) {
+    border-radius: 4px;
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):after {
+    width: 5px;
+    height: 9px;
+    border: 2px solid var(--active-inner);
+    border-top: 0;
+    border-left: 0;
+    left: 7px;
+    top: 4px;
+    transform: rotate(var(--r, 20deg));
+  }
+  .checkbox-wrapper-13 input[type="checkbox"]:not(.switch):checked {
+    --r: 43deg;
+  }
+}
+
+.checkbox-wrapper-13 * {
+  box-sizing: inherit;
+}
+.checkbox-wrapper-13 *:before,
+.checkbox-wrapper-13 *:after {
+  box-sizing: inherit;
+}
+
+.gradient-border {
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(to right, #2661fa, #32ddb4);
+  position: relative;
+  z-index: 0;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 20px white;
+  z-index: -1;
+}
+
+.content {
+  background: white;
+  border-radius: 14px;
+}
 
