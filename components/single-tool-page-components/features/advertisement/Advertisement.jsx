@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 export default function Advertisement() {
   return (
-    <div className=" w-[365px]">
+    <div className=" sm:max-w-[365px] w-[305px]">
       {/* <h1 className=" font-semibold text-lg">Added by:</h1> */}
       {/* <div className=" flex justify-between items-center w-full">
         <div className=" inline-flex gap-3 items-center">

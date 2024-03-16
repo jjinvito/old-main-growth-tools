@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 export default function VisiteWebsite({ data }) {
   return (
-    <div className=" inline-flex gap-4 w-full sm:justify-start justify-center ">
+    <div className=" flex sm:flex-row flex-col gap-4 w-full sm:justify-start  ">
+      {/* <div className=" flex sm:flex-row flex-col sm:justify-center items-center  w-fit gap-2"> */}
       <Link
-        className=" flex justify-center bg-black p-2 items-center gap-2 sm:px-32 md:px-48 xl:px-44 lg:px-28 px-10   rounded-3xl "
+        className=" flex justify-center w-fit bg-black p-2 items-center gap-2 sm:px-32 md:px-48 lg:px-44  px-10   rounded-3xl "
         href={data?.website || "#"}
         target="_blank"
       >
@@ -16,7 +17,7 @@ export default function VisiteWebsite({ data }) {
         </h1>
         <HiExternalLink className=" text-white" size={25} />
       </Link>
-
+      
       <div className=" flex justify-center bg-specialOrange p-3 items-center gap-2 px-4 rounded-3xl h-[52px] w-[110px]">
         <h1 className=" text-white font-bold text-base">52K</h1>
         <Image
@@ -26,6 +27,7 @@ export default function VisiteWebsite({ data }) {
           alt="Clap icon"
         />
       </div>
-    </div>
+      </div>
+    // </div>
   );
 }

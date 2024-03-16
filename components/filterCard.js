@@ -56,7 +56,7 @@ export default function FilterCard({ toggleNav }) {
         </div>
 
         <div className="flex gap-4 items-center my-3">
-          <div class="checkbox-wrapper-13 flex items-center gap-1">
+          <div className="checkbox-wrapper-13 flex items-center gap-1">
             <input id="c1-13" type="checkbox" />
             <label
               for="c1-13"

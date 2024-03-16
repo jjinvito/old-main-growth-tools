@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export default function Footer({ className }) {
   return (
-    <div className={cn("bg-white py-8 h-[195px] shadow-2xl", className)}>
+    <div className={cn("bg-white py-8 h-[195px] shadow-2xl hidden lg:block", className)}>
       <div className="w-full  lg:px-8 flex justify-evenly items-center sm:flex-row flex-col gap-2">
         <div className="flex justify-between items-center sm:flex-row flex-col sm:gap-0 gap-3 w-full">
           <div>

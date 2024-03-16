@@ -4,10 +4,10 @@ import HeroLogo from "@/public/heroLogo.png";
 
 export default function Hero() {
   return (
-    <div className=" w-full h-[320px] flex flex-col">
-      <div className=" w-screen xl:w-[82vw] 2xl:w-screen h-[330px] flex flex-row">
+    <div className=" w-full h-[760px] min-[320px]:h-[690px] sm:h-[320px] md:h-[450px] min-[425px]:h-[645px] md:mt-0 lg:h-[375px]  xl:h-[300px] flex flex-col">
+      <div className=" flex justify-between pt-28 md:pt-20 xl:pt-0 w-screen xl:w-full h-[330px] flex-row">
         <div className="  w-[75%] h-[325px] clash-display font-bold gap-4 flex flex-col ">
-          <h1 className=" text-[40px] ">
+          <h1 className=" text-[35px] ">
             Discover{" "}
             <span className="bg-gradient-to-r from-[#2661FA] to-[#32DDB4]  text-transparent bg-clip-text ">
               marketing tools
@@ -19,7 +19,7 @@ export default function Hero() {
             startup. Start by clicking Categories below to pick tools in
             different marketing topics.
           </p>
-          <div className=" inline-flex gap-4">
+          <div className=" flex flex-col md:flex-row mt-5 gap-4 ">
             <button className=" bg-black p-2 px-4 text-white rounded-3xl font-normal">
               View Latest Tools
             </button>
@@ -28,7 +28,7 @@ export default function Hero() {
             </button>
           </div>
         </div>
-        <div className="">
+        <div className="hidden md:block">
           <Image src={HeroLogo} width={315} height={305} />
         </div>
       </div>

@@ -35,8 +35,8 @@ export default function AdsManagement() {
   };
 
   return (
-    <div className=" flex flex-col gap-3 w-full">
-      <h1 className=" font-semibold text-lg">
+    <div className=" flex flex-col gap-3 w-full h-full">
+      <h1 className=" font-semibold sm:text-lg text-base w-full h-fit ">
         Discover <span className=" text-[#1D66DA]">more</span> Ads Management
         tools
       </h1>
@@ -84,14 +84,14 @@ export default function AdsManagement() {
 
       <Card
         data={data}
-        classNames="w-[620px]"
-        descriptionWidth="w-[533px]"
+        classNames="w-full"
+        descriptionWidth="w-full"
         singleToolpage
       />
       <Card
         data={data2}
-        classNames="w-[620px]"
-        descriptionWidth="w-[533px]"
+        classNames="w-full"
+        descriptionWidth="w-full"
         singleToolpage
       />
 

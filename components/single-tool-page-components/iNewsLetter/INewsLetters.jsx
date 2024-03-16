@@ -12,13 +12,13 @@ import Deals from "./deals/deals";
 export default function INewsLetters() {
   const toolsData = useSelector((state) => state?.tool?.item);
   return (
-    <div className=" flex flex-col gap-12">
+    <div className=" flex flex-col gap-12 w-full h-fit ">
       <DomyShoot data={toolsData} />
       <ScreenShots data={toolsData} />
       <Deals data={toolsData} />
       <Marketing data={toolsData} />
 
-      <div className="hidden lg:block">
+      <div className="hidden xl:block">
         <AdsManagement />
       </div>
     </div>
