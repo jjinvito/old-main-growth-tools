@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import ListItem from "./ListItem";
-import data from "@/data/data.json";
 import { useSelector } from "react-redux";
-import { CircleLoader } from "react-spinners";
 
 export default function List({ search }) {
   const [products, setProducts] = useState([]);
 
   const toolsData = useSelector((state) => state?.tools?.items);
   const toolsDataStatus = useSelector((state) => state?.tools?.status);
-  const toolsDataError = useSelector((state) => state?.tools?.error);
 
   useEffect(() => {
     if (toolsData) {
@@ -93,7 +90,7 @@ export default function List({ search }) {
       </div>
     </div>
   ) : (
-    <div role="list" className="flex flex-wrap p-5">
+    <div role="list" className="grid grid-cols-12 h-fit pt-10 gap-5 mb-10 mr-10">
       {toolsData.map((item, index) => (
         <ListItem key={item.id} item={item} index={index} />
       ))}

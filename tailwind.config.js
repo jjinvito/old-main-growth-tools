@@ -37,6 +37,9 @@ module.exports = {
         "custom-blue": "#164CD9",
         "custom-lightblue": "#32AADD",
       },
+      boxShadow: {
+        custom: "0px 0px 6px 2px rgba(22, 76, 217, 1)",
+      },
 
       animation: {
         fadeOut: "fadeOut 0.2s ease-in-out",

@@ -95,16 +95,18 @@ const LogoUpload = ({ setValue, errors, watch }) => {
     }
     setIsLoading(false);
   };
+  const watchedLogo = watch("logoUrl");
 
   useEffect(() => {
-    const subscription = watch((value, { name, type }) => {
-      if (name === "logoUrl") {
-        setUploadUrl(value.logoUrl);
-      }
-    });
+    // const subscription = watch((value, { name, type }) => {
+    //   if (name === "logoUrl") {
+    //     setUploadUrl(value.logoUrl);
+    //   }
 
-    return () => subscription.unsubscribe();
-  }, [watch]);
+    if (watchedLogo) {
+      setUploadUrl(watchedLogo);
+    }
+  }, [watchedLogo]);
 
   return (
     <div>

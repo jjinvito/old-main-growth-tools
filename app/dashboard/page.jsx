@@ -24,7 +24,7 @@ const DashboardPage = () => {
         height="110"
         alt="Growth Tools Logo"
       />
-      <h1 className="customFont font-semibold text-2xl dark:text-white">
+      <h1 className="clash-display font-semibold text-2xl dark:text-white">
         Welcome to Growth Tools Dashboard!!
       </h1>
     </div>

@@ -6,19 +6,22 @@ export default function Deals({ data }) {
     <div>
       <div className="text-lg font-semibold dark:text-white pb-2">Deals</div>
 
-      <div className="flex gap-10 w-full flex-wrap">
+      <div className="flex gap-10 flex-wrap ">
         {data?.deals?.map((deal, index) => (
-          <div key={index} className="flex dark:bg-black sm:w-[45%] w-full">
+          <div
+            key={index}
+            className="flex dark:bg-black h-[156px] w-[290px]"
+          >
             <div
               className={
-                "flex flex-col justify-start gap-1 h-[156px] w-full  p-5 border rounded-lg drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black"
+                "flex flex-col justify-start gap-1 h-[156px] w-full  p-5 border rounded-2xl drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black"
               }
             >
               <div className="font-bold outline-1 w-44 disabled:bg-transparent dark:text-white dark:border-neutral-700 dark:bg-transparent">
                 {deal.title}
               </div>
 
-              <div className="flex">
+              <div className="flex items-center">
                 <div className="text-muted text-sm w-11 outline-1 disabled:bg-transparent dark:bg-transparent">
                   {deal.price}
                 </div>
@@ -26,7 +29,7 @@ export default function Deals({ data }) {
                   {deal.originalPrice}
                 </div>
                 <div className="text-muted text-sm w-16 outline-1 disabled:bg-transparent dark:bg-transparent">
-                  {deal.validity}
+                  / {deal.validity}
                 </div>
               </div>
 

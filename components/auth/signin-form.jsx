@@ -36,10 +36,10 @@ export const SignInForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-fit gap-10 customFont xl:mt-0 mt-20 w-full">
+    <div className="flex flex-col justify-center items-center min-h-fit gap-5 clash-display xl:mt-0 mt-20 w-[671px] h-[589px]">
       <div className="flex justify-center items-center flex-col gap-5 text-slate-600 ">
         <h1 className="font-bold text-6xl text-black">Sign In</h1>
-        <p className="w-full text-center">
+        <p className="text-center w-[313px]">
           Browse through hundreds of unique tools to boost your marketing &
           startup
         </p>
@@ -48,16 +48,29 @@ export const SignInForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col justify-center items-center gap-10 w-[65%]  "
       >
-        <input
-          className="sm:w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
-          disabled={isPending}
-          {...form.register("email")}
-          type="email"
-          id="email"
-          name="email"
-          required
-          placeholder="Email address"
-        />
+
+
+        <div className="relative">
+          <input
+            className="sm:w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
+            disabled={isPending}
+            {...form.register("email")}
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Email address"
+          />
+          <button
+            type="button"
+            className="py-1.5 text-sm ml-2 font-normal disabled:opacity-50 absolute inset-y-0 right-5 text-DBlue"
+            disabled={isPending}
+          >
+            Forgot Password?
+          </button>
+        </div>
+
+
         <input
           className="sm:w-[467px] w-full h-[56px] rounded-full border-2 p-4 drop-shadow-xl"
           disabled={isPending}
@@ -68,13 +81,7 @@ export const SignInForm = () => {
           required
           placeholder="Password"
         />
-        <button
-          type="button"
-          className="items-start py-1.5 text-sm ml-2 text-slate-700 font-normal disabled:opacity-50"
-          disabled={isPending}
-        >
-          Forgot Password?
-        </button>
+
         <button
           disabled={isPending}
           type="submit"

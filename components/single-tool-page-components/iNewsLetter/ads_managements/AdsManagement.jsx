@@ -1,14 +1,47 @@
 import React from "react";
 import VisiteWebsite from "../VisiteWebsite";
 import Image from "next/image";
+import Card from "../../../collapsed-card/Card";
 
 export default function AdsManagement() {
+  const data = {
+    id: "cltk0wpeg000d1dqcl4vpi2hx",
+    logoUrl:
+      "https://rfbxrkghehiguqabonke.supabase.co/storage/v1/object/public/growth-tools-media/logos/bff1c81a-8665-41a4-a811-1329c0bcff51-Group%207%20(3).png",
+    name: "iNewsletter",
+    shortDescription:
+      "Quickly publish, edit and distribute more engaging content for your multi-page, long format newsletter.",
+    deals: [
+      {
+        id: "cltmpfjd00003o41uoncfye8i",
+        toolId: "cltk0wpeg000d1dqcl4vpi2hx",
+        title: "LifeTime 50% off",
+        price: "$4.99",
+        originalPrice: "$10",
+        validity: "monthly",
+        savings: "You save $5.01",
+        link: "https://enterLinkHere/forAboveButton",
+      },
+    ],
+  };
+  const data2 = {
+    id: "cltk0wpeg000d1dqcl4vpi2hx",
+    logoUrl:
+      "https://rfbxrkghehiguqabonke.supabase.co/storage/v1/object/public/growth-tools-media/logos/bd80c868-c878-4164-89ca-a3dbd6128b5c-3.png",
+    name: "iNewsletter",
+    shortDescription:
+      "Quickly publish, edit and distribute more engaging content for your multi-page, long format newsletter.",
+    deals: [],
+  };
+
   return (
-    <div className=" flex flex-col gap-3 w-full">
-      <h1 className=" font-extrabold">
-        Discover <span className=" text-DBlue">more</span> Ads Management tools
+    <div className=" flex flex-col gap-3 w-full h-full">
+      <h1 className=" font-semibold sm:text-lg text-base w-full h-fit ">
+        Discover <span className=" text-[#1D66DA]">more</span> Ads Management
+        tools
       </h1>
-      <div className=" inline-flex gap-2 border-2 rounded-xl w-full p-2 shadow-xl">
+
+      {/* <div className=" inline-flex gap-2 border-2 rounded-xl w-full p-2 shadow-xl">
         <Image
           src="/logo-dark.png"
           className=" w-12 h-12 p-2 border-2 rounded-lg"
@@ -47,8 +80,22 @@ export default function AdsManagement() {
             inventore dolorem .
           </p>
         </div>
-      </div>
-      <small className=" text-DBlue font-medium mb-6">
+      </div> */}
+
+      <Card
+        data={data}
+        classNames="w-full"
+        descriptionWidth="w-full"
+        singleToolpage
+      />
+      <Card
+        data={data2}
+        classNames="w-full"
+        descriptionWidth="w-full"
+        singleToolpage
+      />
+
+      <small className=" text-[#1D66DA] font-medium text-sm mb-6">
         Browse 1 Ads Management tool
       </small>
       <VisiteWebsite />

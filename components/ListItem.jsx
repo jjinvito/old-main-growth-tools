@@ -30,7 +30,7 @@ export default function ListItem(props) {
   return (
     <div
       role="list-item"
-      className="transition ease-in-out w-[100%] sm:w-[100%] md:w-[100%] lg:w-[33.3%] rounded-xl p-4"
+      className="transition ease-in-out h-[337px] rounded-xl max-w-[360px] min-w-[240px] mb-4 col-span-12 md:col-span-6 lg:col-span-4 "
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -45,24 +45,6 @@ export default function ListItem(props) {
           )}
           alt=""
         >
-          {/* {props.item.video && (
-            <div className="flex justify-center items-end h-full w-full">
-              <video
-                className={cn(
-                  "ease block object-cover rounded-t-xl transition ease-in-out delay-150 duration-200 w-44 h-48 custom-shadow-2 cards",
-                  isHovered &&
-                    "-translate-y-1 scale-x-150 scale-y-125 new-shadow"
-                )}
-                playsInline
-                autoPlay
-                loop
-                muted
-                src={props.item.video}
-                style={{ display: loaded ? "block" : "none" }}
-              />
-            </div>
-          )} */}
-
           <div className="flex justify-center items-end h-full w-full">
             <Image
               className={cn(
@@ -141,7 +123,12 @@ export default function ListItem(props) {
                   isHovered ? "bg-white" : "bg-transparent"
                 )}
               >
-                <Image src="/deal.png" width={35} height={20} alt="deal icon used to identify if any deal offered by tool owner"/>
+                <Image
+                  src="/deal.png"
+                  width={35}
+                  height={20}
+                  alt="deal icon used to identify if any deal offered by tool owner"
+                />
               </div>
             )}
           </div>
@@ -154,16 +141,15 @@ export default function ListItem(props) {
           >
             <img src="/hoverClap.png" width={48} height={48} alt="" />
           </div>
-
         </div>
       </Link>
 
       <div className="flex justify-between items-center mt-2">
         <div href="" className="">
-          <h2 className=" hover:text-dark-500  dark:text-white dark:hover:text-dark-100 transition duration-200 font-bold">
+          <h2 className=" hover:text-dark-500  dark:text-white dark:hover:text-dark-100 transition duration-200 font-semibold text-base">
             {props.item.name}
           </h2>
-          <p className="hover:text-dark-500  dark:text-white text-sm h-16">
+          <p className="hover:text-dark-500  dark:text-white  h-16 satoshi-variable text-[#494949] text-sm font-medium">
             {props.item.shortDescription}
           </p>
         </div>
