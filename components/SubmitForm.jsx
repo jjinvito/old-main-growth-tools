@@ -24,11 +24,11 @@ export default function SubmitForm(props) {
   const HandleCreateCheckout = async (e, priceId) => {
     e.preventDefault();
 
-    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!urlRegex.test(toolUrl)) {
-      toast.error("Please enter a valid tool URL.");
-      return;
-    }
+    // const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    // if (!urlRegex.test(toolUrl)) {
+    //   toast.error("Please enter a valid tool URL.");
+    //   return;
+    // }
 
     setLoading(true);
 

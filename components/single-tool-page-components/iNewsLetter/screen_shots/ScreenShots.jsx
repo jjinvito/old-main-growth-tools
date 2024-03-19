@@ -14,7 +14,7 @@ export default function ScreenShots({ data }) {
   return (
     <>
       <h1 className=" text-lg font-semibold">Website Screenshots</h1>
-      <div className=" flex flex-col justify-center items-center min-w-[260px] h-[331px]">
+      <div className=" flex flex-col  justify-center items-center min-w-[260px] h-[331px]">
         <Carousel className=" w-full h-[331px]">
           <CarouselContent className="p-0">
             {data?.screenshots?.map((screenshot, index) => (

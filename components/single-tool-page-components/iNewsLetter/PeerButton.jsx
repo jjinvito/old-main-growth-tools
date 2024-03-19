@@ -11,7 +11,7 @@ export default function () {
         height={20}
         alt="Peer reviewed logo"
       />
-      <h1 className=" text-white sm:text-[13px] text-[9px]">PeerReviewed</h1>
+      <h1 className=" text-white sm:text-[13px] text-[9px]">Peer Reviewed</h1>
     </div>
   );
 }
