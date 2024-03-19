@@ -111,7 +111,7 @@ const ScreenshotsUpload = ({ setValue, errors, watch, action }) => {
       const filePath = `screenshots/${uuidv4()}-${file.name}`;
 
       const { data, error } = await supabase.storage
-        .from("growth-tools-media")
+        .from(process.env.NEXT_PUBLIC_BUCKET_NAME)
         .upload(filePath, file);
 
       if (error) {
@@ -121,7 +121,7 @@ const ScreenshotsUpload = ({ setValue, errors, watch, action }) => {
       }
 
       const res = supabase.storage
-        .from("growth-tools-media")
+        .from(process.env.NEXT_PUBLIC_BUCKET_NAME)
         .getPublicUrl(data.path);
 
       if (res.data) {

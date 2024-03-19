@@ -30,7 +30,7 @@ const LogoUpload = ({ setValue, errors, watch }) => {
     const filePath = localFilePath;
 
     const { error } = await supabase.storage
-      .from("growth-tools-media")
+      .from(process.env.NEXT_PUBLIC_BUCKET_NAME)
       .remove([filePath]);
 
     if (error) {
@@ -70,7 +70,7 @@ const LogoUpload = ({ setValue, errors, watch }) => {
     const filePath = `logos/${uuidv4()}-${file.name}`;
 
     const { data, error } = await supabase.storage
-      .from("growth-tools-media")
+      .from(process.env.NEXT_PUBLIC_BUCKET_NAME)
       .upload(filePath, file);
 
     if (error) {
@@ -82,7 +82,7 @@ const LogoUpload = ({ setValue, errors, watch }) => {
     console.log("data", data);
 
     const res = supabase.storage
-      .from("growth-tools-media")
+      .from(process.env.NEXT_PUBLIC_BUCKET_NAME)
       .getPublicUrl(data.path);
 
     console.log("publicURL", res);
