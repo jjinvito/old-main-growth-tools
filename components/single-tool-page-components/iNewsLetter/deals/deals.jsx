@@ -14,22 +14,22 @@ export default function Deals({ data }) {
           >
             <div
               className={
-                "flex flex-col justify-start gap-1 h-[156px] w-full  p-5 border rounded-2xl drop-shadow-xl bg-white relative dark:border-neutral-800 dark:bg-black"
+                "flex flex-col justify-start gap-1 h-[156px] w-full  p-5 border border-[#EAEAEA] rounded-2xl custom-shadow bg-white relative dark:border-neutral-800 dark:bg-black"
               }
             >
-              <div className="font-bold outline-1 w-44 disabled:bg-transparent dark:text-white dark:border-neutral-700 dark:bg-transparent">
+              <div className="font-semibold text-lg outline-1 w-44 disabled:bg-transparent dark:text-white dark:border-neutral-700 dark:bg-transparent">
                 {deal.title}
               </div>
 
-              <div className="flex items-center">
-                <div className="text-muted text-sm w-11 outline-1 disabled:bg-transparent dark:bg-transparent">
+              <div className="flex items-center ">
+                <div className="text-muted  dark:text-white text-sm font-medium   w-11 outline-1 disabled:bg-transparent dark:bg-transparent">
                   {deal.price}
                 </div>
-                <div className="line-through text-dull w-8 outline-1 disabled:bg-transparent dark:bg-transparent">
+                <div className="line-through dark:text-white text-sm font-medium  text-dull w-8 outline-1 disabled:bg-transparent dark:bg-transparent">
                   {deal.originalPrice}
                 </div>
-                <div className="text-muted text-sm w-16 outline-1 disabled:bg-transparent dark:bg-transparent">
-                  / {deal.validity}
+                <div className="text-muted dark:text-white text-sm  w-16 outline-1 disabled:bg-transparent dark:bg-transparent">
+                  /{deal.validity}
                 </div>
               </div>
 

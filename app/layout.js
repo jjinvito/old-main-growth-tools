@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 import Header from "@/components/Header";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/footer";
 
 export const metadata = {
   title: "Next.js",
@@ -26,6 +27,7 @@ export default async function RootLayout({ children }) {
                   <Header showSidebar setShowSidebar={true} />
 
                   {children}
+               
                   <ToastContainer
                     position="bottom-right"
                     autoClose={5000}

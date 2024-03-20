@@ -8,7 +8,7 @@ export default function VisiteWebsite({ data }) {
     <div className=" flex sm:flex-row flex-col gap-4 w-full sm:justify-start  ">
       {/* <div className=" flex sm:flex-row flex-col sm:justify-center items-center  w-fit gap-2"> */}
       <Link
-        className=" flex justify-center w-fit bg-black p-2 items-center gap-2 sm:px-32 md:px-48 lg:px-44  px-10   rounded-3xl "
+        className="dark:border-white border flex justify-center w-fit bg-black p-2 items-center gap-2 sm:px-32 md:px-48 lg:px-44  px-10   rounded-3xl "
         href={data?.website || "#"}
         target="_blank"
       >

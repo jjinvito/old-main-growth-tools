@@ -16,7 +16,7 @@ export default function Card({
     >
       <div
         className={cn(
-          "inline-flex gap-[15px] border border-[#EAEAEA] rounded-2xl p-2 shadow-lg h-[155px] clash-display",
+          "inline-flex gap-[15px] border border-[#EAEAEA] rounded-2xl p-2 custom-shadow h-[155px] clash-display",
           singleToolpage
             ? " w-[620px] mr-2 h-fit"
             : "w-full xl:w-[360px] 2xl:w-[710px] xl:max-[1410px]:w-[495px] max-[1175px]:w-[495px] max-[1061px]:w-[400px] max-[872px]:w-[360px] max-[791px]:w-[515px] max-[555px]:h-fit max-[555px]:w-full md:w-[687px] lg:w-[468px]",
@@ -37,7 +37,7 @@ export default function Card({
             <h1 className="font-semibold text-base">{data?.name}</h1>
             <p
               className={cn(
-                " text-blance w-[95%] text-[14px] text-[#494949] satoshi-variable font-medium",
+                " text-blance w-[95%] dark:text-white text-[14px] text-[#494949] satoshi-variable font-medium",
                 descriptionWidth
               )}
             >

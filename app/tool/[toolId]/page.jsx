@@ -23,18 +23,17 @@ export default function ToolView({ params }) {
   }, [dispatch, params.toolId]);
 
   return (
-    <div className="flex lg:flex-row  flex-col lg:items-start items-center w-full lg:h-screen gap-14 min-h-screen clash-display lg:justify-center mt-12 lg:mt-16 xl:mt-0 max-[1300px]:gap-0 px-2 sm:px-0 pt-9">
+    <div className="flex lg:flex-row  flex-col lg:items-start items-center w-full lg:h-screen gap-7 min-h-screen clash-display lg:justify-center mt-12 lg:mt-16 xl:mt-0 max-[1300px]:gap-0 px-2 sm:px-0 ">
       <div className="lg:sticky lg:top-16 xl:top-0 lg:left-0 lg:right-0 lg:bottom-0   ">
         <Sidebar showSidebar={false} className="min-h-screen" />
       </div>
-
       {loading ? (
         <SingleToolPageSkeleton />
       ) : (
-        <div className="flex flex-col gap-28  w-full h-fit mb-7">
-          <div className="flex justify-center xl:flex-row flex-col lg:items-start w-full  gap-24 sm:pl-16">
+        <div className="flex flex-col gap-28 pt-5 w-full h-fit mb-7">
+          <div className="flex justify-center xl:flex-row flex-col lg:items-start w-full  gap-24 pl-4 md:pl-0 lg:pl-0 xl:pl-0  ">
             {/* <div className="lg:w-[48%] sm:w-[85%] w-[95%]"> */}
-            <div className="max-w-[680px] w-full  ">
+            <div className="max-w-[680px] w-full">
               <INewsLetters />
             </div>
             <div className="xl:sticky lg:top-0 xl:top-0 lg:left-0 lg:right-0 lg:bottom-0 w-full h-full">
@@ -47,7 +46,7 @@ export default function ToolView({ params }) {
             </div>
           </div>
           {/* <Footer className=" w-[calc(100vw-267px)] ml-[-17px]" /> */}
-          {/* <Footer className=" w-full" /> */}
+          <Footer className=" w-full" />
         </div>
       )}
     </div>

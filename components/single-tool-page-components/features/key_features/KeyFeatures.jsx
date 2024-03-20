@@ -7,7 +7,7 @@ export default function KeyFeatures({ data }) {
       {data?.keyFeatures?.map((feature, index) => (
         <p
           key={index}
-          className="satoshi-variable text-base font-medium text-[#494949]"
+          className="satoshi-variable text-base font-medium dark:text-white text-[#494949]"
         >
           - {feature}
         </p>

@@ -15,7 +15,7 @@ export default function DomyShoot({ data }) {
           <li className="inline-flex items-center">
             <Link
               href="/"
-              className="inline-flex cursor-pointer items-center sm:text-base text-[14px] font-bold text-black "
+              className="dark:text-white inline-flex cursor-pointer items-center sm:text-sm md:text-base  font-bold text-black "
             >
               HomePage
             </Link>
@@ -23,18 +23,18 @@ export default function DomyShoot({ data }) {
           <li>
             <div className="flex items-center">
               <RxSlash size={14} className=" font-extrabold" />
-              <a
+              <Link
                 href="#"
-                className="ms-1 sm:text-base text-[14px] font-bold text-black  md:ms-2 dark:text-gray-400 "
+                className="ms-1 sm:text-sm md:text-base   font-bold text-black  md:ms-2 dark:text-white "
               >
                 Email Marketing
-              </a>
+              </Link>
             </div>
           </li>
           <li aria-current="page">
             <div className="flex items-center">
               <RxSlash size={14} className=" font-extrabold" />
-              <span className="ms-1 sm:text-base text-[14px] font-normal md:ms-2 text-[#999999]">
+              <span className="dark:text-white ms-1 sm:text-base text-[14px] font-normal md:ms-2 text-[#999999]">
                 INewsLetters
               </span>
             </div>
@@ -44,7 +44,7 @@ export default function DomyShoot({ data }) {
 
       <div className="flex gap-6 flex-col  w-full h-fit ">
         <div className=" inline-flex gap-5 items-center w-full">
-          <div className="w-16 h-16 rounded-lg border  border-[##F1F1F1] shadow-lg flex justify-center items-center">
+          <div className="w-16 h-16 rounded-lg border  border-[#F1F1F1] custom-shadow flex justify-center items-center">
           <Image
             src={data?.logoUrl}
             alt="Logo Image"
@@ -56,10 +56,10 @@ export default function DomyShoot({ data }) {
           /> 
           </div>
       
-          <h1 className=" font-bold  text-[40px]">{data?.name}</h1>
+          <div className=" font-bold  dark:text-white sm:text-[20px] lg:text-[40px]">{data?.name}</div>
           <PeerButton />
         </div>
-        <p className="w-full h-fit satoshi-variable text-greyColorMuted font-medium sm:text-base">
+        <p className="w-full h-fit satoshi-variable dark:text-white text-greyColorMuted font-medium sm:text-base">
           {data?.shortDescription}  
         </p>
         <VisiteWebsite data={data} />

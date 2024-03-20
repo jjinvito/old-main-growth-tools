@@ -7,7 +7,7 @@ export default function ({ data }) {
     <div className=" flex flex-col gap-6 w-full">
       <div className="flex flex-col gap-3 ">
         <h1 className="text-lg font-semibold">Description</h1>
-        <p className="text-[#494949] text-base font-medium satoshi-variable ">
+        <p className="text-[#494949] dark:text-white text-base font-medium satoshi-variable ">
           {data?.description}
         </p>
       </div>

@@ -139,6 +139,14 @@
 .new-shadow {
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
+.custom-shadow{
+  box-shadow: 
+      0px 6px 13px 0px #BABABA1A,
+      0px 24px 24px 0px #BABABA17,
+      0px 55px 33px 0px #BABABA0D,
+      0px 97px 39px 0px #BABABA03,
+      0px 152px 42px 0px #BABABA00;
+}
 
 .clash-display {
   font-family: "ClashDisplay-Variable", sans-serif;

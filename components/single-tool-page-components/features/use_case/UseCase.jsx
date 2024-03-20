@@ -10,7 +10,7 @@ export default function ({ data }) {
             <div>
               <FaStar size={30} className=" text-specialOrange2" />
             </div>
-            <p className="satoshi-variable text-base font-medium text-[#494949]">
+            <p className="satoshi-variable text-base dark:text-white font-medium text-[#494949]">
               {useCase}
             </p>
           </div>

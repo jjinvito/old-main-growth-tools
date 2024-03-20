@@ -40,7 +40,7 @@ export default function Filter() {
 
       <PageOverlay visibility={toggleNav} setToggleNav={setToggleNav} />
 
-      <p className=" text-center text-[#636363] satoshi-variable">Show as:</p>
+      <p className=" text-center dark:text-white text-[#636363] satoshi-variable text-sm font-medium">Show as:</p>
       <div className="flex h-[24px] w-[64px] gap-3 justify-center items-center">
         <button
           onClick={() => {

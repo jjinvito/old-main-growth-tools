@@ -50,7 +50,7 @@ export default function Home() {
                 <div className=" flex justify-center w-full ">
                   <button
                     type="button"
-                    className=" w-[131px] h-[48px] text-center rounded-full mb-20 border border-[#000000] clash-display font-medium text-base"
+                    className=" w-[131px] h-[48px] text-center rounded-full mb-20 border dark:border-white border-[#000000] clash-display font-medium text-base"
                   >
                     View More
                   </button>
