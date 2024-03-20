@@ -150,7 +150,7 @@ export default function Header(props) {
     //   <Search showSearch={showSearch} setShowSearch={setShowSearch} />
     // </div>
 
-    <div className="headerfixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center   px-4 pr-4 z-10 bg-white dark:bg-black dark:border-b dark:border-b-dark-400  xl:pl-[240px] pl-0  gap-2">
+    <div className="headerfixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center   px-4 pr-4 z-10 bg-white dark:bg-black dark:border-b dark:border-b-dark-400  pl-7  gap-2">
       <Link href="/">
         <Image src={logo} width={70} height={40} className="sm:block hidden dark:text" />
       

@@ -25,7 +25,7 @@ export default function Submit() {
   }, []);
 
   return (
-    <main className={`${inter.className} ${darkMode ? "dark" : ""}`}>
+    <div className={`${inter.className} ${darkMode ? "dark" : ""}`}>
       <SEO
         title="Dir - A simple directory listing template"
         description="A simple directory listing template built with Next.js and Tailwind CSS."
@@ -38,6 +38,7 @@ export default function Submit() {
       <div className="flex dark:bg-black">
         <div className="main w-full  scrollbar-hide overflow-y-auto">
           <div className="grid grid-cols-12 ">
+           
             <div className="col-span-12 md:col-span-6 h-[100vh]">
               <SubmitForm backButton/>
             </div>
@@ -47,6 +48,6 @@ export default function Submit() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

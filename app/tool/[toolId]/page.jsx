@@ -8,6 +8,7 @@ import Sidebar from "@/components/Sidebar";
 import SingleToolPageSkeleton from "@/components/singleToolPageSkele";
 import { fetchToolById } from "@/lib/redux/features/tools/singleToolSlice";
 import Footer from "@/components/footer";
+import Header from "@/components/Header";
 
 export default function ToolView({ params }) {
   const [loading, setLoading] = useState(false);
@@ -27,10 +28,12 @@ export default function ToolView({ params }) {
       <div className="lg:sticky lg:top-16 xl:top-0 lg:left-0 lg:right-0 lg:bottom-0   ">
         <Sidebar showSidebar={false} className="min-h-screen" />
       </div>
-      {loading ? (
+      <div className="main w-full min-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col justify-between">
+        <Header showSidebar setShowSidebar={true} />
+        {loading ? (
         <SingleToolPageSkeleton />
       ) : (
-        <div className="flex flex-col gap-28 pt-5 w-full h-fit mb-7">
+        <div className="flex flex-col gap-28 pt-5 w-full h-fit mb-7 pl-7">
           <div className="flex justify-center xl:flex-row flex-col lg:items-start w-full  gap-24 pl-4 md:pl-0 lg:pl-0 xl:pl-0  ">
             {/* <div className="lg:w-[48%] sm:w-[85%] w-[95%]"> */}
             <div className="max-w-[680px] w-full">
@@ -49,6 +52,8 @@ export default function ToolView({ params }) {
           <Footer className=" w-full" />
         </div>
       )}
+        </div>
+     
     </div>
   );
 }

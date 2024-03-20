@@ -10,9 +10,10 @@ import { useDispatch } from "react-redux";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Footer from "@/components/footer";
 import Filter from "@/components/filter";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,8 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchTools());
-  }, [dispatch]);
+  }, []);
+
 
   return (
     <main className={`${inter.className}`}>
@@ -39,6 +41,7 @@ export default function Home() {
       <div className="flex dark:bg-black">
         <Sidebar />
         <div className="main w-full min-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col justify-between">
+        <Header showSidebar setShowSidebar={true} />
           <div className="pl-7">
             <Hero />
             <Filter />
