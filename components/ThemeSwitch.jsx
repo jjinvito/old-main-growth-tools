@@ -4,7 +4,6 @@ import { FiSun, FiMoon } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
@@ -29,14 +28,14 @@ export default function ThemeSwitch() {
       <FiSun
         onClick={() => setTheme("light")}
         size={23}
-        className="mx-3 cursor-pointer"
+        className="mx-3 cursor-pointer text-white"
       />
     );
   }
 
   if (resolvedTheme === "light") {
     return (
-      <FiMoon
+      <FiSun
         onClick={() => setTheme("dark")}
         size={23}
         className="mx-3 cursor-pointer"
