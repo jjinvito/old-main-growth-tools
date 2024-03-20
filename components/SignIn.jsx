@@ -167,7 +167,9 @@ export default function SignIn(props) {
         </button>
       </form>
       <div className="py-4 text-sm text-dark-200  text-center flex justify-between">
-        <button className="hover:text-black">Sign Up</button>
+        <button className="hover:text-black" onClick={()=>{
+        props.setShowSignUpModal(!props.showSignUpModal)  
+        }}>Sign Up</button>
         <Link href="/forgot-password" className="hover:text-black">
           Forgot password?
         </Link>

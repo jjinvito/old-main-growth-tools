@@ -16,6 +16,7 @@ import Image from "next/image"
 import logo from "@/public/growthtoolslogo.png"
 import { GoPlus } from "react-icons/go";
 import searcbot from "@/public/searchBot.png"
+import { useRouter } from "next/navigation"
 export default function Header(props) {
   const session = useSession()
   const [showSignInModal, setShowSignInModal] = useState(false)
@@ -24,6 +25,7 @@ export default function Header(props) {
   const [isAuthenticated, setisAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
+  const route=useRouter()
 
   const isVisible = useSelector((state) => state.sideBar.isVisible)
 
@@ -134,11 +136,11 @@ export default function Header(props) {
     //   </div>
 
     //   {/* sign in component (modal) */}
-    //   <SignIn
-    //     showModal={showSignInModal}
-    //     setShowModal={setShowSignInModal}
-    //     isAuthenticated={setisAuthenticated}
-    //   />
+      // <SignIn
+      //   showModal={showSignInModal}
+      //   setShowModal={setShowSignInModal}
+      //   isAuthenticated={setisAuthenticated}
+      // />
     //   {/* sign up component (modal) */}
     //   <SignUp
     //     showModal={showSignUpModal}
@@ -197,7 +199,9 @@ export default function Header(props) {
         <ThemeSwitch />
         </div> 
 
-         <button className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] sm:w-full w-fit sm:h-[40px] h-fit justify-center items-center p-2">
+         <button onClick={()=>{
+          route.push('/dashboard')
+         }} className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] sm:w-full w-fit sm:h-[40px] h-fit justify-center items-center p-2">
           <Image src={searcbot} width={15} height={15}  />
           <p className=" sm:block hidden text-white text-sm  ">Try AI Search</p>
           </button>   
@@ -219,11 +223,12 @@ export default function Header(props) {
                   <button
                     className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black sm:h-[40px] w-[45px] h-fit  sm:w-[100px] py-2 sm:py-0  sm:rounded-full rounded-2xl clash-display"
                     onClick={() => {
-                      setShowSignUpModal(!showSignUpModal)
-                    }}
+                      setShowSignInModal(!showSignInModal);
+                }}
                   >
-                    Sign up
+                    Sign In
                   </button>
+                    
                 </>
               ) : (
                 <>
@@ -252,12 +257,18 @@ export default function Header(props) {
       <SignIn
         showModal={showSignInModal}
         setShowModal={setShowSignInModal}
+        showSignUpModal={showSignUpModal}
+        setShowSignUpModal={setShowSignUpModal}
+
         isAuthenticated={setisAuthenticated}
       />
       {/* sign up component (modal) */}
       <SignUp
         showModal={showSignUpModal}
         setShowModal={setShowSignUpModal}
+        showSignInModal={showSignInModal}
+        setShowSignInModal={setShowSignInModal}
+
         isAuthenticated={setisAuthenticated}
       />
 

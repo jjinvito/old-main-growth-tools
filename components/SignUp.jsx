@@ -208,9 +208,12 @@ export default function SignUp(props) {
       <div className="py-4 text-sm text-dark-200  text-center flex justify-center">
         <p>
           Already registered?{" "}
-          <Link href="/sign-in" className="text-dark-400 hover:text-black">
+          <p className="text-dark-400 hover:text-black" onClick={()=>{
+            props.setShowSignInModal(!props.showSignInModal)
+            props.setShowModal(!props.showModal)
+          }}>
             Sign in
-          </Link>
+          </p>
         </p>
       </div>
     </Modal>
