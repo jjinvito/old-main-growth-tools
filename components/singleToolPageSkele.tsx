@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function SingleToolPageSkeleton() {
   return (
-    <div key="1" className="space-y-4 w-full">
+    <div key="1" className="space-y-4 w-full py-5">
       <Skeleton className="h-6 w-32 rounded-md" />
       <div className="flex items-center space-x-2">
         <Skeleton className="h-10 w-10 rounded-full" />
