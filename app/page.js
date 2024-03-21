@@ -42,13 +42,16 @@ export default function Home() {
         <Sidebar />
         <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col justify-between">
         <Header showSidebar setShowSidebar={true} />
-          <div className="pl-7  overflow-y-scroll">
+          <div className="  overflow-y-scroll">
+          <div className="pl-0 md:pl-7">
             <Hero />
             <Filter />
+            </div>
             {showAs == "Collapsed" ? (
               <CollapsedCard />
             ) : (
-              <>
+              <div >
+              <div className="pl-0 md:pl-7">
                 <List />
                 <div className=" flex justify-center w-full ">
                   <button
@@ -58,8 +61,9 @@ export default function Home() {
                     View More
                   </button>
                 </div>
+                </div>
              <Footer />
-              </>
+              </div>
             )}
           </div>
 

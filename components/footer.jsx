@@ -14,7 +14,7 @@ export default function Footer({ className }) {
       )}
     >
       {/* <div className="w-full px-8 pb-[20px] flex justify-evenly items-center sm:flex-row flex-col gap-2 custom_shadow"> */}
-        <div className="flex justify-between  sm:flex-row flex-col sm:gap-0 gap-3 w-full font-clash-display  py-4 px-8">
+        <div className="flex justify-between  sm:flex-row flex-col sm:gap-0 gap-3 w-full font-clash-display  pt-8 pb-4 px-8  shadow-2xl">
           <div className="flex w-full justify-between">
           <div>
             {/* <div className="h-7 mr-2 pt-1">

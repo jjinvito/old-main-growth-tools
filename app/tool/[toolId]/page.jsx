@@ -31,7 +31,7 @@ export default function ToolView({ params }) {
     <div className="h-[10vh]">
     <Header showSidebar setShowSidebar={true} />
     </div>
-      <div className="pl-0 md:pl-7 overflow-hidden scrollbar-hide ">
+      <div className="overflow-hidden scrollbar-hide ">
       {loading ? (
      <SingleToolPageSkeleton />
    ) : (
