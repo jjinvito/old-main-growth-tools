@@ -286,26 +286,41 @@
 }
 .main_menu{
   font-family: "ClashDisplay-Semibold" !important;
+  text-wrap: nowrap;
+
   /* font-weight: 800 !important; */
 }
 .follow_text{
   font-family: "ClashDisplay-Bold";
   font-weight: 600 !important;
+  padding-right: 40px;
+  text-wrap: nowrap;
 }
 .footer_btn{
   font-family: "ClashDisplay-Semibold";
   font-weight: 400 !important;
+  text-wrap: nowrap;
+
 
 }
 .custom_shadow{
-  box-shadow: 1px -1px 13px 0px rgb(0 0 0 / 8%);
+  /* box-shadow: 1px -1px 13px 0px rgb(0 0 0 / 8%); */
   padding-top: 16px;
+  text-wrap: nowrap;
+
   /* font-family: "SatoshiVariable-Variable"; */
 }
+
+@media (max-width:1090px){
+  .footer_last{
+    display: block;
+    padding-left: 0px;
+  }
 .text-gradient {
   background: linear-gradient(90deg, #164CD9 95%, #32AADD 95%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  /* text-fill-color: transparent; */
+}
 }
