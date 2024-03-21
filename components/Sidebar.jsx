@@ -309,7 +309,7 @@ export default function Sidebar(props) {
           <div className="p-[5px] rounded-xl w-8 h-8 grid place-items-center">
             {category.icon}
           </div>
-          <div className={`text-[14px] font-medium  pl-2 ${category.name==="Trending Tools"?"text-gradient":""}`}>{category.name}</div>
+          <div className={`text-[14px] font-medium  pl-2 ${category.name=="Trending Tools"?"text-gradient":""}`}>{category.name}</div>
         </a>
       ))}
 
