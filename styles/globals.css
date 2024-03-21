@@ -91,7 +91,7 @@
 }
 
 @font-face {
-  font-family: "SatoshiVariable-Bold";
+  font-family: "SatoshiVariable-BoldSatoshiVariable-Bold";
   src: url("/fonts/SatoshiVariable/Satoshi-Bold.woff2") format("woff2");
   font-weight: 700;
   font-display: swap;
@@ -284,4 +284,21 @@
   background: white;
   border-radius: 14px;
 }
+.main_menu{
+  font-family: "ClashDisplay-Semibold" !important;
+  /* font-weight: 800 !important; */
+}
+.follow_text{
+  font-family: "ClashDisplay-Bold";
+  font-weight: 600 !important;
+}
+.footer_btn{
+  font-family: "ClashDisplay-Semibold";
+  font-weight: 400 !important;
 
+}
+.custom_shadow{
+  box-shadow: 1px -1px 13px 0px rgb(0 0 0 / 8%);
+  padding-top: 16px;
+  /* font-family: "SatoshiVariable-Variable"; */
+}
