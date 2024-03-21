@@ -40,7 +40,7 @@ export default function Home() {
 
       <div className="flex dark:bg-black">
         <Sidebar />
-        <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col justify-between">
+        <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col">
             <div className="h-[8.8%]"><Header showSidebar setShowSidebar={true} /></div> 
           <div className=" overflow-y-scroll">
           <div className="pl-0 md:pl-7">
@@ -48,7 +48,7 @@ export default function Home() {
             <Filter />
             </div>
             {showAs == "Collapsed" ? (
-              <div className="my-4"><CollapsedCard /></div>
+              <div className=""><CollapsedCard /></div>
             ) : (
               <div  >
               <div className="pl-0 md:pl-7">
