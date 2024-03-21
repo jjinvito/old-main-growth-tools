@@ -315,12 +315,12 @@
   .footer_last{
     display: block;
     padding-left: 0px;
+  }}
+  .text-gradient {
+    background: linear-gradient(90deg, #164CD9 95%, #32AADD 95%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
   }
-.text-gradient {
-  background: linear-gradient(90deg, #164CD9 95%, #32AADD 95%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-}
-}
+  

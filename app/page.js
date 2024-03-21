@@ -41,22 +41,22 @@ export default function Home() {
       <div className="flex dark:bg-black">
         <Sidebar />
         <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col justify-between">
-        <Header showSidebar setShowSidebar={true} />
-          <div className="  overflow-y-scroll">
+            <div className="h-[8.5%]"><Header showSidebar setShowSidebar={true} /></div> 
+          <div className=" overflow-y-scroll">
           <div className="pl-0 md:pl-7">
             <Hero />
             <Filter />
             </div>
             {showAs == "Collapsed" ? (
-              <CollapsedCard />
+              <div className="my-4"><CollapsedCard /></div>
             ) : (
-              <div >
+              <div  >
               <div className="pl-0 md:pl-7">
                 <List />
-                <div className=" flex justify-center w-full ">
+                <div className=" flex h-[10vh] justify-center items-center w-full ">
                   <button
                     type="button"
-                    className=" w-[131px] h-[48px] text-center rounded-full mb-20 border dark:border-white border-[#000000] clash-display font-medium text-base"
+                    className=" w-[131px] h-[48px] text-center rounded-full  border dark:border-white border-[#000000] clash-display font-medium text-base"
                   >
                     View More
                   </button>
