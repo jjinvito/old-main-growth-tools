@@ -9,7 +9,7 @@ export default function Footer({ className }) {
   return (
     <div
       className={cn(
-        "bg-white pt-[32px] dark:bg-black shadow-2xl  lg:block",
+        "bg-white  dark:bg-black shadow-2xl  lg:block",
         className
       )}
     >
