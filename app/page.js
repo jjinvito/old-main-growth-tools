@@ -40,9 +40,9 @@ export default function Home() {
 
       <div className="flex dark:bg-black">
         <Sidebar />
-        <div className="main w-full min-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col justify-between">
+        <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col justify-between">
         <Header showSidebar setShowSidebar={true} />
-          <div className="pl-7">
+          <div className="pl-7  overflow-y-scroll">
             <Hero />
             <Filter />
             {showAs == "Collapsed" ? (
@@ -58,11 +58,11 @@ export default function Home() {
                     View More
                   </button>
                 </div>
+             <Footer />
               </>
             )}
           </div>
 
-          <Footer />
         </div>
       </div>
     </main>
