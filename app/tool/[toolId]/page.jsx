@@ -27,7 +27,7 @@ export default function ToolView({ params }) {
 
     <div className="flex dark:bg-black scrollbar-hided h-screen">
     <Sidebar />
-    <div className="main w-full h-[100vh] pl-0 md:pl-7    scrollbar-hide overflow-hidden flex flex-col justify-between">
+    <div className="main w-full h-[100vh]    scrollbar-hide overflow-hidden flex flex-col justify-between">
     <div className="h-[10vh]">
     <Header showSidebar setShowSidebar={true} />
     </div>
