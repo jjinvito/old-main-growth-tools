@@ -13,7 +13,7 @@ export default function Footer({ className }) {
         className
       )}
     >
-      <div className="w-full px-8 pb-[20px] flex justify-evenly items-center sm:flex-row flex-col gap-2 custom_shadow">
+      {/* <div className="w-full px-8 pb-[20px] flex justify-evenly items-center sm:flex-row flex-col gap-2 custom_shadow"> */}
         <div className="flex justify-between  sm:flex-row flex-col sm:gap-0 gap-3 w-full font-clash-display">
           <div className="flex">
             <div className="h-7 mr-2 pt-1">
@@ -105,7 +105,7 @@ export default function Footer({ className }) {
             </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }
