@@ -311,7 +311,7 @@
   /* font-family: "SatoshiVariable-Variable"; */
 }
 
-@media (max-width:1000px){
+@media (max-width:1090px){
   .footer_last{
     display: block;
     padding-left: 0px;
@@ -321,6 +321,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
+  /* text-fill-color: transparent; */
 }
 }
