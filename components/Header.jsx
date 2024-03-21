@@ -17,6 +17,7 @@ import logo from "@/public/growthtoolslogo.png"
 import { GoPlus } from "react-icons/go";
 import searcbot from "@/public/searchBot.png"
 import { useRouter } from "next/navigation"
+import { RiLoginBoxLine } from "react-icons/ri";
 export default function Header(props) {
   const session = useSession()
   const [showSignInModal, setShowSignInModal] = useState(false)
@@ -152,31 +153,24 @@ export default function Header(props) {
     //   <Search showSearch={showSearch} setShowSearch={setShowSearch} />
     // </div>
 
-    <div className="headerfixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center   px-4 pr-4 z-10 bg-white dark:bg-black dark:border-b dark:border-b-dark-400  pl-7  gap-2">
+    <div className="headerfixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center sm:pl-7 z-10 bg-white dark:bg-black dark:border-b dark:border-b-dark-400    gap-2  sm:mb-6">
       <Link href="/">
-        <Image src={logo} width={70} height={40} className="sm:block hidden dark:text" />
-      
-        {/* <svg width="70" height="39" viewBox="0 0 70 39" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
-        <path
-                fillRule="evenodd"
-                d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
-                clipRule="evenodd"
-              />
-          </svg> */}
+        <Image src={logo} width={70} height={40} className="sm:block hidden dark:text-white dark:bg-black" />
+       
 
       </Link>
 
       <div className="flex items-center justify-end sm:gap-2 gap-4 w-full ">
         {/* dark mode toggle */}
-        <div className="  md:max-w-[430px] md:w-full w-fit h-[40px]   flex justify-end  rounded-3xl md:border pr-1">
+        <div className="  md:max-w-[430px] md:w-full w-fit h-[40px]   flex justify-end  rounded-3xl md:border pr-1 border-[#E5E7EB]">
           
           <input
             type="text"
-            className="md:block hidden pl-4 md:text-lg text-sm outline-none w-full rounded-full bg-transparent"
-            placeholder=" search..."
+            className="md:block hidden pl-4 md:text-lg text-sm outline-none w-full rounded-full bg-transparent satoshi-variable"
+            placeholder=" Search..."
           />
           <button
-            className=" px-3  text-sm  sm:ml-2 text-white bg-black  dark:text-white dark:hover:bg-dark-500  transition  rounded-full "
+            className=" sm:px-[8px] sm:my-[2px] px-[8px] my-[4px]  text-sm  sm:ml-2 text-white bg-black  dark:text-white dark:hover:bg-dark-500  transition  rounded-full  "
             onClick={() => {
               setShowSearch(!showSearch)
             }}
@@ -185,7 +179,7 @@ export default function Header(props) {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className=" w-5 h-5"
+              className=" sm:w-5 sm:h-5 w-4 h-4"
             >
               <path
                 fillRule="evenodd"
@@ -201,14 +195,14 @@ export default function Header(props) {
 
          <button onClick={()=>{
           route.push('/dashboard')
-         }} className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] sm:w-full w-fit sm:h-[40px] h-fit justify-center items-center p-2">
+         }} className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] sm:w-full w-fit sm:h-[40px] h-fit justify-center items-center sm:p-2  px-[8px] py-[6px]">
           <Image src={searcbot} width={15} height={15}  />
-          <p className=" sm:block hidden text-white text-sm  ">Try AI Search</p>
-          </button>   
+          <p className=" sm:block hidden text-white text-sm">Try AI Search</p>
+          </button>
         {/* Render component according to auth status */}
         <Link
           href=" /submit"
-          className=" sm:text-sm text-[8px] ml-2 border border-1 border-black dark:border-white    rounded-full sm:max-w-[140px] sm:h-[40px] sm:w-full w-fit inline-flex justify-center items-center h-fit"
+          className=" sm:text-sm text-[8px] ml-2 border border-1 border-black dark:border-white    rounded-full sm:max-w-[140px] sm:h-[40px] sm:w-full w-fit inline-flex justify-center items-center h-fit px-[5px] py-[4px]"
         >
           <GoPlus size={20} className=" dark:text-white"/>
           <p className="sm:block hidden text-black dark:text-white font-medium clash-display">Submit tool</p>
@@ -221,12 +215,13 @@ export default function Header(props) {
               {!isAuthenticated ? (
                 <>
                   <button
-                    className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black sm:h-[40px] w-[45px] h-fit  sm:w-[100px] py-2 sm:py-0  sm:rounded-full rounded-2xl clash-display"
+                    className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black sm:h-[40px]  h-fit  sm:w-[100px]  sm:py-0  rounded-full  clash-display sm:px-0 px-[8px] py-[6px]"
                     onClick={() => {
                       setShowSignInModal(!showSignInModal);
                 }}
                   >
-                    Sign In
+                    <h1 className=" sm:block hidden" >Sign In</h1>
+                    <RiLoginBoxLine className=" sm:hidden block" size={20}/>
                   </button>
                     
                 </>

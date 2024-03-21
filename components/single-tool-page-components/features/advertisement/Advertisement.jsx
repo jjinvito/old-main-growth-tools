@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 export default function Advertisement() {
   return (
-    <div className=" sm:max-w-[365px] w-[305px]">
+    <div className=" sm:max-w-[365px] w-full  ">
       {/* <h1 className=" font-semibold text-lg">Added by:</h1> */}
       {/* <div className=" flex justify-between items-center w-full">
         <div className=" inline-flex gap-3 items-center">
@@ -36,7 +36,7 @@ export default function Advertisement() {
         </div>
       </div> */}
       {/* <!-- <ad space  --> */}
-      <div className="flex justify-center items-center w-[300px]">
+      <div className="flex justify-center items-center w-full">
         <div className="w-full h-[150px] bg-light-100 dark:bg-dark-500 rounded-xl">
           <div className="flex justify-center items-center h-full">
             <div className="flex flex-col justify-center items-center">

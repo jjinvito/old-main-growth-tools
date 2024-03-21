@@ -7,7 +7,7 @@ export default function feature() {
   const toolsData = useSelector((state) => state?.tool?.item);
 
   return (
-    <div className=" flex flex-col gap-12  sticky top-0 w-[305px] sm:max-w-[365px]">
+    <div className=" flex flex-col gap-12  sticky top-0 w-full sm:max-w-[365px]">
       <KeyFeatures data={toolsData} />
       <UseCase data={toolsData} />
       <Advertisement data={toolsData} />
