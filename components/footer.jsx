@@ -14,8 +14,8 @@ export default function Footer({ className }) {
       )}
     >
       {/* <div className="w-full px-8 pb-[20px] flex justify-evenly items-center sm:flex-row flex-col gap-2 custom_shadow"> */}
-        <div className="flex justify-between  sm:flex-row flex-col sm:gap-0 gap-3 w-full font-clash-display  pt-8 pb-4 px-8  shadow-2xl">
-          <div className="flex w-full justify-between">
+        <div className="flex  justify-between  flex-col sm:gap-0 gap-3 w-full font-clash-display  p-8  shadow-2xl">
+          <div className="flex  md:flex-row flex-col w-full justify-between gap-3">
           <div>
             {/* <div className="h-7 mr-2 pt-1">
               <Image
@@ -60,17 +60,17 @@ export default function Footer({ className }) {
                 <nav className="mt-4">
                   <ul className="space-y-3">
                     <li>
-                      <a className="  font-normal text-nowrap" href="#">
+                      <a className="  font-medium text-nowrap" href="#">
                         Growth Virality
                       </a>
                     </li>
                     <li>
-                      <a className="  font-normal text-nowrap" href="#">
+                      <a className="  font-medium text-nowrap" href="#">
                         Growth Newsletter
                       </a>
                     </li>
                     <li>
-                      <a className=" font-normal text-nowrap" href="#">
+                      <a className=" font-medium text-nowrap" href="#">
                         Growth Articles
                       </a>
                     </li>
@@ -84,30 +84,32 @@ export default function Footer({ className }) {
             {/* get in section */}
               <div className="pt-[43px]">
                 <h3 className="font-medium  text-center flex">Get in touch</h3>
-                <nav className="mt-4">
+                <div className="flex justify-start gap-2 py-3 cursor-pointer  font-medium">
+                 <Image
+                          src="/discord.png"
+                          width="28"
+                          height="10"
+                          alt="Discord logo"
+                        />
+                        Join our Discord community</div>
+                {/* <nav className="mt-4">
                   <ul className="space-y-3 ">
                     <li>
                       <a
                         className="flex sm:flex-row flex-col font-medium items-center text-nowrap gap-2 text-center"
                         href="#"
                       >
-                        <Image
-                          src="/discord.png"
-                          width="20"
-                          height="14"
-                          alt="Discord logo"
-                        />
-                        Join our Discord community
+                       
                       </a>
                     </li>
                   </ul>
-                </nav>
+                </nav> */}
               </div>
                {/* Folloe Us */}
             <div className="flex gap-6 footer_last">
-                <div className="pb-5">
+                <div className="pb-5 flex flex-col items-start">
                   <h3 className="text-lg follow_text text-nowrap">Follow Us</h3>
-                  <nav className="mt-4 flex items-center sm:flex-row flex-col gap-6  ">
+                  <nav className="mt-4 flex items-center  gap-6  ">
                     <a className=" dark:text-white" href="#">
                       <BiLogoTiktok className="h-8 w-8 bg-black text-white p-[3px] rounded-sm" />
                     </a>
