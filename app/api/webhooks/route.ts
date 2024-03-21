@@ -181,6 +181,7 @@ const webhookHandler = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const payload = await req.text();
     const sig = req.headers.get("stripe-signature")!;
+    console.log("webhook secret", webhookSecret)
     const event = stripe.webhooks.constructEvent(payload, sig, webhookSecret);
 
     switch (event.type) {
@@ -211,7 +212,7 @@ const webhookHandler = async (req: NextRequest): Promise<NextResponse> => {
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
-    console.error(`Webhook Error: ${errorMessage}`);
+    console.error(`Webhook Error: ${error}`);
     return NextResponse.json(
       { error: { message: `Webhook Error: ${errorMessage}` } },
       { status: 400 }

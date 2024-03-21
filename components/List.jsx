@@ -17,7 +17,7 @@ export default function List({ search }) {
   }, [List]);
   // }, [search]);
 
-  return toolsDataStatus === "loadings" ? (
+  return toolsDataStatus === "loading" ? (
     <div className="flex gap-5 flex-wrap items-center justify-evenly">
       <div
         role="status"
