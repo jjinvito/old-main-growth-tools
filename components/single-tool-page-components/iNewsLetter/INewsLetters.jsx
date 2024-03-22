@@ -17,9 +17,8 @@ export default function INewsLetters() {
       <ScreenShots data={toolsData} />
       <Deals data={toolsData} />
       <Marketing data={toolsData} />
-      <div className="hidden xl:block">
-        <AdsManagement />
-      </div>
+
+      <AdsManagement />
     </div>
-  ); 
+  );
 }

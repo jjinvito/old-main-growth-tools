@@ -9,23 +9,6 @@ export default function Sidebar(props) {
   const categories = [
     {
       icon: (
-   
-   
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none">
-        <path d="M9.77442 9.80526e-06C9.54541 -0.00727924 9.32067 0.0916505 9.16992 0.2754L0.169925 11.2754C-0.0135753 11.4999 -0.0517314 11.8093 0.0722686 12.0713C0.196269 12.3328 0.460503 12.5 0.750003 12.5H5.5V19.25C5.5 19.567 5.69905 19.8491 5.99805 19.9561C6.08055 19.9856 6.1655 20 6.25 20C6.4705 20 6.68458 19.9021 6.83008 19.7246L15.8301 8.72462C16.0136 8.50012 16.0517 8.19072 15.9277 7.92872C15.8037 7.66722 15.5395 7.50001 15.25 7.50001H10.5V0.75001C10.5 0.43301 10.301 0.150955 10.002 0.0439551C9.92733 0.0173301 9.85075 0.00243951 9.77442 9.80526e-06Z" fill="black"/>
-        <path d="M9.77442 9.80526e-06C9.54541 -0.00727924 9.32067 0.0916505 9.16992 0.2754L0.169925 11.2754C-0.0135753 11.4999 -0.0517314 11.8093 0.0722686 12.0713C0.196269 12.3328 0.460503 12.5 0.750003 12.5H5.5V19.25C5.5 19.567 5.69905 19.8491 5.99805 19.9561C6.08055 19.9856 6.1655 20 6.25 20C6.4705 20 6.68458 19.9021 6.83008 19.7246L15.8301 8.72462C16.0136 8.50012 16.0517 8.19072 15.9277 7.92872C15.8037 7.66722 15.5395 7.50001 15.25 7.50001H10.5V0.75001C10.5 0.43301 10.301 0.150955 10.002 0.0439551C9.92733 0.0173301 9.85075 0.00243951 9.77442 9.80526e-06Z" fill="url(#paint0_linear_2666_823)"/>
-        <defs>
-        <linearGradient id="paint0_linear_2666_823" x1="-2.10394" y1="-0.000397355" x2="34.6731" y2="1.6679" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#164CD9"/>
-        <stop offset="1" stop-color="#32AADD"/>
-        </linearGradient>
-        </defs>
-        </svg>
-      ),
-      name: "Trending Tools",
-    },
-    {
-      icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -309,7 +292,7 @@ export default function Sidebar(props) {
           <div className="p-[5px] rounded-xl w-8 h-8 grid place-items-center">
             {category.icon}
           </div>
-          <div className={`text-[14px] font-medium  pl-2 ${category.name=="Trending Tools"?"text-gradient":""}`}>{category.name}</div>
+          <div className="text-[14px] font-medium  pl-2">{category.name}</div>
         </a>
       ))}
 

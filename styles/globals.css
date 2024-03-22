@@ -148,6 +148,7 @@
       0px 152px 42px 0px #BABABA00;
 }
 
+
 .clash-display {
   font-family: "ClashDisplay-Variable", sans-serif;
 }
@@ -264,11 +265,15 @@
   border-radius: 16px;
   padding: 2px;
   background: linear-gradient(to right, #2661fa, #32ddb4);
-  position: relative;
-  z-index: 0;
-}
 
-.gradient-border::before {
+  z-index: 0;
+  border-color: linear-gradient(to right, #2661fa, #32ddb4);
+}
+.contentWidth{
+  width: max-content ;
+
+}
+/* .gradient-border::before {
   content: "";
   position: absolute;
   top: 0;
@@ -278,7 +283,7 @@
   border-radius: inherit;
   box-shadow: 0 0 0 20px white;
   z-index: -1;
-}
+} */
 
 .content {
   background: white;
