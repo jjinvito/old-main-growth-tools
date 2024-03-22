@@ -5,7 +5,7 @@ export default function CollapsedCard() {
   const toolsData = useSelector((state) => state?.tools?.items);
   console.log("toolsData", toolsData);
   return (
-    <div className=" h-fit flex flex-row flex-wrap gap-6 items-center mt-9 mb-20 mr-5">
+    <div className=" h-fit flex flex-row flex-wrap gap-6 items-center  mb-20 mt-5  pl-0 md:pl-7">
       {toolsData?.map((obj) => (
         <Card data={obj} />
       ))}

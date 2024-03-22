@@ -30,7 +30,7 @@ export default function ListItem(props) {
   return (
     <div
       role="list-item"
-      className="transition ease-in-out h-[337px]  rounded-xl max-w-[360px] min-w-[240px] mb-4 col-span-12 md:col-span-6 lg:col-span-4 "
+      className="transition ease-in-out h-[337px]  rounded-xl w-[100%] mb-4 col-span-12 md:col-span-6 lg:col-span-4 "
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

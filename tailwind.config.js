@@ -6,6 +6,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  fontFamily: {
+    "clash-display": ["ClashDisplay-Extralight", "sans-serif"],
+  },
   theme: {
     extend: {
       colors: {
