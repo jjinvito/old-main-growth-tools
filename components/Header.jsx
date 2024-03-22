@@ -3,7 +3,6 @@ import {useEffect, useState} from "react"
 import {useSelector} from "react-redux"
 import SignIn from "./SignIn"
 import SignUp from "./SignUp"
-import Search from "./Search"
 import {logout} from "@/actions/logout"
 import {useSession} from "next-auth/react"
 import Link from "next/link"
@@ -18,6 +17,8 @@ import { GoPlus } from "react-icons/go";
 import searcbot from "@/public/searchBot.png"
 import { useRouter } from "next/navigation"
 import { RiLoginBoxLine } from "react-icons/ri";
+import { PageOverlay } from "./pageOverlay";
+import SearchDropDown from '../components/SearchDropDown'
 export default function Header(props) {
   const session = useSession()
   const [showSignInModal, setShowSignInModal] = useState(false)
@@ -152,21 +153,21 @@ export default function Header(props) {
     //   {/* search component */}
     //   <Search showSearch={showSearch} setShowSearch={setShowSearch} />
     // </div>
-
-    <div className="headerfixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center sm:pl-7 z-10 bg-white dark:bg-black dark:border-b dark:border-b-dark-400    gap-2  sm:mb-6">
+    <>
+    <div className={`headerfixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center sm:pl-7  bg-white dark:bg-black dark:border-b dark:border-b-dark-400    gap-2 sm:mb-6 px-[2px] ${ showSearch === true ? "z-50": "z-10"}`}>
       <Link href="/">
-        <Image src={logo} width={70} height={40} className="sm:block hidden dark:text-white dark:bg-black" />
+        <Image src={logo} width={90} className=" dark:text-white dark:bg-black " />
        
 
       </Link>
 
-      <div className="flex items-center justify-end sm:gap-2 gap-4 w-full ">
+      <div className="flex items-center justify-end sm:gap-6 md:gap-2 gap-2 w-full  ">
         {/* dark mode toggle */}
-        <div className="  md:max-w-[430px] md:w-full w-fit h-[40px]   flex justify-end  rounded-3xl md:border pr-1 border-[#E5E7EB]">
+        <div className="  md:max-w-[430px] md:w-full w-fit h-[40px]   flex justify-end  rounded-3xl md:border pr-1 border-[#E5E7EB] focus:border-[3px] hover:border-[blue]">
           
           <input
             type="text"
-            className="md:block hidden pl-4 md:text-lg text-sm outline-none w-full rounded-full bg-transparent satoshi-variable"
+            className="md:block hidden pl-4 md:text-lg text-sm outline-none w-full rounded-full bg-transparent satoshi-variable border-none "
             placeholder=" Search..."
           />
           <button
@@ -195,33 +196,33 @@ export default function Header(props) {
 
          <button onClick={()=>{
           route.push('/dashboard')
-         }} className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] sm:w-full w-fit sm:h-[40px] h-fit justify-center items-center sm:p-2  px-[8px] py-[6px]">
+         }} className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] md:w-full w-fit md:h-[40px] h-fit justify-center items-center sm:p-2  px-[8px] py-[6px]">
           <Image src={searcbot} width={15} height={15}  />
-          <p className=" sm:block hidden text-white text-sm">Try AI Search</p>
+          <p className=" md:block hidden text-white text-sm">Try AI Search</p>
           </button>
         {/* Render component according to auth status */}
         <Link
           href=" /submit"
-          className=" sm:text-sm text-[8px] ml-2 border border-1 border-black dark:border-white    rounded-full sm:max-w-[140px] sm:h-[40px] sm:w-full w-fit inline-flex justify-center items-center h-fit px-[5px] py-[4px]"
+          className=" sm:text-sm text-[8px] ml-2 border border-1 border-black dark:border-white    rounded-full md:max-w-[140px] md:h-[40px] md:w-full w-fit inline-flex justify-center items-center h-fit px-[5px] py-[4px]"
         >
           <GoPlus size={20} className=" dark:text-white"/>
-          <p className="sm:block hidden text-black dark:text-white font-medium clash-display">Submit tool</p>
+          <p className="md:block hidden text-black dark:text-white font-medium clash-display">Submit tool</p>
         </Link>
         {loading ? (
           ""
         ) : (
           <div>
-            <div className="flex h-fit w-full font-[400] items-center justify-center">
+            <div className="flex h-fit w-full font-[400] items-center justify-center sm:block hidden">
               {!isAuthenticated ? (
                 <>
                   <button
-                    className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black sm:h-[40px]  h-fit  sm:w-[100px]  sm:py-0  rounded-full  clash-display sm:px-0 px-[8px] py-[6px]"
+                    className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black md:h-[40px]  h-fit  md:w-[100px]  md:py-0  rounded-full  clash-display md:px-0 px-[8px] py-[6px]"
                     onClick={() => {
                       setShowSignInModal(!showSignInModal);
                 }}
                   >
-                    <h1 className=" sm:block hidden" >Sign In</h1>
-                    <RiLoginBoxLine className=" sm:hidden block" size={20}/>
+                    <h1 className=" md:block hidden" >Sign In</h1>
+                    <RiLoginBoxLine className=" md:hidden block" size={20}/>
                   </button>
                     
                 </>
@@ -268,7 +269,9 @@ export default function Header(props) {
       />
 
       {/* search component */}
-      <Search showSearch={showSearch} setShowSearch={setShowSearch} />
+      {showSearch &&  <SearchDropDown open={showSearch} setOpen={setShowSearch} />}
     </div>
+      <PageOverlay visibility={showSearch} setToggleNav={setShowSearch} />
+      </>
   )
 }

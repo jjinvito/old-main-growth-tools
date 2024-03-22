@@ -1,11 +1,31 @@
 
 "use client"
+import { useState,useEffect } from "react";
+import {useSession} from "next-auth/react"
 import { cn } from "@/lib/utils";
 import { useSelector } from "react-redux";
-
+import { RiLoginBoxLine } from "react-icons/ri";
+import SignIn from "./SignIn";
 export default function Sidebar(props) {
+  const [isAuthenticated, setisAuthenticated] = useState(false)
+const [showSignInModal, setShowSignInModal] = useState(false)
+const [showSignUpModal, setShowSignUpModal] = useState(false)
+const [loading, setLoading] = useState(true)
+const session = useSession()
   const isVisible = useSelector((state) => state.sideBar.isVisible);
 
+  useEffect(() => {
+    session.data?.user ? setisAuthenticated(true) : setisAuthenticated(false)
+
+    setLoading(false)
+  }, [])
+
+  const handleSignOut = () => {
+    logout()
+    setisAuthenticated(false)
+    setLoading(false)
+    setLoading(false)
+  }
   const categories = [
     {
       icon: (
@@ -277,9 +297,7 @@ export default function Sidebar(props) {
   return (
     <div
       className={cn(
-        `max-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[70px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2 w-[100vw] md:w-[215px] min-w-[215px] border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400 xl:transition-none transition duration-400 ease-in-out z-10 transform ${
-          !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0"
-        }`,
+        `max-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[70px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2 w-[100vw] md:w-[215px] min-w-[215px] border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400 xl:transition-none transition duration-400 ease-in-out z-10 transform ${ !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0" }  `,
         props.className
       )}
     >
@@ -295,6 +313,41 @@ export default function Sidebar(props) {
           <div className="text-[14px] font-medium  pl-2">{category.name}</div>
         </a>
       ))}
+     <div className="flex h-fit w-full font-[400] gap-2 items-center justify-start mt-4 sm:hidden block ">
+              {!isAuthenticated ? (
+                <>
+                  <button
+                    className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black md:h-[40px]  h-fit  md:w-[100px]  md:py-0  rounded-full  clash-display md:px-0 px-[8px] py-[6px]"
+                    onClick={() => {
+                      setShowSignInModal(!showSignInModal);
+                }}
+                  >
+                    {/* <h1 className=" md:hidden block" >Sign In</h1> */}
+                    <RiLoginBoxLine className=" md:hidden block" size={20}/>
+                  </button>
+                  <h1 className="text-[16px] font-medium  pl-2"> Sign In</h1>
+                    
+                </>
+              ) : (
+                <>
+                  <button
+                    className="py-1.5 sm:text-sm text-[8px]  w-[45px] sm:w-full sm:ml-2 bg-black text-white dark:bg-white dark:text-black sm:px-3  rounded-full"
+                    onClick={handleSignOut}
+                  >
+                    Sign out
+                  </button>
+
+                </>
+              )}
+            <SignIn
+        showModal={showSignInModal}
+        setShowModal={setShowSignInModal}
+        showSignUpModal={showSignUpModal}
+        setShowSignUpModal={setShowSignUpModal}
+
+        isAuthenticated={setisAuthenticated}
+      />
+    </div>
 
       {/* section break (hr) */}
       <div className="border-b border-light-200 dark:border-dark-400 my-1"></div>
@@ -320,6 +373,6 @@ export default function Sidebar(props) {
           © 2022 CopyUI, Inc. All rights reserved.
         </p>
       </div>
-    </div>
+                 </div>
   );
 }

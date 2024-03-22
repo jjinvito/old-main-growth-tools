@@ -16,7 +16,7 @@ export default function Filter() {
 
   return (
     <div className="w-11/12 flex items-center gap-2 h-[72px] border-t-2 pt-5">
-      <div className="relative z-50">
+      <div className={`relative ${toggleNav === true ? 'z-50': 'z-0'} `}>
         <button
           onClick={() => {
             setToggleNav(!toggleNav);
