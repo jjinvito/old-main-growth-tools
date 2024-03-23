@@ -96,7 +96,7 @@ export default function AdsManagement() {
       />
 
       <small className=" text-[#1D66DA] font-medium text-sm mb-6">
-      Browse 1 Ads Management tools
+        Browse 1 Ads Management tool
       </small>
       <VisiteWebsite />
     </div>
