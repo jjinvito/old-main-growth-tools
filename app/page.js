@@ -25,7 +25,6 @@ export default function Home() {
   useEffect(() => {
     dispatch(fetchTools());
   }, []);
-console.log();
 
   return (
     <main className={`${inter.className} `}>
