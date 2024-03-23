@@ -4,9 +4,9 @@ import HeroLogo from "@/public/heroLogo.png";
 
 export default function Hero() {
   return (
-    <div className=" w-full h-fit  md:mt-0  flex flex-col mb-5">
-      <div className=" flex justify-between  pt-4 xl:pt-0 w-full xl:w-full h-fit flex-row">
-        <div className="   w-full h-fit clash-display font-bold gap-4 flex flex-col ">
+    <div className=" w-full h-fit  md:mt-0  flex flex-col mb-5 ">
+      <div className=" flex justify-between  xl:pt-0 w-full xl:w-full h-fit flex-row">
+        <div className="   w-full h-fit clash-display font-bold gap-4 flex flex-col 2xl:pt-20 sm:pt-10 ">
           <h1 className=" text-[40px] ">
             Discover{" "}
             <span className="bg-gradient-to-r from-[#2661FA] to-[#32DDB4]  text-transparent bg-clip-text ">

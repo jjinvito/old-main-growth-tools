@@ -155,7 +155,7 @@ export default function Header(props) {
     // </div>
     <>
       <div
-        className={` sticky left-0 top-0 right-0 h-fit w-full flex justify-between items-center   bg-white dark:bg-black dark:border-b dark:border-b-dark-400 pt-2 sm:pl-7    gap-2 px-[2px] ${
+        className={` sticky left-0 top-0 right-0 h-fit w-full flex justify-between items-center   bg-white dark:bg-black dark:border-b dark:border-b-dark-400 pt-2 sm:pl-7    gap-2 px-[4px] ${
           showSearch === true ? "z-50" : "z-10"
         } border-b-[1px]`}
       >
@@ -232,7 +232,7 @@ export default function Header(props) {
                         setShowSignInModal(!showSignInModal)
                       }}
                     >
-                      <h1 className=" md:block hidden">Sign In</h1>
+                      <p className=" md:block hidden">Sign In</p>
                       <RiLoginBoxLine className=" md:hidden block" size={20} />
                     </button>
                   </>

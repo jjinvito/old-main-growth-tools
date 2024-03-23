@@ -11,6 +11,7 @@ export default function Sidebar(props) {
   const [isAuthenticated, setisAuthenticated] = useState(false)
 const [showSignInModal, setShowSignInModal] = useState(false)
 const [showSignUpModal, setShowSignUpModal] = useState(false)
+const [toggleNav,setToggleNav] = useState(false)
 const [loading, setLoading] = useState(true)
 const session = useSession()
   const isVisible = useSelector((state) => state.sideBar.isVisible);
@@ -322,11 +323,11 @@ const session = useSession()
     // >
     <div
       className={cn(
-        `max-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[50px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2 w-[100vw] md:w-[215px] min-w-[215px] border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400 xl:transition-none transition duration-400 ease-in-out z-50 transform  ${ !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0" }  `,
+        `max-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[50px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2  border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400  transition duration-400 ease-in-out z-50 transform  ${ !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0 " }  ${ toggleNav === true ? "xl:-translate-x-48 w-[0px]" : "w-[100vw] md:w-[215px] min-w-[215px]"  }  `,
         props.className
       )}
     >
-      <button className=" sm:block hidden border-[1px] p-2 text-[#1F6BDA] rounded-full w-fit h-fit  fixed left-48 top-0 right-0 bottom-0 z-50  ">
+      <button className=" xl:block hidden border-[1px] p-2 text-[#1F6BDA] rounded-full w-fit h-fit  fixed left-48 top-0 right-0 bottom-0 z-50  " onClick={()=>{setToggleNav(!toggleNav)}}>
           <IoIosArrowBack size={20} />
         </button>
       {categories.map((category, index) => (
