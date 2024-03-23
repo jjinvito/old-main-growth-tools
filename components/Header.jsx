@@ -155,7 +155,7 @@ export default function Header(props) {
     // </div>
     <>
       <div
-        className={` sticky left-0 top-0 right-0 h-fit w-full flex justify-between items-center   bg-white dark:bg-black dark:border-b dark:border-b-dark-400 py-2 sm:pl-7    gap-2 px-[4px] ${
+        className={` sticky left-0 top-0 right-0 h-fit w-full flex justify-between items-center   bg-white dark:bg-black dark:border-b dark:border-b-dark-400 py-2 sm:pl-7    gap-2 pl-[4px] pr-[6px] ${
           showSearch === true ? "z-50" : "z-10"
         } border-b-[1px]`}
       >
