@@ -378,3 +378,6 @@
 
   z-index: 99999999;
 }
+.footer_shadow{
+  box-shadow: -3px 8px 9px 5px rgba(0, 0, 0, 0.5);
+}
