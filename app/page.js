@@ -38,10 +38,10 @@ export default function Home() {
         name="Copy UI"
       />
 
-      <div className="flex dark:bg-black">
+      <div className="flex dark:bg-black w-full">
         <Sidebar />
         <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col">
-            <div className="h-[8.8%]"><Header showSidebar setShowSidebar={true} /></div> 
+            <div><Header showSidebar setShowSidebar={true} /></div> 
           <div className=" overflow-y-scroll">
           <div className="sm:px-0 md:pl-7 px-4 ">
             <Hero />
