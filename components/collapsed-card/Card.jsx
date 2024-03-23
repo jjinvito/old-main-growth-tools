@@ -37,7 +37,7 @@ export default function Card({
             <h1 className="font-semibold text-base">{data?.name}</h1>
             <p
               className={cn(
-                " text-blance w-[95%] dark:text-white text-[14px] text-[#494949] satoshi-variable font-medium",
+                " text-blance w-[95%] my-2 dark:text-white text-[14px] text-[#494949] satoshi-variable font-medium",
                 descriptionWidth
               )}
             >
