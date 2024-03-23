@@ -38,17 +38,20 @@ export default function Home() {
         name="Copy UI"
       />
 
-      <div className="flex dark:bg-black w-full">
+      <div className="flex dark:bg-black w-full h-screen">
         <Sidebar />
         <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col">
             <div><Header showSidebar setShowSidebar={true} /></div> 
           <div className=" overflow-y-scroll">
-          <div className="sm:px-0 md:pl-7 px-4 ">
+          <div className="sm:px-0 md:pl-7 px-4 h-fit">
             <Hero />
             <Filter />
+            
             </div>
             {showAs == "Collapsed" ? (
-              <div className="sm:px-0 md:pl-7 px-4"><CollapsedCard /></div>
+              <div className="sm:px-0  px-4"><CollapsedCard />
+              <Footer />
+              </div>
             ) : (
               <div  >
               <div className="sm:px-0 md:pl-7 px-2">
@@ -66,7 +69,7 @@ export default function Home() {
               </div>
             )}
           </div>
-
+          
         </div>
       </div>
     </main>
