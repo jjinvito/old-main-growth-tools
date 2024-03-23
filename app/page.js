@@ -6,7 +6,7 @@ import List from "@/components/List";
 import CollapsedCard from "@/components/collapsed-card/CollapsedCard";
 import SEO from "@/components/SEO";
 import { useDispatch } from "react-redux";
-
+import {IoIosArrowBack} from "react-icons/io";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { fetchTools } from "@/lib/redux/features/tools/toolsSlice";
@@ -40,6 +40,11 @@ export default function Home() {
 
       <div className="flex dark:bg-black w-full h-screen">
         <Sidebar />
+        <div className=" w-0 h-full  ">
+        <button className=" xl:block hidden border-[1px] p-1 text-[#1F6BDA] bg-white rounded-full w-fit h-fit relative top-5 right-4 z-50   " > 
+          <IoIosArrowBack size={20} />
+        </button>
+        </div>
         <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col">
             <div><Header showSidebar setShowSidebar={true} /></div> 
           <div className=" overflow-y-scroll">
