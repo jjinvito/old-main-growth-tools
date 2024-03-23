@@ -8,25 +8,10 @@ import { cn } from "@/lib/utils";
 export default function Footer({ className }) {
   return (
     <div className={cn("bg-white pt-[0px] dark:bg-black  lg:block", className)}>
-      {/* <div className="w-full px-8 pb-[20px] flex justify-evenly items-center sm:flex-row flex-col gap-2 custom_shadow"> */}
       <div className="flex  justify-between  flex-col sm:gap-0 gap-3 w-full font-clash-display  p-8  shadow-2xl">
         <div className="flex  md:flex-row flex-col w-full justify-between gap-3">
-          <div>
-            {/* <div className="h-7 mr-2 pt-1">
-              <Image
-                width="28"
-                height="28"
-                src="/tool.png"
-                alt="Growth verality logo"
-              />
-            </div>
+          <div className="w-fit">
 
-            <div>
-              <h3 className="text-lg follow_text mb-[-7px] pr-[20px] ">
-                Growth
-              </h3>
-              <span className="text-[#868686] dark:text-white">tools</span>
-            </div> */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="94"
@@ -109,10 +94,10 @@ export default function Footer({ className }) {
             </svg>
           </div>
           <div className="flex  justify-between middle_footer">
-            <div className="pr-[66px]">
+            <div className="pr-[66px] menu_footer">
               <h3 className="text-lg main_menu">Menu</h3>
               <nav className="mt-4">
-                <ul className="space-y-3">
+                <ul className="">
                   <li>
                     <a className="  font-medium text_nowrap" href="#">
                       Growth Virality
@@ -132,7 +117,6 @@ export default function Footer({ className }) {
               </nav>
             </div>
 
-            {/* get in section */}
             <div>
               <div className="pt-[43px]">
                 <h3 className="font-medium  text-center flex">Get in touch</h3>
@@ -146,25 +130,14 @@ export default function Footer({ className }) {
                   />
                   <div className="text_nowrap ">Join our Discord community</div>
                 </div>
-                {/* <nav className="mt-4">
-                  <ul className="space-y-3 ">
-                    <li>
-                      <a
-                        className="flex sm:flex-row flex-col font-medium items-center text-nowrap gap-2 text-center"
-                        href="#"
-                      >
-                       
-                      </a>
-                    </li>
-                  </ul>
-                </nav> */}
+
               </div>
             </div>
           </div>
-          {/* Folloe Us */}
+
           <div className="flex justify-between footer_div">
             <div className="flex  footer_last">
-              <div className="pb-5 flex flex-col items-start">
+              <div className="pb-5 flex flex-col items-start pr-32 mobile_last_footer">
                 <h3 className="text-lg follow_text text-nowrap">Follow Us</h3>
                 <nav className="mt-4 flex items-center  gap-6  ">
                   <a className=" dark:text-white" href="#">
@@ -179,13 +152,11 @@ export default function Footer({ className }) {
                 </nav>
               </div>
             </div>
-            {/* button */}
-            <div className=" footer_last">
+
+            <div className=" footer_last_btn">
               <button
                 className="py-1.5 text-sm ml-2 bg-white text-black footer_btn  px-3 rounded-full w-[134px] h-[48px] border border-black font-semibold"
-                // onClick={() => {
-                //   setShowSignUpModal(!showSignUpModal);
-                // }}
+
               >
                 Contact Us
               </button>
@@ -195,5 +166,7 @@ export default function Footer({ className }) {
       </div>
       {/* </div> */}
     </div>
+
+  
   );
 }
