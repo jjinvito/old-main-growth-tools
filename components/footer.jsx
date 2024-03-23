@@ -98,17 +98,17 @@ export default function Footer({ className }) {
               <h3 className="text-lg main_menu">Menu</h3>
               <nav className="mt-4">
                 <ul className="">
-                  <li className="pb-2">
+                  <li className="pb-4">
                     <a className="  font-medium text_nowrap" href="#">
                       Growth Virality
                     </a>
                   </li>
-                  <li className="pb-2">
+                  <li className="pb-4">
                     <a className="  font-medium text_nowrap" href="#">
                       Growth Newsletter
                     </a>
                   </li>
-                  <li className="pb-2">
+                  <li className="pb-4">
                     <a className=" font-medium text_nowrap" href="#">
                       Growth Articles
                     </a>
@@ -118,7 +118,7 @@ export default function Footer({ className }) {
             </div>
 
             <div>
-              <div className="pt-[43px]">
+              <div className="">
                 <h3 className="font-medium  text-center flex">Get in touch</h3>
                 <div className="flex justify-start gap-2 py-3 cursor-pointer  font-medium">
                   <Image
