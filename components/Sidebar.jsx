@@ -323,11 +323,11 @@ const session = useSession()
     // >
     <div
       className={cn(
-        `min-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[50px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2  border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400  transition duration-400 ease-in-out z-50 transform  ${ !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0 w-[100vw] md:w-[215px] min-w-[215px] " }  ${ toggleNav === true ? "xl:-translate-x-48 w-[0px]" : "w-[100vw] md:w-[215px] min-w-[215px]"  }  `,
+        `min-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[50px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2 text-left bg-white border-r-[1px] dark:bg-black dark:border-r-dark-400  transition duration-400 ease-in-out z-50 transform w-[100vw] md:w-[215px] min-w-[215px]  ${ !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0  " }  ${ toggleNav === true ? "xl:-translate-x-48 w-[0px]" : "w-[100vw] md:w-[215px] min-w-[215px]" }  `,
         props.className
       )}
     >
-      <button className=" xl:block hidden border-[1px] p-2 text-[#1F6BDA] rounded-full w-fit h-fit  fixed left-48 top-0 right-0 bottom-0 z-50  " onClick={()=>{setToggleNav(!toggleNav)}}>
+      <button className=" xl:block hidden border-[1px] p-1 text-[#1F6BDA] rounded-full w-fit h-fit  fixed left-44 top-2 right-0 bottom-0 z-50  " onClick={()=>{setToggleNav(!toggleNav)}}>
           <IoIosArrowBack size={20} />
         </button>
       {categories.map((category, index) => (
