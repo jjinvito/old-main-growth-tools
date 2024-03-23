@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export default function Footer({ className }) {
   return (
     <div className={cn("bg-white pt-[0px] dark:bg-black  lg:block", className)}>
-      <div className="flex  justify-between  flex-col sm:gap-0 gap-3 w-full font-clash-display  p-8  shadow-2xl">
+      <div className="flex  justify-between  flex-col sm:gap-0 gap-3 w-full font-clash-display  p-8  footer_shadow">
         <div className="flex  md:flex-row flex-col w-full justify-between gap-3">
           <div className="w-fit">
 

@@ -373,4 +373,6 @@
 .text_nowrap {
   text-wrap: nowrap !important;
 }
-/* @media (max-width:1090px) */
+.footer_shadow{
+  box-shadow: -3px 8px 9px 5px rgba(0, 0, 0, 0.5);
+}
