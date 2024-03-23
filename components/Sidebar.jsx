@@ -327,9 +327,9 @@ const session = useSession()
         props.className
       )}
     >
-      <button className=" xl:block hidden border-[1px] p-1 text-[#1F6BDA] rounded-full w-fit h-fit  fixed left-44 top-2 right-0 bottom-0 z-50  " onClick={()=>{setToggleNav(!toggleNav)}}>
+      {/* <button className=" xl:block hidden border-[1px] p-1 text-[#1F6BDA] rounded-full w-fit h-fit  fixed left-44 top-2 right-0 bottom-0 z-50  " onClick={()=>{setToggleNav(!toggleNav)}}>
           <IoIosArrowBack size={20} />
-        </button>
+        </button> */}
       {categories.map((category, index) => (
         <a
           key={index}
