@@ -6,34 +6,32 @@ export default function Deals({ data }) {
     <div>
       <div className="text-lg font-semibold dark:text-white pb-2">Deals</div>
 
-      <div className="flex gap-10 flex-wrap ">
+      <div className="grid grid-cols-12 md:grid-cols-8 gap-10  ">
         {data?.deals?.map((deal, index) => (
-          <div
-            key={index}
-            className="flex dark:bg-black h-[156px] w-[290px]"
-          >
+         
             <div
+             key={index}
               className={
-                "flex flex-col justify-start gap-1 h-[156px] w-full  p-5 border border-[#EAEAEA] rounded-2xl custom-shadow bg-white relative dark:border-neutral-800 dark:bg-black"
+                "col-span-12 md:col-span-4 gap-1  w-full  p-5  border border-[#EAEAEA] rounded-2xl custom-shadow bg-white relative dark:border-neutral-800 dark:bg-black"
               }
             >
-              <div className="font-semibold text-lg outline-1 w-44 disabled:bg-transparent dark:text-white dark:border-neutral-700 dark:bg-transparent">
+              <div className="font-semibold text-lg outline-1  disabled:bg-transparent dark:text-white dark:border-neutral-700 dark:bg-transparent">
                 {deal.title}
               </div>
 
-              <div className="flex items-center ">
-                <div className="text-muted  dark:text-white text-sm font-medium   w-11 outline-1 disabled:bg-transparent dark:bg-transparent">
+              <div className="flex items-center gap-1 my-1">
+                <div className="text-muted  dark:text-white text-sm font-medium    outline-1 disabled:bg-transparent dark:bg-transparent">
                   {deal.price}
                 </div>
-                <div className="line-through dark:text-white text-sm font-medium  text-dull w-8 outline-1 disabled:bg-transparent dark:bg-transparent">
+                <div className="line-through dark:text-white text-sm font-medium  text-dull  outline-1 disabled:bg-transparent dark:bg-transparent">
                   {deal.originalPrice}
                 </div>
-                <div className="text-muted dark:text-white text-sm  w-16 outline-1 disabled:bg-transparent dark:bg-transparent">
+                <div className="text-muted dark:text-white text-sm   outline-1 disabled:bg-transparent dark:bg-transparent">
                   /{deal.validity}
                 </div>
               </div>
 
-              <div className="font-medium text-acentGreen p-2 border rounded-lg w-[140px] disabled:bg-transparent dark:bg-transparent">
+              <div className="font-medium text-acentGreen px-[9px] py-[7px] my-2 contentWidth border rounded-lg  disabled:bg-transparent dark:bg-transparent">
                 {deal.savings}
               </div>
 
@@ -41,7 +39,7 @@ export default function Deals({ data }) {
                 Click to learn more
               </Link>
             </div>
-          </div>
+        
         ))}
       </div>
     </div>
