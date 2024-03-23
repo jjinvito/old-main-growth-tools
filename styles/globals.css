@@ -323,6 +323,21 @@
     padding-left: 0px;
   }
 }
+@media(max-width:768px){
+  .footer_div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 61px;
+  }
+}
+@media(max-width:580px){
+  .footer_div{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+  }
+}
 @media (max-width: 580px) {
   .middle_footer {
     display: flex;
@@ -352,8 +367,8 @@
 }
 
 .discord_img {
-  width: 30px;
-  height: 25px;
+  width: 26px;
+  height: 22px;
 }
 .text_nowrap {
   text-wrap: nowrap !important;

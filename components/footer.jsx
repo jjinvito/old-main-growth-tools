@@ -18,7 +18,7 @@ export default function Footer({ className }) {
               height="29"
               viewBox="0 0 94 29"
               fill="none"
-              class="dark:text-white text-black"
+              class="dark:text-white text-black mt-[3px]"
             >
               <path
                 d="M94 13.5325H91.2029V9.75341C91.2029 9.22771 91.0839 8.87063 90.8458 8.68218C90.6078 8.4838 90.1664 8.38461 89.5217 8.38461C89.0952 8.38461 88.7629 8.42429 88.5248 8.50364C88.2967 8.58299 88.138 8.71689 88.0487 8.90535C87.9595 9.08389 87.9148 9.33682 87.9148 9.66414H87.5726V8.31022H88.0636C88.143 7.88372 88.2917 7.48696 88.51 7.11997C88.7381 6.75297 89.0605 6.45541 89.477 6.22728C89.8936 5.99915 90.4193 5.88508 91.0541 5.88508C91.7187 5.88508 92.2692 6.01403 92.7056 6.27191C93.142 6.5298 93.4644 6.88192 93.6727 7.32826C93.8909 7.76469 94 8.26063 94 8.81608V13.5325ZM87.9148 13.5325H85.1177V3.56409H87.9148V13.5325Z"
@@ -98,17 +98,17 @@ export default function Footer({ className }) {
               <h3 className="text-lg main_menu">Menu</h3>
               <nav className="mt-4">
                 <ul className="">
-                  <li>
+                  <li className="pb-2">
                     <a className="  font-medium text_nowrap" href="#">
                       Growth Virality
                     </a>
                   </li>
-                  <li>
+                  <li className="pb-2">
                     <a className="  font-medium text_nowrap" href="#">
                       Growth Newsletter
                     </a>
                   </li>
-                  <li>
+                  <li className="pb-2">
                     <a className=" font-medium text_nowrap" href="#">
                       Growth Articles
                     </a>
