@@ -13,12 +13,12 @@ import {useDispatch} from "react-redux"
 import {toggleSidebar} from "@/lib/redux/features/sideBar/sideBarSlice"
 import Image from "next/image"
 import logo from "@/public/growthtoolslogo.png"
-import { GoPlus } from "react-icons/go";
+import {GoPlus} from "react-icons/go"
 import searcbot from "@/public/searchBot.png"
-import { useRouter } from "next/navigation"
-import { RiLoginBoxLine } from "react-icons/ri";
-import { PageOverlay } from "./pageOverlay";
-import SearchDropDown from '../components/SearchDropDown'
+import {useRouter} from "next/navigation"
+import {RiLoginBoxLine} from "react-icons/ri"
+import {PageOverlay} from "./pageOverlay"
+import SearchDropDown from "../components/SearchDropDown"
 export default function Header(props) {
   const session = useSession()
   const [showSignInModal, setShowSignInModal] = useState(false)
@@ -27,7 +27,7 @@ export default function Header(props) {
   const [isAuthenticated, setisAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
-  const route=useRouter()
+  const route = useRouter()
 
   const isVisible = useSelector((state) => state.sideBar.isVisible)
 
@@ -138,11 +138,11 @@ export default function Header(props) {
     //   </div>
 
     //   {/* sign in component (modal) */}
-      // <SignIn
-      //   showModal={showSignInModal}
-      //   setShowModal={setShowSignInModal}
-      //   isAuthenticated={setisAuthenticated}
-      // />
+    // <SignIn
+    //   showModal={showSignInModal}
+    //   setShowModal={setShowSignInModal}
+    //   isAuthenticated={setisAuthenticated}
+    // />
     //   {/* sign up component (modal) */}
     //   <SignUp
     //     showModal={showSignUpModal}
@@ -154,124 +154,133 @@ export default function Header(props) {
     //   <Search showSearch={showSearch} setShowSearch={setShowSearch} />
     // </div>
     <>
-    <div className={`headerfixed sm:fixed xl:static left-0 top-0 right-0 h-[70px] w-full flex justify-between items-center sm:pl-7  bg-white dark:bg-black dark:border-b dark:border-b-dark-400    gap-2 sm:mb-6 px-[2px] ${ showSearch === true ? "z-50": "z-10"}`}>
-      <Link href="/">
-        <Image src={logo} width={90} className=" dark:text-white dark:bg-black " />
-       
-
-      </Link>
-
-      <div className="flex items-center justify-end sm:gap-6 md:gap-2 gap-2 w-full  ">
-        {/* dark mode toggle */}
-        <div className="  md:max-w-[430px] md:w-full w-fit h-[40px]   flex justify-end  rounded-3xl md:border pr-1 border-[#E5E7EB] focus:border-[3px] hover:border-[blue]">
-          
-          <input
-            type="text"
-            className="md:block hidden pl-4 md:text-lg text-sm outline-none w-full rounded-full bg-transparent satoshi-variable border-none "
-            placeholder=" Search..."
+      <div
+        className={` sticky left-0 top-0 right-0 h-fit w-full flex justify-between items-center   bg-white dark:bg-black dark:border-b dark:border-b-dark-400 pt-2 sm:pl-7    gap-2 px-[2px] ${
+          showSearch === true ? "z-50" : "z-10"
+        } border-b-[1px]`}
+      >
+        
+        <Link href="/">
+          <Image
+            src={logo}
+            width={90}
+            className=" dark:text-white dark:bg-black "
           />
-          <button
-            className=" sm:px-[8px] sm:my-[2px] px-[8px] my-[4px]  text-sm  sm:ml-2 text-white bg-black  dark:text-white dark:hover:bg-dark-500  transition  rounded-full  "
-            onClick={() => {
-              setShowSearch(!showSearch)
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className=" sm:w-5 sm:h-5 w-4 h-4"
+        </Link>
+
+        <div className="flex items-center justify-end sm:gap-6 md:gap-2 gap-2 w-full h-full pb-2   ">
+          {/* dark mode toggle */}
+          <div className="  md:max-w-[430px] md:w-full w-fit h-[40px]   flex justify-end  rounded-3xl md:border pr-1 border-[#E5E7EB] focus:border-[3px] hover:border-[blue]">
+            <input
+              type="text"
+              className="md:block hidden pl-4 md:text-lg text-sm outline-none w-full rounded-full bg-transparent satoshi-variable border-none "
+              placeholder=" Search..."
+            />
+            <button
+              className=" sm:px-[8px] sm:my-[2px] px-[8px] my-[4px]  text-sm  sm:ml-2 text-white bg-black  dark:text-white dark:hover:bg-dark-500  transition  rounded-full  "
+              onClick={() => {
+                setShowSearch(!showSearch)
+              }}
             >
-              <path
-                fillRule="evenodd"
-                d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
-                clipRule="evenodd"
-              />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className=" sm:w-5 sm:h-5 w-4 h-4"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="w-10 h-[10]">
+            <ThemeSwitch />
+          </div>
+
+          <button
+            onClick={() => {
+              route.push("/dashboard")
+            }}
+            className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] md:w-full w-fit md:h-[40px] h-fit justify-center items-center sm:p-2  px-[8px] py-[6px]"
+          >
+            <Image src={searcbot} width={15} height={15} />
+            <p className=" md:block hidden text-white text-sm">Try AI Search</p>
+          </button>
+          {/* Render component according to auth status */}
+          <Link
+            href=" /submit"
+            className=" sm:text-sm text-[8px] ml-2 border border-1 border-black dark:border-white    rounded-full md:max-w-[140px] md:h-[40px] md:w-full w-fit inline-flex justify-center items-center h-fit px-[5px] py-[4px]"
+          >
+            <GoPlus size={20} className=" dark:text-white" />
+            <p className="md:block hidden text-black dark:text-white font-medium clash-display">
+              Submit tool
+            </p>
+          </Link>
+          {loading ? (
+            ""
+          ) : (
+            <div>
+              <div className="flex h-fit w-full font-[400] items-center justify-center sm:block hidden">
+                {!isAuthenticated ? (
+                  <>
+                    <button
+                      className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black md:h-[40px]  h-fit  md:w-[100px]  md:py-0  rounded-full  clash-display md:px-0 px-[8px] py-[6px]"
+                      onClick={() => {
+                        setShowSignInModal(!showSignInModal)
+                      }}
+                    >
+                      <h1 className=" md:block hidden">Sign In</h1>
+                      <RiLoginBoxLine className=" md:hidden block" size={20} />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="py-1.5 sm:text-sm text-[8px]  w-[45px] sm:w-full sm:ml-2 bg-black text-white dark:bg-white dark:text-black sm:px-3  rounded-full"
+                      onClick={handleSignOut}
+                    >
+                      Sign out
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+
+          <button
+            onClick={handleToggleSidebar}
+            className="block xl:hidden transition-transform duration-300 ease-in-out transform hover:scale-110"
+          >
+            {isVisible ? <RxCross2 size={25} /> : <RxHamburgerMenu size={25} />}
           </button>
         </div>
-          <div className="w-10 h-[10]"> 
-        <ThemeSwitch />
-        </div> 
 
-         <button onClick={()=>{
-          route.push('/dashboard')
-         }} className=" bg-gradient-to-r from-[#164CD9] to-[#32AADD] inline-flex gap-2 rounded-full sm:max-w-[152px] md:w-full w-fit md:h-[40px] h-fit justify-center items-center sm:p-2  px-[8px] py-[6px]">
-          <Image src={searcbot} width={15} height={15}  />
-          <p className=" md:block hidden text-white text-sm">Try AI Search</p>
-          </button>
-        {/* Render component according to auth status */}
-        <Link
-          href=" /submit"
-          className=" sm:text-sm text-[8px] ml-2 border border-1 border-black dark:border-white    rounded-full md:max-w-[140px] md:h-[40px] md:w-full w-fit inline-flex justify-center items-center h-fit px-[5px] py-[4px]"
-        >
-          <GoPlus size={20} className=" dark:text-white"/>
-          <p className="md:block hidden text-black dark:text-white font-medium clash-display">Submit tool</p>
-        </Link>
-        {loading ? (
-          ""
-        ) : (
-          <div>
-            <div className="flex h-fit w-full font-[400] items-center justify-center sm:block hidden">
-              {!isAuthenticated ? (
-                <>
-                  <button
-                    className=" text-[8px] sm:text-sm font-medium sm:ml-2 bg-black text-white dark:bg-white dark:text-black md:h-[40px]  h-fit  md:w-[100px]  md:py-0  rounded-full  clash-display md:px-0 px-[8px] py-[6px]"
-                    onClick={() => {
-                      setShowSignInModal(!showSignInModal);
-                }}
-                  >
-                    <h1 className=" md:block hidden" >Sign In</h1>
-                    <RiLoginBoxLine className=" md:hidden block" size={20}/>
-                  </button>
-                    
-                </>
-              ) : (
-                <>
-                  <button
-                    className="py-1.5 sm:text-sm text-[8px]  w-[45px] sm:w-full sm:ml-2 bg-black text-white dark:bg-white dark:text-black sm:px-3  rounded-full"
-                    onClick={handleSignOut}
-                  >
-                    Sign out
-                  </button>
+        {/* sign in component (modal) */}
+        <SignIn
+          showModal={showSignInModal}
+          setShowModal={setShowSignInModal}
+          showSignUpModal={showSignUpModal}
+          setShowSignUpModal={setShowSignUpModal}
+          isAuthenticated={setisAuthenticated}
+        />
+        {/* sign up component (modal) */}
+        <SignUp
+          showModal={showSignUpModal}
+          setShowModal={setShowSignUpModal}
+          showSignInModal={showSignInModal}
+          setShowSignInModal={setShowSignInModal}
+          isAuthenticated={setisAuthenticated}
+        />
 
-                </>
-              )}
-            </div>
-          </div>
+        {/* search component */}
+        {showSearch && (
+          <SearchDropDown open={showSearch} setOpen={setShowSearch} />
         )}
-      
-        <button
-          onClick={handleToggleSidebar}
-          className="block xl:hidden transition-transform duration-300 ease-in-out transform hover:scale-110"
-        >
-          {isVisible ? <RxCross2 size={25} /> : <RxHamburgerMenu size={25} />}
-        </button>
       </div>
-
-      {/* sign in component (modal) */}
-      <SignIn
-        showModal={showSignInModal}
-        setShowModal={setShowSignInModal}
-        showSignUpModal={showSignUpModal}
-        setShowSignUpModal={setShowSignUpModal}
-
-        isAuthenticated={setisAuthenticated}
-      />
-      {/* sign up component (modal) */}
-      <SignUp
-        showModal={showSignUpModal}
-        setShowModal={setShowSignUpModal}
-        showSignInModal={showSignInModal}
-        setShowSignInModal={setShowSignInModal}
-
-        isAuthenticated={setisAuthenticated}
-      />
-
-      {/* search component */}
-      {showSearch &&  <SearchDropDown open={showSearch} setOpen={setShowSearch} />}
-    </div>
       <PageOverlay visibility={showSearch} setToggleNav={setShowSearch} />
-      </>
+    </>
   )
 }

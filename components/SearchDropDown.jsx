@@ -67,16 +67,15 @@ const SearchDropDown =({ open, setOpen })=> {
     }
   }, [open])
   return (
-    <div className="absolute top-[70px] border mt-2 left-[27%] bg-white rounded-xl pb-1 shadow ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none w-[430px] h-[540px] z-50 p-4 flex flex-col gap-10">
-      <DropdownMenu open={open} onOpenChange={setOpen} >
+    <div className="fixed top-[70px] border mt-2 sm:left-[27%] left-0 right-0 bg-white rounded-xl pb-1 shadow ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none  sm:w-[430px] w-full h-[500px] z-50 p-4 flex flex-col gap-10">
+      <DropdownMenu open={open} onOpenChange={setOpen}  >
         {/* Catogeries Div */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2 w-full">
             <h1 className="clash-display font-semibold text-[16px]
             ">Catogeries </h1>
             {catorgies.map((item)=>{
               return(
                 <div className="inline-flex gap-2 items-center">
-                 
                   <Image src={item.pic} width={20}/>
                   <h1 className=" text-[#636363] satoshi-variable text-sm font-medium">{item.name}</h1>
                 
@@ -101,7 +100,7 @@ const SearchDropDown =({ open, setOpen })=> {
                 </div>
               )
             })}
-           <button  className=" mt-6 bg-[#2173DB] inline-flex gap-2 rounded-full w-full  md:h-[40px] h-fit justify-center items-center ">
+           <button  className=" mt-6 bg-[#2173DB] inline-flex gap-2 rounded-full w-full  h-[40px]  justify-center items-center ">
           <Image src={searcbot} width={15} height={15}  />
           <p className="  text-white text-sm satoshi-variable font-bold">Try AI Search</p>
           </button>

@@ -28,7 +28,7 @@ export default function Home() {
 
 
   return (
-    <main className={`${inter.className}`}>
+    <main className={`${inter.className} `}>
       <SEO
         title="Dir - A simple directory listing template"
         description="A simple directory listing template built with Next.js and Tailwind CSS."
@@ -43,15 +43,15 @@ export default function Home() {
         <div className="main w-full h-screen scrollbar-hide overflow-y-auto flex flex-col">
             <div className="h-[8.8%]"><Header showSidebar setShowSidebar={true} /></div> 
           <div className=" overflow-y-scroll">
-          <div className="pl-0 md:pl-7">
+          <div className="sm:px-0 md:pl-7 px-4 ">
             <Hero />
             <Filter />
             </div>
             {showAs == "Collapsed" ? (
-              <div className=""><CollapsedCard /></div>
+              <div className="sm:px-0 md:pl-7 px-4"><CollapsedCard /></div>
             ) : (
               <div  >
-              <div className="pl-0 md:pl-7">
+              <div className="sm:px-0 md:pl-7 px-2">
                 <List />
                 <div className=" flex h-[10vh] justify-center items-center w-full ">
                   <button

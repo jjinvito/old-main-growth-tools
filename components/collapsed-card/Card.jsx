@@ -19,11 +19,21 @@ export default function Card({
           "inline-flex gap-[15px] border border-[#EAEAEA] rounded-2xl p-2 custom-shadow h-[155px] clash-display",
           singleToolpage
             ? " w-[620px] mr-2 h-fit"
-            : "w-full xl:w-[360px] 2xl:w-[710px] xl:max-[1410px]:w-[495px] max-[1175px]:w-[495px] max-[1061px]:w-[400px] max-[872px]:w-[360px] max-[791px]:w-[515px] max-[555px]:h-fit max-[555px]:w-full md:w-[687px] lg:w-[468px]",
+            : "w-full",
           singleToolpage && !data?.deals?.length && "h-fit",
           classNames
         )}
       >
+      {/* <div
+        className={cn(
+          "inline-flex gap-[15px] border border-[#EAEAEA] rounded-2xl p-2 custom-shadow h-[155px] clash-display",
+          singleToolpage
+            ? " w-[620px] mr-2 h-fit"
+            : "w-full xl:w-[360px] 2xl:w-[710px] xl:max-[1410px]:w-[495px] max-[1175px]:w-[495px] max-[1061px]:w-[400px] max-[872px]:w-[360px] max-[791px]:w-[515px] max-[555px]:h-fit max-[555px]:w-full md:w-[687px] lg:w-[468px]",
+          singleToolpage && !data?.deals?.length && "h-fit",
+          classNames
+        )}
+      > */}
         <div className=" w-[48px] h-fit p-2 border border-[#F1F1F1] rounded-lg shadow-md">
           <Image
             src={data?.logoUrl}
