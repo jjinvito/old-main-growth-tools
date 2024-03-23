@@ -148,7 +148,6 @@
     0px 152px 42px 0px #bababa00;
 }
 
-
 .clash-display {
   font-family: "ClashDisplay-Variable", sans-serif;
 }
@@ -273,9 +272,8 @@
   z-index: 0;
   border-color: linear-gradient(to right, #2661fa, #32ddb4);
 }
-.contentWidth{
-  width: max-content ;
-
+.contentWidth {
+  width: max-content;
 }
 /* .gradient-border::before {
   content: "";
@@ -319,21 +317,30 @@
 }
 
 @media (max-width: 1090px) {
-  /* .footer_last {
-    display: block;
-    padding-left: 0px;  padding-left: 0px;
-  } */
   .footer_div {
     display: flex;
     flex-direction: column;
     padding-left: 0px;
   }
 }
-@media(max-width:580px){
-  .middle_footer{
+@media (max-width: 580px) {
+  .middle_footer {
     display: flex;
     flex-direction: column;
     padding-top: 10px;
+  }
+}
+@media (min-width: 1600px) and (max-width: 2580px) {
+  .footer_last {
+    padding-right: 116px;
+  }
+  .menu_footer{
+       padding-right: 180px;
+  }
+}
+@media (max-width:920px){
+  .mobile_last_footer{
+    padding-right: 0px;
   }
 }
 .text-gradient {
@@ -346,7 +353,7 @@
 
 .discord_img {
   width: 30px;
-  height: 30px;
+  height: 25px;
 }
 .text_nowrap {
   text-wrap: nowrap !important;
