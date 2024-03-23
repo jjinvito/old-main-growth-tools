@@ -323,7 +323,7 @@ const session = useSession()
     // >
     <div
       className={cn(
-        `max-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[50px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2  border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400  transition duration-400 ease-in-out z-50 transform  ${ !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0 " }  ${ toggleNav === true ? "xl:-translate-x-48 w-[0px]" : "w-[100vw] md:w-[215px] min-w-[215px]"  }  `,
+        `min-h-[100vh] scrollbar-hide overflow-y-auto flex flex-col fixed sm:fixed top-[50px] right-0 bottom-0 xl:static gap-2 justify-start pt-5 pb-2 px-2  border-r-[1px] text-left bg-white border-r-slate-100 dark:bg-black dark:border-r-dark-400  transition duration-400 ease-in-out z-50 transform  ${ !isVisible && "translate-x-full sm:translate-x-full xl:translate-x-0 w-[100vw] md:w-[215px] min-w-[215px] " }  ${ toggleNav === true ? "xl:-translate-x-48 w-[0px]" : "w-[100vw] md:w-[215px] min-w-[215px]"  }  `,
         props.className
       )}
     >
@@ -397,7 +397,7 @@ const session = useSession()
         </div>
       </div>
 
-      <div className="footer mt-2">
+      <div className="footer mt-2 flex h-full items-end">
         <p className="text-[12px] font-medium text-[#8a8a8a]">
           © 2022 CopyUI, Inc. All rights reserved.
         </p>
