@@ -30,7 +30,7 @@ export default function ToolView({ params }) {
         <div className="h-[10vh]">
           <Header showSidebar setShowSidebar={true} />
         </div>
-        <div className=" grid grid-cols-12 pt-10  h-[90vh]  overflow-y-scroll">
+        <div className=" grid grid-cols-12 pt-6  md:pt-10  h-[90vh]  overflow-y-scroll">
           {loading ? (
             <SingleToolPageSkeleton />
           ) : (
@@ -51,10 +51,10 @@ export default function ToolView({ params }) {
             //     <div> <Footer className="scroll-pl-10 w-full" /></div>
             //  </div>
             <>
-              <div className="col-span-12  md:col-span-8  mx-2 md:mx-0  pl-0 md:pl-7">
+              <div className="col-span-12 pb-0 md:pb-20  md:col-span-8  mx-2 md:mx-0  pl-0 md:pl-10  pr-0 md:pr-10 2xl:pr-24">
                 <INewsLetters />
               </div>
-              <div className="col-span-12  md:col-span-4 mx-2  md:mx-0   pl-0 pr-7 md:pl-7">
+              <div className="col-span-12 pb-6 md:pb-20  md:col-span-4 mx-2  md:mx-0   pl-0 pr-7 md:pl-10">
                 <div className="xl:sticky lg:top-0 xl:top-0 lg:left-0 lg:right-0 lg:bottom-0 w-full h-full  overflow-visible ">
                   <div className="w-full xl:min-h-full h-fit ">
                     <Feature />

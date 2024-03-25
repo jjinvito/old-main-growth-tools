@@ -5,29 +5,34 @@ import Image from "next/image";
 import Link from "next/link";
 export default function VisiteWebsite({ data }) {
   return (
-    <div className=" flex lg:flex-row flex-col gap-4 w-full sm:justify-start  ">
-      {/* <div className=" flex sm:flex-row flex-col sm:justify-center items-center  w-fit gap-2"> */}
-      <Link
-        className="dark:border-white border flex justify-center w-fit bg-black p-2 items-center gap-2 sm:px-32 md:px-48 lg:px-44  px-10   rounded-3xl "
-        href={data?.website || "#"}
-        target="_blank"
-      >
-        <h1 className=" text-white font-bold text-base  contentWidth ">
-          Visit Website
-        </h1>
-        <HiExternalLink className=" text-white" size={25} />
-      </Link>
-      
-      <div className=" flex justify-center bg-specialOrange p-3 items-center gap-2 px-4 rounded-3xl h-[52px] w-[110px]">
-        <h1 className=" text-white font-bold text-base">52K</h1>
-        <Image
-          src="/clapVector.png"
-          width={22.93}
-          height={22.45}
-          alt="Clap icon"
-        />
+    <>
+      <div className="grid grid-cols-12 md:grid-cols-8 gap-2 md:gap-8 ">
+        <div className="col-span-12 md:col-span-6">
+          {/* <Link href={data?.website || "#"} target="_blank"> */}
+            <div className="dark:border-white cursor-pointer border flex justify-center w-full  bg-black py-[14px] items-center gap-2   rounded-[40px] ">
+              <h1 className=" text-white font-bold text-base  contentWidth ">
+                Visit Website
+              </h1>
+              <HiExternalLink className=" text-white" size={25} />
+            </div>
+          {/* </Link> */}
+        </div>
+        <div className="col-span-12 md:col-span-2 ">
+          <div className=" flex justify-center border bg-specialOrange  items-center gap-2  py-[14px] rounded-[40px] ">
+            <h1 className=" text-white font-bold text-base">52K</h1>
+            <Image
+              src="/clapVector.png"
+              width={22.93}
+              height={22.45}
+              alt="Clap icon"
+            />
+          </div>
+        </div>
       </div>
-      </div>
+    </>
+    // <div className=" flex md:flex-row flex-col gap-4 w-full sm:justify-start  ">
+
+    // </div>
     // </div>
   );
 }
