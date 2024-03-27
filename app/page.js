@@ -26,7 +26,6 @@ export default function Home() {
     dispatch(fetchTools());
   }, []);
 
-
   return (
     <main className={`${inter.className} `}>
       <SEO
@@ -40,6 +39,7 @@ export default function Home() {
 
       <div className="flex dark:bg-black w-full h-screen">
         <Sidebar />
+
         <div className=" w-0 h-full  ">
         <button className=" xl:block hidden border-[1px] p-1 text-[#1F6BDA] bg-white rounded-full w-fit h-fit relative top-5 right-4 z-50   " > 
           <IoIosArrowBack size={20} />

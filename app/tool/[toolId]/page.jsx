@@ -5,6 +5,8 @@ import INewsLetters from "@/components/single-tool-page-components/iNewsLetter/I
 import Feature from "@/components/single-tool-page-components/features/Feature";
 import AdsManagement from "@/components/single-tool-page-components/iNewsLetter/ads_managements/AdsManagement";
 import Sidebar from "@/components/Sidebar";
+import {IoIosArrowBack} from "react-icons/io";
+
 import SingleToolPageSkeleton from "@/components/singleToolPageSkele";
 import { fetchToolById } from "@/lib/redux/features/tools/singleToolSlice";
 import Footer from "@/components/footer";
@@ -26,6 +28,11 @@ export default function ToolView({ params }) {
   return (
     <div className="flex dark:bg-black scrollbar-hided h-screen">
       <Sidebar />
+      <div className=" w-0 h-full  ">
+        <button className=" xl:block hidden border-[1px] p-1 text-[#1F6BDA] bg-white rounded-full w-fit h-fit relative top-5 right-4 z-50   " > 
+          <IoIosArrowBack size={20} />
+        </button>
+        </div>
       <div className="main w-full h-[100vh]    scrollbar-hide overflow-hidden flex flex-col justify-between">
         <div className="h-[10vh]">
           <Header showSidebar setShowSidebar={true} />
