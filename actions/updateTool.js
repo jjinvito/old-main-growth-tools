@@ -20,7 +20,6 @@ export const updateTool = async (toolId, toolData) => {
       price:
         restOfToolData.pricingType === "AMOUNT" ? restOfToolData.price : null,
     };
-
     const result = await db.$transaction(async (prisma) => {
       const updatedTool = await prisma.tool.update({
         where: { id: toolId },
